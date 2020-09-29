@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Cedarville+Cursive|Libre+Baskerville:400,700|Montserrat:400,700,900&display=swap');
+
+/*------ All colours ------*/
+
+$green: #46B27E;
+$blue: #00A6CE;
+
+$dark-gray: #606060;
+$medium-gray: #C4C4C4;
+$light-gray: #EEEEEE;
+
+$white: #FFFFFF;
+$black: #000000;
+
+/*------ Theme colours ------*/
+
+$primary-color: $blue;
+$secondary-color: $green;
+$tertiary-color: $dark-gray;
+$highlight-color: linear-gradient(180deg, $green 0%, $blue 100%);
+$background-color: $medium-gray;
+
+
+/*------ Typography ------*/
+
+$body-font: 'Helvetica', 'Arial', sans-serif;
+$header-font: 'Helvetica', 'Arial', sans-serif;
+$title-font: 'Helvetica', 'Arial', sans-serif;
+$font-size-base: 16px;
+
+
+/*------ Spacing ------*/
+
+$spacing-base: 5px;
+$spacing-1: $spacing-base * 1;
+$spacing-2: $spacing-base * 2;
+$spacing-3: $spacing-base * 3;
+$spacing-4: $spacing-base * 4;
+$spacing-5: $spacing-base * 5;
+$spacing-6: $spacing-base * 6;
+$spacing-7: $spacing-base * 7;
+$spacing-8: $spacing-base * 8;
+$spacing-9: $spacing-base * 9;
+$spacing-10: $spacing-base * 10;
+
+
+

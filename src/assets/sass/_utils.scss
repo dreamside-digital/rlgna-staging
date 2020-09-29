@@ -1,0 +1,260 @@
+
+@for $i from -10 through 10 {
+  $margin: $spacing-base * $i;
+  .m-#{$i} {
+    margin: $margin + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $margin: $spacing-base * $i;
+  .ml-#{$i} {
+    margin-left: $margin + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $margin: $spacing-base * $i;
+  .mr-#{$i} {
+    margin-right: $margin + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $margin: $spacing-base * $i;
+  .mb-#{$i} {
+    margin-bottom: $margin + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $margin: $spacing-base * $i;
+  .mt-#{$i} {
+    margin-top: $margin + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $padding: $spacing-base * $i;
+  .p-#{$i} {
+    padding: $padding + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $padding: $spacing-base * $i;
+  .pl-#{$i} {
+    padding-left: $padding + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $padding: $spacing-base * $i;
+  .pr-#{$i} {
+    padding-right: $padding + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $padding: $spacing-base * $i;
+  .pb-#{$i} {
+    padding-bottom: $padding + 0px;
+  }
+}
+
+@for $i from -10 through 10 {
+  $padding: $spacing-base * $i;
+  .pt-#{$i} {
+    padding-top: $padding + 0px;
+  }
+}
+
+.display {
+  &-flex {
+    display: flex;
+  }
+  &-block {
+    display: block;
+  }
+  &-inline-flex {
+    display: inline-flex;
+  }
+  &-inline-block {
+    display: inline-block;
+  }
+  &-none {
+    display: none;
+  }
+}
+
+.justify {
+  &-center {
+    justify-content: center;
+  }
+  &-left {
+    justify-content: flex-start;
+  }
+  &-right {
+    justify-content: flex-end;
+  }
+  &-between {
+    justify-content: space-between;
+  }
+  &-around {
+    justify-content: space-around;
+  }
+}
+
+.align {
+  &-center {
+    align-items: center;
+  }
+  &-left {
+    align-items: flex-start;
+  }
+  &-right {
+    align-items: flex-end;
+  }
+  &-baseline {
+    align-items: baseline;
+  }
+}
+
+
+.position {
+  &-relative {
+    position: relative;
+  }
+  &-absolute {
+    position: absolute;
+  }
+  &-fixed {
+    position: fixed;
+  }
+}
+
+.bg {
+  &-blue {
+    background-color: $blue;
+  }
+  &-green {
+    background-color: $green;
+  }
+  &-dark {
+    background-color: $dark-gray;
+  }
+  &-light {
+    background-color: $light-gray;
+  }
+  &-gray {
+    background-color: $medium-gray;
+  }
+  &-white {
+    background-color: $white;
+  }
+  &-gradient {
+    background-color: linear-gradient(180deg, $green 0%, $blue 100%);
+  }
+}
+
+.text {
+  &-blue {
+    color: $blue;
+  }
+  &-green {
+    color: $green;
+  }
+  &-black {
+    color: $black;
+  }
+  &-white {
+    color: $white;
+  }
+  &-light {
+    color: $light-gray;
+  }
+  &-muted {
+    color: $medium-gray;
+  }
+  &-dark {
+    color: $dark-gray;
+  }
+  &-bold {
+    font-weight: bold;
+  }
+  &-italic {
+    font-style: italic;
+  }
+  &-center {
+    text-align: center;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-large {
+    font-size: 1.2em;
+  }
+  &-small {
+    font-size: 0.8em;
+  }
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.shadow-depth {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+
+}
+
+@mixin focus-border {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $focus;
+  }
+}
+
+@keyframes delay-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.delay-in {
+  animation-name: delay-in;
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+}
+
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.no-text-decoration {
+  text-decoration: none !important;
+}
