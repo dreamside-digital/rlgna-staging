@@ -3,7 +3,7 @@ import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
+import { EditableText, EditableBackgroundImage } from "react-easy-editables";
 
 import {
   updatePage,
@@ -13,7 +13,6 @@ import {
 import { uploadImage } from '../firebase/operations';
 
 import Layout from "../layouts/default.js";
-import headerImage from '../assets/images/header-home.jpg'
 
 
 const mapDispatchToProps = dispatch => {
@@ -54,7 +53,7 @@ class HomePage extends React.Component {
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
 
     return (
-      <Layout theme={true} location={this.props.location}>
+      <Layout theme="gray" location={this.props.location}>
         <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
             <Container>

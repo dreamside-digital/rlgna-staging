@@ -1,16 +1,13 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { connect } from "react-redux";
-import { filter, find, map } from 'lodash'
+import { filter, find } from 'lodash'
 import Container from "@material-ui/core/Container"
-import Grid from "@material-ui/core/Grid"
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import ArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import DeleteForever from '@material-ui/icons/DeleteForever';
-import { EditableText } from "react-easy-editables";
-
 
 import Layout from '../layouts/default';
 import ProtectedPage from "../layouts/protected-page"
@@ -19,8 +16,6 @@ import { PERMANENT_PAGES, LANGUAGE_OPTIONS } from "../utils/constants"
 
 import {
   fetchPages,
-  fetchTranslations,
-  updateTranslation,
   updateFirebaseData,
   deploy,
 } from "../redux/actions";
@@ -34,12 +29,6 @@ const mapDispatchToProps = dispatch => {
     fetchPages: () => {
       dispatch(fetchPages())
     },
-    fetchTranslations: () => {
-      dispatch(fetchTranslations())
-    },
-    updateTranslation: (translation) => {
-      dispatch(updateTranslation(translation))
-    },
     deploy: () => {
       dispatch(deploy())
     },
@@ -50,14 +39,12 @@ const mapStateToProps = state => {
   return {
     isEditingPage: state.adminTools.isEditingPage,
     pages: state.pages.pages,
-    translations: state.translations,
   };
 };
 
 class AdminPage extends React.Component {
   componentDidMount() {
     this.props.fetchPages()
-    this.props.fetchTranslations()
   }
 
   filterPagesByLanguage = (pages, lang) => {
@@ -190,7 +177,7 @@ class AdminPage extends React.Component {
     })
 
     return(
-      <Layout className="admin-page">
+      <Layout theme="light" className="admin-page">
         <ProtectedPage>
           <Container>
             <h1 className="text-center">

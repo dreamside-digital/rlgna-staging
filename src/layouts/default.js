@@ -2,7 +2,6 @@ import React from "react";
 import { StaticQuery, graphql } from "gatsby"
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
-import { filter } from 'lodash'
 import withRoot from '../utils/withRoot';
 
 import Notification from "../components/notifications/Notification";
@@ -73,8 +72,9 @@ class DefaultLayout extends React.Component {
 
   render() {
     const { props } = this;
+    const themeClass = props.theme === "gray" ? "theme-gray" : "theme-light"
     return(
-      <div style={styles.container} className={`nl-page ${props.className || ""}`}>
+      <div style={styles.container} className={`nl-page ${props.className || ""} ${themeClass}`}>
         <Helmet>
           <title>
             {this.props.data.site.siteMetadata.title}

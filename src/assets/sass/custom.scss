@@ -6,7 +6,15 @@ body .nl-page {
   font-family: $body-font;
   font-size: 14px;
   color: $black;
-  background-color: $medium-gray;
+  background-color: $white;
+
+  &.theme-light {
+    background-color: $white;
+  }
+
+  &.theme-gray {
+    background-color: $medium-gray;
+  }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: $header-font;
