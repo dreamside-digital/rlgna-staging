@@ -91,11 +91,9 @@ class DefaultLayout extends React.Component {
         <AccountButton />
 
         <EditablesContext.Provider value={ { theme: editorTheme, showEditingControls: props.isEditingPage } }>
-          <div className="page-wrapper">
-            <Header { ...props } />
-            <main>{props.children}</main>
-            <Footer { ...props } />
-          </div>
+          <Header { ...props } />
+          <main style={styles.content}>{props.children}</main>
+          <Footer { ...props } />
           <CreatePageModal />
         </EditablesContext.Provider>
       </div>

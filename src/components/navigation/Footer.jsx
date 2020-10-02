@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 const Footer = () => (
   <footer>
-    <Container maxWidth="md">
+    <Container>
       <Grid container justify="space-between">
         <Grid item>
           <p><a href="/">Privacy Policy</a></p>
