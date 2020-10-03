@@ -13,6 +13,7 @@ import {
 import { uploadImage } from '../firebase/operations';
 
 import Layout from "../layouts/default.js";
+import Section from "../components/common/Section"
 
 
 const mapDispatchToProps = dispatch => {
@@ -56,38 +57,35 @@ class HomePage extends React.Component {
       <Layout theme="gray" location={this.props.location}>
         <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
-            <Container>
-              <Grid container className="title">
+            <Container maxWidth="lg">
+              <Grid container>
                 <Grid item md={8}>
                   <div className="mb-4">
-                    <h3 className="text-light display-inline bg-black text-bold">
+                    <h3 className="text-white text-bold">
                       <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
                     </h3>
                   </div>
                   <div className="">
-                    <h1 className="text-light display-inline bg-black"><EditableText content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
+                    <h1 className="text-white"><EditableText content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
                   </div>
                 </Grid>
               </Grid>
             </Container>
           </section>
         </EditableBackgroundImage>
-        <section id="intro" className="position-relative pb-10">
-          <Container>
-            <Grid container className="title" justify="center">
-              <Grid item md={8}>
-                <div className="bg-black p-10 text-white mt--10">
-                  <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
-                </div>
-              </Grid>
+        <Section id="intro" className="position-relative">
+          <Grid container className="title" justify="center">
+            <Grid item md={10}>
+              <div className="bg-dark p-10 text-white mt--20">
+                <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
+              </div>
             </Grid>
-          </Container>
-        </section>
-        <section id="program-elements">
-          <Container>
+          </Grid>
+        </Section>
+        <Section id="program-elements">
             <Grid container className="position-relative">
               <Grid item md={8}>
-                <h2 className="text-bold max-width-200">
+                <h2 className="max-width-200 text-white">
                   <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
                 </h2>
               </Grid>
@@ -175,8 +173,86 @@ class HomePage extends React.Component {
                 </Grid>
               </Grid>
             </div>
-          </Container>
-        </section>
+        </Section>
+
+        <Section id="logistics" className="bg-white pt-10 pb-10">
+          <Grid container>
+            <Grid item md={8}>
+              <h2 className="text-bold">
+                <EditableText content={content["logistics-title"]} onSave={this.onSave("logistics-title")} />
+              </h2>
+              <p>
+                <EditableText content={content["logistics-description"]} onSave={this.onSave("logistics-description")} />
+              </p>
+            </Grid>
+
+            <Grid item md={4}>
+              <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
+            </Grid>
+          </Grid>
+        </Section>
+
+        <Section id="open-space-week" className="text-white">
+          <Grid container>
+            <Grid item md={8}>
+              <h2 className="text-bold">
+                <EditableText content={content["open-space-title"]} onSave={this.onSave("open-space-title")} />
+              </h2>
+              <EditableParagraph content={content["open-space-description"]} onSave={this.onSave("open-space-description")} />
+              <p className="text-small">timezone info</p>
+            </Grid>
+
+            <Grid item md={12}>
+              Calendar goes here
+            </Grid>
+          </Grid>
+        </Section>
+
+        <Section id="holding-space-week" className="text-white">
+          <Grid container>
+            <Grid item md={8}>
+              <h2 className="text-bold">
+                <EditableText content={content["holding-space-title"]} onSave={this.onSave("holding-space-title")} />
+              </h2>
+              <EditableParagraph content={content["holding-space-description"]} onSave={this.onSave("holding-space-description")} />
+              <p className="text-small">timezone info</p>
+            </Grid>
+
+            <Grid item md={12}>
+              Calendar goes here
+            </Grid>
+          </Grid>
+        </Section>
+
+        <Section id="gallery" className="text-white">
+          <Grid container>
+            <Grid item md={8}>
+              <h2 className="text-bold">
+                <EditableText content={content["gallery-title"]} onSave={this.onSave("gallery-title")} />
+              </h2>
+              <EditableParagraph content={content["gallery-description"]} onSave={this.onSave("gallery-description")} />
+            </Grid>
+
+            <Grid item md={12}>
+              Gallery goes here
+            </Grid>
+          </Grid>
+        </Section>
+
+        <Section id="social" className="bg-blue text-white">
+          <Grid container>
+            <Grid item md={8}>
+              <h2 className="text-bold">
+                <EditableText content={content["social-title"]} onSave={this.onSave("social-title")} />
+              </h2>
+              <EditableParagraph content={content["social-description"]} onSave={this.onSave("social-description")} />
+            </Grid>
+
+            <Grid item md={12}>
+              Twitter feed goes here
+            </Grid>
+          </Grid>
+        </Section>
       </Layout>
     );
   }

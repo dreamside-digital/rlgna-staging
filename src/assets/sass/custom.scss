@@ -2,11 +2,16 @@
 @import "mixins";
 @import "utils";
 
+* {
+  box-sizing: border-box;
+}
+
 body .nl-page {
   font-family: $body-font;
   font-size: 14px;
   color: $black;
   background-color: $white;
+  -webkit-font-smoothing: antialiased;
 
   &.theme-light {
     background-color: $white;
@@ -25,7 +30,7 @@ body .nl-page {
   }
 
   h2 {
-    font-size: calc(20px + 1.5vw);
+    font-size: calc(25px + 1.6vw);
     margin-top: 1rem;
     margin-bottom: 2rem;
   }
@@ -36,6 +41,10 @@ body .nl-page {
     &.subheading {
       font-size: calc(18px + 0.75vw);
     }
+  }
+
+  p, a {
+    font-size: 1.125rem;
   }
 
 
@@ -53,7 +62,6 @@ body .nl-page {
 
   .paragraph, p {
     font-family: $body-font;
-    font-size: 1.2em;
 
     a {
       color: inherit;

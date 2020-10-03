@@ -1,10 +1,12 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import { Container } from "@material-ui/core";
 
-export default (props) => {
+export default ({ children, className, ...rest}) => {
   return (
-    <section {...props}>
-      { props.children }
+    <section className={`pt-10 pb-10 ${className ? className : ''}`} {...rest}>
+      <Container maxWidth="md">
+      { children }
+      </Container>
     </section>
   );
 };
