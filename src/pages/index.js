@@ -83,6 +83,100 @@ class HomePage extends React.Component {
             </Grid>
           </Container>
         </section>
+        <section id="program-elements">
+          <Container>
+            <Grid container className="position-relative">
+              <Grid item md={8}>
+                <h2 className="text-bold max-width-200">
+                  <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
+                </h2>
+              </Grid>
+              <Grid item md={4} className="display-flex">
+                <div className="black-underline" />
+              </Grid>
+            </Grid>
+            <div className="program-box mt-15">
+              <Grid container className="position-relative">
+                <Grid item md={4}>
+                  <h4 className="text-bold max-width-200">
+                    <EditableText content={content["program-box-title-1"]} onSave={this.onSave("program-box-title-1")} />
+                  </h4>
+                  <h3>
+                    <EditableText content={content["program-box-date-1"]} onSave={this.onSave("program-box-date-1")} />
+                  </h3>
+                </Grid>
+                <Grid item md={8}>
+                  <p className="text-dark">
+                    <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
+                  </p>
+                  <p>
+                    <EditableParagraph content={content["program-box-desc-1"]} onSave={this.onSave("program-box-desc-1")} />
+                  </p>
+                </Grid>
+              </Grid>
+            </div>
+            <div className="program-box">
+              <Grid container className="position-relative">
+                <Grid item md={4}>
+                  <h4 className="text-bold max-width-200">
+                    <EditableText content={content["program-box-title-2"]} onSave={this.onSave("program-box-title-2")} />
+                  </h4>
+                  <h3>
+                    <EditableText content={content["program-box-date-2"]} onSave={this.onSave("program-box-date-2")} />
+                  </h3>
+                </Grid>
+                <Grid item md={8}>
+                  <p className="text-blue">
+                    <EditableText content={content["program-box-state-2"]} onSave={this.onSave("program-box-state-2")} />
+                  </p>
+                  <p>
+                    <EditableParagraph content={content["program-box-desc-2"]} onSave={this.onSave("program-box-desc-2")} />
+                  </p>
+                </Grid>
+              </Grid>
+            </div>
+            <div className="program-box">
+              <Grid container className="position-relative">
+                <Grid item md={4}>
+                  <h4 className="text-bold max-width-200">
+                    <EditableText content={content["program-box-title-3"]} onSave={this.onSave("program-box-title-3")} />
+                  </h4>
+                  <h3>
+                    <EditableText content={content["program-box-date-3"]} onSave={this.onSave("program-box-date-3")} />
+                  </h3>
+                </Grid>
+                <Grid item md={8}>
+                  <p className="text-blue">
+                    <EditableText content={content["program-box-state-3"]} onSave={this.onSave("program-box-state-3")} />
+                  </p>
+                  <p>
+                    <EditableParagraph content={content["program-box-desc-3"]} onSave={this.onSave("program-box-desc-3")} />
+                  </p>
+                </Grid>
+              </Grid>
+            </div>
+            <div className="program-box">
+              <Grid container className="position-relative">
+                <Grid item md={4}>
+                  <h4 className="text-bold max-width-200">
+                    <EditableText content={content["program-box-title-4"]} onSave={this.onSave("program-box-title-4")} />
+                  </h4>
+                  <h3>
+                    <EditableText content={content["program-box-date-4"]} onSave={this.onSave("program-box-date-4")} />
+                  </h3>
+                </Grid>
+                <Grid item md={8}>
+                  <p className="text-blue">
+                    <EditableText content={content["program-box-state-4"]} onSave={this.onSave("program-box-state-4")} />
+                  </p>
+                  <p>
+                    <EditableParagraph content={content["program-box-desc-4"]} onSave={this.onSave("program-box-desc-4")} />
+                  </p>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+        </section>
       </Layout>
     );
   }
