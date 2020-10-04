@@ -13,7 +13,7 @@ import {
 import T from "./Translation";
 import { uploadFile } from "../../firebase/operations"
 
-class ReadingEditor extends React.Component {
+class GalleryEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = { content: this.props.content };
@@ -79,7 +79,7 @@ class ReadingEditor extends React.Component {
   }
 }
 
-const Reading = props => {
+const Gallery = props => {
 
   const content = props.content || {};
 
@@ -89,7 +89,7 @@ const Reading = props => {
 
   return (
     <Editable
-      Editor={ReadingEditor}
+      Editor={GalleryEditor}
       handleSave={handleSave}
       content={content}
       {...props}
@@ -131,7 +131,7 @@ const Reading = props => {
   );
 };
 
-Reading.defaultProps = {
+Gallery.defaultProps = {
   content: {
     "reading-item-details": { "text": "Author" },
     "reading-item-title": { "text": "Title" },
@@ -141,4 +141,4 @@ Reading.defaultProps = {
   onSave: () => { console.log('implement a function to save changes') }
 }
 
-export default Reading;
+export default Gallery;

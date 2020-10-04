@@ -26,14 +26,14 @@ import favicon from '../assets/images/icon.png'
 
 export const editorTheme = {
   ...theme,
-  primaryColor: "#44968d",
+  primaryColor: "#C34580",
   editContainerHighlight: {
     ...theme.editContainerHighlight,
-    outline: "1px solid #44968d",
+    outline: "1px solid #C34580",
   },
   actions: {
     ...theme.actions,
-    backgroundColor: "#44968d",
+    backgroundColor: "#C34580",
   }
 };
 

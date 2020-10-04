@@ -14,6 +14,7 @@ import { uploadImage } from '../firebase/operations';
 
 import Layout from "../layouts/default.js";
 import Section from "../components/common/Section"
+import Gallery from "../components/common/Gallery"
 
 
 const mapDispatchToProps = dispatch => {
@@ -226,7 +227,7 @@ class HomePage extends React.Component {
 
         <Section id="gallery" className="text-white">
           <Grid container>
-            <Grid item md={8}>
+            <Grid item md={8} className="mb-4">
               <h2 className="text-bold">
                 <EditableText content={content["gallery-title"]} onSave={this.onSave("gallery-title")} />
               </h2>
@@ -234,7 +235,7 @@ class HomePage extends React.Component {
             </Grid>
 
             <Grid item md={12}>
-              Gallery goes here
+              <Gallery content={content["gallery-collection"]} onSave={this.onSave("gallery-collection")} />
             </Grid>
           </Grid>
         </Section>
