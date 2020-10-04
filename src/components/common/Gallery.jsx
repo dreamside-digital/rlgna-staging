@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import GalleryItem from "./GalleryItem"
 import BreakpointMasonry from "./BreakpointMasonry"
 
-const ITEM_NUMBER = 1
+const ITEM_NUMBER = 6
 
 const mapStateToProps = state => {
   return {
