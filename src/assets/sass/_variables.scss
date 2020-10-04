@@ -1,13 +1,39 @@
-@import url('https://fonts.googleapis.com/css?family=Cedarville+Cursive|Libre+Baskerville:400,700|Montserrat:400,700,900&display=swap');
+@font-face {
+  font-family: 'BMW';
+  src: url('../fonts/bmwtypewebli_all.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/bmwtypewebli_all.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/bmwtypewebli_all.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/bmwtypewebli_all.svg#bmw') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'BMW Bold';
+  src: url('../fonts/bmwtypewebli_all.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/bmwtypewebli_all.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/bmwtypewebli_all.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/bmwtypewebli_all.svg#bmw') format('svg'); /* Legacy iOS */
+}
 
 /*------ All colours ------*/
 
+$gray-theme: #a19e9d;
+$gray-600: #3a3838;
+$gray-500: #817f7e;
+$gray-400: #979392;
+$gray-300: #aba9a8;
+$gray-200: #c1bfbf;
+$gray-100: #d6d5d4;
+
+
 $green: #46B27E;
 $blue: #00A6CE;
+$magenta: #C34580;
+$yellow: #FFCD44;
+$red: #EC6668;
 
-$dark-gray: #606060;
-$medium-gray: #C4C4C4;
-$light-gray: #EEEEEE;
+$dark-gray: $gray-600;
+$medium-gray: $gray-theme;
+$light-gray: $gray-100;
 
 $white: #FFFFFF;
 $black: #000000;
@@ -23,10 +49,13 @@ $background-color: $medium-gray;
 
 /*------ Typography ------*/
 
-$body-font: 'Helvetica', 'Arial', sans-serif;
-$header-font: 'Helvetica', 'Arial', sans-serif;
-$title-font: 'Helvetica', 'Arial', sans-serif;
+$body-font: 'BMW', 'Helvetica', 'Arial', sans-serif;
+$header-font: 'BMW Bold', 'Helvetica', 'Arial', sans-serif;
+$title-font: 'BMW Bold', 'Helvetica', 'Arial', sans-serif;
 $font-size-base: 16px;
+
+$font-size-h1: '4rem';
+$font-size-h2: '3.2rem';
 
 
 /*------ Spacing ------*/
