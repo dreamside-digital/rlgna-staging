@@ -24,7 +24,7 @@ class Gallery extends React.Component {
 
   onDeleteItem = itemId => () => {
     let newContent = { ...this.props.content }
-    delete newContent[itemId];
+    newContent[itemId] = null
 
     this.props.onSave(newContent)
   }
@@ -55,7 +55,7 @@ class Gallery extends React.Component {
           </div>
         }
         <BreakpointMasonry>
-          {itemsKeys.reverse().map((key,index) => {
+          {itemsKeys.reverse().filter(k => this.props.content[k]).map((key,index) => {
             const content = this.props.content[key];
             return(
               <GalleryItem

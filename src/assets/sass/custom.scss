@@ -50,8 +50,6 @@ body .nl-page {
 
   h4 {
     font-size: calc(18px + 0.5vw);
-    margin-top: 0;
-    margin-bottom: 0;
   }
 
   a, button {
@@ -151,6 +149,7 @@ body .nl-page {
 
   .gallery-item {
     text-decoration: none;
+    transition: all 0.3s ease;
 
     .tag {
       top: 0;
@@ -162,8 +161,34 @@ body .nl-page {
       font-size: 14px;
     }
 
+    .img-container {
+      overflow: hidden;
+
+    }
+
     .gallery-item-image {
+      transition: all 0.5s ease-in-out;
       filter: grayscale(1) contrast(2);
+    }
+
+    .overlay-gradient {
+      transition: all 0.3s ease;
+      opacity: 1;
+    }
+
+    &:hover, &:focus {
+      .gallery-item-image {
+        filter: grayscale(0) contrast(1);
+        transform: scale(1.075);
+      }
+
+      .overlay-gradient {
+        opacity: 0;
+      }
+
+      .card-title {
+        text-decoration: underline;
+      }
     }
   }
 

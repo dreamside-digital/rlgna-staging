@@ -108,9 +108,7 @@ class HomePage extends React.Component {
                   <p className="text-dark">
                     <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
                   </p>
-                  <p>
-                    <EditableParagraph content={content["program-box-desc-1"]} onSave={this.onSave("program-box-desc-1")} />
-                  </p>
+                  <EditableParagraph content={content["program-box-desc-1"]} onSave={this.onSave("program-box-desc-1")} />
                 </Grid>
               </Grid>
             </div>
@@ -128,9 +126,7 @@ class HomePage extends React.Component {
                   <p className="text-blue">
                     <EditableText content={content["program-box-state-2"]} onSave={this.onSave("program-box-state-2")} />
                   </p>
-                  <p>
-                    <EditableParagraph content={content["program-box-desc-2"]} onSave={this.onSave("program-box-desc-2")} />
-                  </p>
+                  <EditableParagraph content={content["program-box-desc-2"]} onSave={this.onSave("program-box-desc-2")} />
                 </Grid>
               </Grid>
             </div>
@@ -148,9 +144,7 @@ class HomePage extends React.Component {
                   <p className="text-blue">
                     <EditableText content={content["program-box-state-3"]} onSave={this.onSave("program-box-state-3")} />
                   </p>
-                  <p>
-                    <EditableParagraph content={content["program-box-desc-3"]} onSave={this.onSave("program-box-desc-3")} />
-                  </p>
+                  <EditableParagraph content={content["program-box-desc-3"]} onSave={this.onSave("program-box-desc-3")} />
                 </Grid>
               </Grid>
             </div>
@@ -168,9 +162,7 @@ class HomePage extends React.Component {
                   <p className="text-blue">
                     <EditableText content={content["program-box-state-4"]} onSave={this.onSave("program-box-state-4")} />
                   </p>
-                  <p>
-                    <EditableParagraph content={content["program-box-desc-4"]} onSave={this.onSave("program-box-desc-4")} />
-                  </p>
+                  <EditableParagraph content={content["program-box-desc-4"]} onSave={this.onSave("program-box-desc-4")} />
                 </Grid>
               </Grid>
             </div>

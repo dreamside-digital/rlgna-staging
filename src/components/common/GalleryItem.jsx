@@ -62,7 +62,7 @@ const GalleryItemEditor = ({ content, onContentChange, classes }) => {
         <Grid container>
           <Grid item xs={12}>
             <div className="card-title m-2">
-              <h4 className="text-primary">
+              <h4 className="text-primary mb-0 mt-0">
                 <PlainTextEditor
                   content={content["gallery-item-title"]}
                   onContentChange={handleEditorChange("gallery-item-title")}
@@ -118,7 +118,7 @@ const GalleryItem = props => {
       {...props}
     >
       <Card className={`gallery-item mb-4 display-block ${props.classes}`} square={true} component="a" target="_blank" rel="noopener noreferrer" href={content["gallery-item-link"] ? content["gallery-item-link"]["link"] : "#"} onClick={handleClick}>
-        <div className="position-relative">
+        <div className="position-relative img-container">
           {
             Boolean(content["gallery-item-image"]) ?
             <CardMedia
@@ -126,7 +126,6 @@ const GalleryItem = props => {
               image={content["gallery-item-image"]["imageSrc"]}
               title={content["gallery-item-image"]["title"]}
               style={{ height: '250px' }}
-              component="img"
             /> :
             <div className="pt-20" />
           }
@@ -156,7 +155,7 @@ const GalleryItem = props => {
           <Grid container>
             <Grid item xs={12}>
               <div className="card-title">
-                <h4 className="text-primary">
+                <h4 className="text-primary mt-2 mb-0">
                   { content["gallery-item-title"]["text"] }
                 </h4>
               </div>
