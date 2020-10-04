@@ -1,9 +1,12 @@
 import React from "react";
 import Button from "@material-ui/core/Button"
+import Grid from "@material-ui/core/Grid"
 import { connect } from "react-redux";
 
 import GalleryItem from "./GalleryItem"
 import BreakpointMasonry from "./BreakpointMasonry"
+
+const ITEM_NUMBER = 1
 
 const mapStateToProps = state => {
   return {
@@ -13,6 +16,11 @@ const mapStateToProps = state => {
 
 
 class Gallery extends React.Component {
+  state = {
+    totalItems: Object.keys(this.props.content).length,
+    itemsToShow: ITEM_NUMBER
+  }
+
   onSaveItem = itemId => itemContent => {
     const newContent = {
       ...this.props.content,
@@ -42,7 +50,9 @@ class Gallery extends React.Component {
   }
 
   render() {
-    const itemsKeys = Object.keys(this.props.content);
+    let itemsKeys = Object.keys(this.props.content).reverse().slice(0, this.state.itemsToShow)
+    console.log('this.state.itemsToShow', this.state.itemsToShow)
+    console.log("itemsKeys", itemsKeys)
 
     return (
       <div className={`collection mt-6 ${this.props.classes}`}>
@@ -55,7 +65,7 @@ class Gallery extends React.Component {
           </div>
         }
         <BreakpointMasonry>
-          {itemsKeys.reverse().filter(k => this.props.content[k]).map((key,index) => {
+          {itemsKeys.filter(k => this.props.content[k]).map((key,index) => {
             const content = this.props.content[key];
             return(
               <GalleryItem
@@ -68,6 +78,14 @@ class Gallery extends React.Component {
             )
           })}
         </BreakpointMasonry>
+        {
+          this.state.itemsToShow < this.state.totalItems &&
+          <Grid container justify="center" className="mt-6">
+            <Grid item>
+              <Button onClick={() => this.setState({ itemsToShow: this.state.itemsToShow + ITEM_NUMBER })}>Load more</Button>
+            </Grid>
+          </Grid>
+        }
       </div>
     );
   }
