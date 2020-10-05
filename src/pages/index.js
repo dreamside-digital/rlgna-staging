@@ -113,7 +113,7 @@ class HomePage extends React.Component {
                   <h3 className="text-white">
                     <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
                   </h3>
-                  <h1 className="text-white mt-0 pb-6"><EditableParagraph content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
+                  <h1 className="text-white mt-0 pb-6"><EditableText content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
                 </Grid>
               </Grid>
             </Container>
