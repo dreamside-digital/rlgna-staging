@@ -39,7 +39,8 @@ const Notification = props => {
   return (
     <div className="notification-container" style={styles.container}>
       <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={showNotification}
         onClose={props.closeNotification}
         ContentProps={{

@@ -27,28 +27,30 @@ const Event = props => {
   return (
     <Card className={`event-item mb-4 mt-4 display-block ${props.classes}`} square={true}>
       <CardContent className="card-body">
-        <div className="text-muted"><time>{startDate.toLocaleString(DateTime.TIME_SIMPLE)}</time> - <time>{endDate.toLocaleString(DateTime.TIME_SIMPLE)}</time></div>
-        <div className="text-muted">{startDate.toLocaleString(DateTime.DATE_FULL)}</div>
-        <h4>{content['title']}</h4>
-        <div>{content['host']}</div>
-        <div className="display-flex justify-right mt-4"><Button onClick={setIsOpen}>Read more</Button></div>
+        <div className="text-muted text-xs"><time>{startDate.toLocaleString(DateTime.TIME_SIMPLE)}</time> - <time>{endDate.toLocaleString(DateTime.TIME_SIMPLE)}</time></div>
+        <div className="text-muted text-xs">{startDate.toLocaleString(DateTime.DATE_FULL)}</div>
+        <h5 className="mt-3 mb-3">{content['title']}</h5>
+        <div className="text-xs">{content['host']}</div>
+        <div className="display-flex justify-right mt-4"><button className="btn btn-transparent btn-sm text-xs text-blue" onClick={setIsOpen}>Read more</button></div>
       </CardContent>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <DialogContent>
           <h3>{content['title']}</h3>
           <div className="text-muted"><time>{startDate.toLocaleString(DateTime.DATETIME_MED)}</time> - <time>{endDate.toLocaleString(DateTime.DATETIME_MED)}</time></div>
-          <p>{content['description']}</p>
-          <p><span className="text-bold">{`Hosted by: `}</span>{content['host']}</p>
-          {content['eventUrl'] &&
-          <p><span className="text-bold">{`Link: `}</span><a href={content['eventUrl']} target="_blank" rel="noopener noreferrer">{content['eventUrl']}</a></p>
-          }
-          <p><span className="text-bold">{`Event time: `}</span>{startDate.toLocaleString(DateTime.DATETIME_HUGE)}</p>
+          <p className="mt-6 mb-6">{content['description']}</p>
+          <div className="mb-6">
+            <p className="text-small mb-2 mt-2"><span className="text-bold">{`Hosted by: `}</span>{content['host']}</p>
+            {content['eventUrl'] &&
+            <p className="text-small mb-2 mt-2"><span className="text-bold">{`Link: `}</span><a href={content['eventUrl']} target="_blank" rel="noopener noreferrer">{content['eventUrl']}</a></p>
+            }
+            <p className="text-small mb-2 mt-2"><span className="text-bold">{`Event time: `}</span>{startDate.toLocaleString(DateTime.DATETIME_HUGE)}</p>
+          </div>
         </DialogContent>
         <DialogActions>
           <Grid container justify="center">
-            <Grid item style={{ paddingBottom: '20px' }}>
+            <Grid item style={{ paddingBottom: '30px' }}>
               {content['rsvpUrl'] &&
-              <Button component="a" href={content['rsvpUrl']} target="_blank" rel="noopener noreferrer" className="mb-4">RSVP</Button>
+              <a className="btn mb-4" href={content['rsvpUrl']} target="_blank" rel="noopener noreferrer">RSVP</a>
               }
             </Grid>
           </Grid>
