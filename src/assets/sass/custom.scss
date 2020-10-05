@@ -443,4 +443,26 @@ body .nl-page {
 }
 
 
+#social {
+  .hashtags {
+    p {
+      margin: 0;
+      text-decoration: underline;
+    }
+  }
+
+  .twitter-live-feed {
+    border: 1px solid white;
+    padding: 24px;
+
+    &:first-child {
+      margin-right: 24px;
+    }
+
+    &:last-child {
+      margin-right: 24px;
+    }
+  }
+}
+
 @import "responsive";

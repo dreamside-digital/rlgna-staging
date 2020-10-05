@@ -364,15 +364,33 @@ class HomePage extends React.Component {
 
         <Section id="social" className="bg-blue text-white">
           <Grid container>
-            <Grid item md={8}>
+            <Grid item md={12}>
               <h2 className="text-bold">
                 <EditableText content={content["social-title"]} onSave={this.onSave("social-title")} />
               </h2>
-              <EditableParagraph classes="font-size-h4" content={content["social-description"]} onSave={this.onSave("social-description")} />
+              <div className="hashtags">
+                <EditableParagraph classes="font-size-h4" content={content["social-description"]} onSave={this.onSave("social-description")} />
+              </div>
             </Grid>
 
             <Grid item md={12}>
-              Twitter feed goes here
+              <div className="mt-10 mb-5">Featured Tweet</div>
+              <div className="margin-center max-width-600">
+                <EditableParagraph classes="font-size-h4" content={content["social-featured-tweet"]} onSave={this.onSave("social-featured-tweet")} />
+              </div>
+            </Grid>
+          </Grid>
+          <div className="mt-10 mb-5">Twitter Live Feed</div>
+          <Grid container>
+            <Grid item md={6}>
+              <div className="twitter-live-feed">
+                <EditableParagraph content={content["social-live-feed-1"]} onSave={this.onSave("social-live-feed-1")} />
+              </div>
+            </Grid>
+            <Grid item md={6}>
+              <div className="twitter-live-feed">
+                <EditableParagraph content={content["social-live-feed-2"]} onSave={this.onSave("social-live-feed-2")} />
+              </div>
             </Grid>
           </Grid>
         </Section>
