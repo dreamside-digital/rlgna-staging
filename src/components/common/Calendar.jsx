@@ -1,10 +1,12 @@
 import React from "react";
 import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
+import Hidden from "@material-ui/core/Hidden"
 import { connect } from "react-redux";
 import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import Event from "./Event"
 import EventModal from './EventModal'
@@ -73,10 +75,11 @@ class Calendar extends React.Component {
 
   prepareSchedule = () => {
     const eventKeys = Object.keys(this.props.content)
-    const eventArray = eventKeys.map(key => ({...this.props.content[key], id: key }))
-    console.log("eventArray", eventArray)
+    const eventArray = eventKeys.map(key => ({...this.props.content[key], id: key, startDate: DateTime.fromISO(this.props.content[key]['startDate'])}))
     const schedule = EVENT_DAYS.map(day => {
-      const events = eventArray.filter(event => luxon.isSameDay(DateTime.fromISO(event.startDate), day.date))
+      const events = eventArray.filter(event => luxon.isSameDay(event.startDate, day.date))
+      console.log(events)
+      events.sort((a, b) => a.startDate - b.startDate)
       return { ...day, events: events }
     })
 
@@ -100,32 +103,71 @@ class Calendar extends React.Component {
               </div>
             </div>
           }
-          <Grid container justify="space-between">
-            {
-              this.state.schedule.map(day => {
-                const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
-                const weekday = day.date.toLocaleString({ weekday: 'long' })
+          <Hidden smDown>
+            <Grid container justify="space-between">
+              {
+                this.state.schedule.map(day => {
+                  const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
+                  const weekday = day.date.toLocaleString({ weekday: 'long' })
 
-                return (
-                  <Grid item xs={2}>
-                    <div className="events-column">
-                      <div className="date-label bg-blue text-white text-center p-4">
-                        <div className="text-bold">{dateString}</div>
-                        <div className="text-uppercase">{weekday}</div>
+                  return (
+                    <Grid item xs={2}>
+                      <div className="events-column">
+                        <div className="date-label bg-blue text-white text-center p-4">
+                          <div className="text-bold">{dateString}</div>
+                          <div className="text-uppercase">{weekday}</div>
+                        </div>
+                        {
+                          day.events.map(event => {
+                            return(
+                              <Event content={event} key={event.id} />
+                            )
+                          })
+                        }
                       </div>
-                      {
-                        day.events.map(event => {
-                          return(
-                            <Event content={event} key={event.id} />
-                          )
-                        })
-                      }
-                    </div>
-                  </Grid>
-                )
-              })
-            }
-          </Grid>
+                    </Grid>
+                  )
+                })
+              }
+            </Grid>
+          </Hidden>
+          <Hidden mdUp>
+            <Grid container>
+              <Grid item xs={12}>
+                <Tabs>
+                  <TabList className='tabs-list'>
+                    {
+                      this.state.schedule.map(day => {
+                        const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
+                        const weekday = day.date.toLocaleString({ weekday: 'long' })
+
+                        return (
+                          <Tab className='tabs-item text-bold p-3 text-xs text-center'>{dateString}</Tab>
+                        )
+                      })
+                    }
+                  </TabList>
+
+                  {
+                    this.state.schedule.map(day => {
+                      return (
+                        <TabPanel className='tab-content'>
+                          {
+                            day.events.map(event => {
+                              return(
+                                <Event content={event} key={event.id} />
+                              )
+                            })
+                          }
+                        </TabPanel>
+                      )
+                    })
+                  }
+                </Tabs>
+              </Grid>
+            </Grid>
+
+          </Hidden>
           <EventModal
             onSaveItem={this.onSaveItem}
             showModal={showModal}

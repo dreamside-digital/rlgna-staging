@@ -49,6 +49,14 @@
 
     #logistics {
       background: $white;
+
+      .link-area {
+        padding-left: 0;
+      }
+    }
+
+    .collection {
+      margin-top: 0;
     }
 
     .page-wrapper {
@@ -117,6 +125,7 @@
   body .nl-page {
     #landing {
       padding: 0;
+      padding-bottom: 40px;
 
       .header-image {
         padding: 0;

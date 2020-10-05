@@ -124,12 +124,14 @@ class HomePage extends React.Component {
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
                 <Grid item md={8}>
-                  <div className="landing-body">
-                    <h3 className="text-white">
-                      <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
-                    </h3>
-                    <EditableParagraph content={content["landing-title"]} onSave={this.onSave("landing-title")} />
-                  </div>
+                  <div className="mb-4">
+                      <div className="text-white text-bold font-size-h4 mb-4">
+                        <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
+                      </div>
+                    </div>
+                    <div className="">
+                      <h1 className="text-white"><EditableText content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
+                    </div>
                 </Grid>
               </Grid>
             </Container>
@@ -138,7 +140,7 @@ class HomePage extends React.Component {
         <Section id="intro" className="position-relative">
           <Grid container className="title" justify="center">
             <Grid item xs={12} sm={10} md={9} lg={8}>
-              <div className="intro-text bg-gray font-size-h4">
+              <div className="intro-text bg-dark font-size-h4">
                 <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
               </div>
             </Grid>
@@ -312,8 +314,8 @@ class HomePage extends React.Component {
                 </div>
               </Grid>
 
-              <Grid item md={5}>
-                <div className="bg-gray text-white width-100 height-100 display-flex align-center pl-6">
+              <Grid item md={5} style={{ background: '#3a3838'}}>
+                <div className="bg-dark text-white width-100 height-100 display-flex align-center link-area">
                   <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
                 </div>
               </Grid>
@@ -330,13 +332,13 @@ class HomePage extends React.Component {
               <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
             </Grid>
 
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <Calendar content={content["open-space-events"]} onSave={this.onSave("open-space-events")} />
             </Grid>
           </Grid>
         </Section>
 
-        <Section id="holding-space-week" className="bg-gradient text-white">
+        <Section id="holding-space-week" className="bg-green text-white">
           <Grid container>
             <Grid item md={8}>
               <h2 className="text-bold">
