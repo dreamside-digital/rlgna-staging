@@ -76,12 +76,7 @@ class Calendar extends React.Component {
     const eventArray = eventKeys.map(key => ({...this.props.content[key], id: key }))
     console.log("eventArray", eventArray)
     const schedule = EVENT_DAYS.map(day => {
-      const events = eventArray.filter(event => {
-        console.log("event.startDate", event.startDate)
-        console.log("day.date", day.date.toISO())
-        console.log("sameday?", luxon.isSameDay(DateTime.fromISO(event.startDate), day.date))
-        return luxon.isSameDay(DateTime.fromISO(event.startDate), day.date)
-      })
+      const events = eventArray.filter(event => luxon.isSameDay(DateTime.fromISO(event.startDate), day.date))
       return { ...day, events: events }
     })
 
@@ -121,10 +116,7 @@ class Calendar extends React.Component {
                       {
                         day.events.map(event => {
                           return(
-                            <div className="event-item" key={event.id}>
-                              <p>{event["title"]}</p>
-                              <p>{event["host"]}</p>
-                            </div>
+                            <Event content={event} key={event.id} />
                           )
                         })
                       }

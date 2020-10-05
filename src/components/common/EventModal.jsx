@@ -46,7 +46,8 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
       host: newEvent.host,
       description: newEvent.description,
       timezone: newEvent.timezone,
-      url: newEvent.url,
+      eventUrl: newEvent.eventUrl,
+      rsvpUrl: newEvent.rsvpUrl,
       startDate: start.toISO(),
       endDate: end.toISO(),
     }
@@ -56,7 +57,7 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
     saveFunction(data)
   }
 
-  const { title, host, description, date, start, end, timezone, url } = newEvent;
+  const { title, host, description, date, start, end, timezone, rsvpUrl, eventUrl } = newEvent;
 
   return (
     <Dialog open={showModal} onClose={closeModal} aria-labelledby="form-dialog-title" scroll="body">
@@ -97,13 +98,23 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
           variant="outlined"
         />
         <TextField
-          value={url}
+          value={eventUrl}
           margin="dense"
-          id="url"
-          label="Registration link"
+          id="event-url"
+          label="Event link"
           type="url"
           fullWidth
-          onChange={handleChange('url')}
+          onChange={handleChange('eventUrl')}
+          variant="outlined"
+        />
+        <TextField
+          value={rsvpUrl}
+          margin="dense"
+          id="rsvpUrl"
+          label="RSVP link"
+          type="url"
+          fullWidth
+          onChange={handleChange('rsvpUrl')}
           variant="outlined"
         />
         <KeyboardDatePicker
@@ -171,7 +182,8 @@ EventModal.defaultProps = {
     title: '',
     host: '',
     description: '',
-    url: '',
+    rsvpUrl: '',
+    eventUrl: '',
     date: null,
     start: null,
     end: null,
