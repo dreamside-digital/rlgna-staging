@@ -7,13 +7,17 @@
     "node": "12.16.1"
   },
   "dependencies": {
+    "@date-io/date-fns": "1.x",
+    "@date-io/luxon": "1.x",
     "@material-ui/core": "^4.9.8",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/pickers": "^3.2.10",
     "@types/react": "^16.9.16",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
     "browserslist": "^3.2.0",
     "caniuse-db": "^1.0.30000867",
+    "date-fns": "^2.16.1",
     "firebase": "^7.5.2",
     "firebase-admin": "^8.8.0",
     "firebase-tools": "^7.9.0",
@@ -25,6 +29,7 @@
     "gatsby-source-firebase-nl": "^1.0.2",
     "jss": "^9.8.7",
     "lodash": "^4.17.4",
+    "luxon": "^1.25.0",
     "node-sass": "^4.9.2",
     "prop-types": "^15.6.2",
     "react": "^16.8.0",
@@ -37,12 +42,13 @@
     "react-masonry-component": "^6.2.1",
     "react-masonry-css": "^1.0.14",
     "react-redux": "latest",
+    "react-select": "^3.1.0",
     "react-share": "^4.0.1",
     "react-slick": "^0.25.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "slick-carousel": "^1.8.1",
-    "slugify": "^1.2.9"
+    "slugify": "^1.4.5"
   },
   "keywords": [
     "gatsby",

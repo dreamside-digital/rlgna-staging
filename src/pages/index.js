@@ -15,6 +15,7 @@ import { uploadImage } from '../firebase/operations';
 import Layout from "../layouts/default.js";
 import Section from "../components/common/Section"
 import Gallery from "../components/common/Gallery"
+import Calendar from "../components/common/Calendar"
 
 
 const mapDispatchToProps = dispatch => {
@@ -192,11 +193,11 @@ class HomePage extends React.Component {
                 <EditableText content={content["open-space-title"]} onSave={this.onSave("open-space-title")} />
               </h2>
               <EditableParagraph content={content["open-space-description"]} onSave={this.onSave("open-space-description")} />
-              <p className="text-small">timezone info</p>
+              <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
             </Grid>
 
             <Grid item md={12}>
-              Calendar goes here
+              <Calendar content={content["open-space-events"]} onSave={this.onSave("open-space-events")} />
             </Grid>
           </Grid>
         </Section>
@@ -208,7 +209,7 @@ class HomePage extends React.Component {
                 <EditableText content={content["holding-space-title"]} onSave={this.onSave("holding-space-title")} />
               </h2>
               <EditableParagraph content={content["holding-space-description"]} onSave={this.onSave("holding-space-description")} />
-              <p className="text-small">timezone info</p>
+              <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
             </Grid>
 
             <Grid item md={12}>
