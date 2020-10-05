@@ -1,7 +1,14 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import {Link} from 'gatsby'
+import { Link } from 'gatsby'
+import { connect } from "react-redux";
 import logo from "../../assets/images/logo.svg"
+
+const mapStateToProps = state => {
+  return {
+    accessGranted: state.adminTools.accessGranted,
+  };
+};
 
 class Header extends React.Component {
 
@@ -46,27 +53,31 @@ class Header extends React.Component {
   }
 
   render() {
-    console.log(this.container)
     return (
       <nav className={`navbar`}>
         <div className="logo">
           <Link to={'/'} className="display-flex"><img src={logo} alt="BMW Foundation | Herbert Quant"/></Link>
         </div>
-        <div className='navbar-items'>
-          <a className='navbar-item menu-item' href="#menu" onClick={this.toggleMenu}>Menu</a>
-          <a className='navbar-item' href="#intro" onClick={this.handleClick}>Introduction</a>
-          <a className='navbar-item' href="#program-elements" onClick={this.handleClick}>Program Elements</a>
-          <a className='navbar-item' href="#logistics" onClick={this.handleClick}>Virtual Logistics</a>
-          <a className='navbar-item' href="#open-space-week" onClick={this.handleClick}>Schedule</a>
-          <a className='navbar-item' href="#gallery" onClick={this.handleClick}>ICYMI</a>
-          <a className='navbar-item' href="#social" onClick={this.handleClick}>Social media</a>
-        </div>
         {
-          this.container && ReactDOM.createPortal(this.menu(), this.container)
+          this.props.accessGranted &&
+          <React.Fragment>
+          <div className='navbar-items'>
+            <a className='navbar-item menu-item' href="#menu" onClick={this.toggleMenu}>Menu</a>
+            <a className='navbar-item' href="#intro" onClick={this.handleClick}>Introduction</a>
+            <a className='navbar-item' href="#program-elements" onClick={this.handleClick}>Program Elements</a>
+            <a className='navbar-item' href="#logistics" onClick={this.handleClick}>Virtual Logistics</a>
+            <a className='navbar-item' href="#open-space-week" onClick={this.handleClick}>Schedule</a>
+            <a className='navbar-item' href="#gallery" onClick={this.handleClick}>ICYMI</a>
+            <a className='navbar-item' href="#social" onClick={this.handleClick}>Social media</a>
+          </div>
+          {
+            this.container && ReactDOM.createPortal(this.menu(), this.container)
+          }
+          </React.Fragment>
         }
       </nav>
     );
   }
 }
 
-export default Header;
+export default connect(mapStateToProps)(Header);

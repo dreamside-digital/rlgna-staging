@@ -1,3 +1,4 @@
+@import 'normalize';
 @import "variables";
 @import "mixins";
 @import "utils";
@@ -6,81 +7,66 @@
   box-sizing: border-box;
 }
 
-body .nl-page {
+body {
   font-family: $body-font;
+  font-size: 1.125rem;
+  line-height: 1.25;
   color: $black;
   background-color: $white;
   -webkit-font-smoothing: antialiased;
+}
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: $font-size-h1;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: $font-size-h3;
+}
+
+h4 {
+  font-size: $font-size-h4;
+}
+
+h5 {
+  font-size: $font-size-h5;
+}
+
+a, button {
+  text-decoration-color: $highlight-color;
+  text-decoration-skip-ink: auto;
+  cursor: pointer;
+}
+
+.paragraph, p {
+  font-family: $body-font;
+
+  a {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+  }
+}
+
+body .nl-page {
   &.theme-light {
     background-color: $white;
   }
 
   &.theme-gray {
     background-color: $gray-theme;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: $header-font;
-    font-weight: normal;
-  }
-
-  h1 {
-    font-size: calc(30px + 2vw);
-  }
-
-  h2 {
-    font-size: calc(25px + 1.6vw);
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  h3 {
-    font-size: calc(18px + 0.25vw);
-
-    &.subheading {
-      font-size: calc(18px + 0.75vw);
-    }
-  }
-
-
-  h4 {
-    font-size: calc(18px + 0.5vw);
-  }
-
-  a, button {
-    text-decoration-color: $highlight-color;
-    text-decoration-skip-ink: auto;
-    cursor: pointer;
-  }
-
-  button, input[type='submit'] {
-    font-size: inherit;
-    padding: 1rem 2rem;
-    background: $primary-color;
-    border: 1px solid $primary-color;
-    border-radius: 0;
-    color: $white;
-    transition: all 0.5s ease-in-out;
-
-    &:hover {
-      background: darken($primary-color, 10%);
-    }
-
-    &:focus {
-      background: $secondary-color;
-    }
-  }
-
-  .paragraph, p {
-    font-family: $body-font;
-
-    a {
-      color: inherit;
-      font-size: inherit;
-      font-family: inherit;
-      font-weight: inherit;
-    }
   }
 
   .logo {
@@ -107,7 +93,7 @@ body .nl-page {
 
       .navbar-item {
         margin-right: 24px;
-        font-size: 16px;
+        font-size: 1rem;
         border-bottom: 1px solid $black;
         padding-bottom: 0;
         transition: 100ms;
@@ -164,7 +150,7 @@ body .nl-page {
     padding-bottom: 60px;
     background: linear-gradient(180deg, rgba(70, 178, 126, 0.50) 0%, rgba(0, 166, 206, 0.50) 100%);
     background-blend-mode: color;
-    height: calc(100vh - 57px); /*footer height*/
+    height: calc(100vh - 52px); /*footer height*/
     position: relative;
 
     .landing-body {
@@ -220,11 +206,7 @@ body .nl-page {
 
   #intro {
     p {
-      font-size: 1.5em;
       margin-top: 0;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
 
       &:last-child {
         margin-bottom: 0;
@@ -233,7 +215,7 @@ body .nl-page {
 
     .intro-text {
       color: $white;
-      padding: 50px;
+      padding: 3rem 5rem;
       margin-top: -100px;
     }
   }
@@ -285,6 +267,10 @@ body .nl-page {
         font-weight: 700;
       }
     }
+  }
+
+  #logistics {
+    background: linear-gradient(90deg, $white 0%, $white 57%, $gray-600 57%, $gray-600 100%);
   }
 
   .gallery-item {
