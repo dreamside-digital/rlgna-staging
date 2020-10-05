@@ -1,3 +1,4 @@
+@import 'normalize';
 @import "variables";
 @import "mixins";
 @import "utils";
@@ -6,66 +7,66 @@
   box-sizing: border-box;
 }
 
-body .nl-page {
+body {
   font-family: $body-font;
+  font-size: 1.125rem;
+  line-height: 1.25;
   color: $black;
   background-color: $white;
   -webkit-font-smoothing: antialiased;
+}
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: $font-size-h1;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: $font-size-h3;
+}
+
+h4 {
+  font-size: $font-size-h4;
+}
+
+h5 {
+  font-size: $font-size-h5;
+}
+
+a, button {
+  text-decoration-color: $highlight-color;
+  text-decoration-skip-ink: auto;
+  cursor: pointer;
+}
+
+.paragraph, p {
+  font-family: $body-font;
+
+  a {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+  }
+}
+
+body .nl-page {
   &.theme-light {
     background-color: $white;
   }
 
   &.theme-gray {
     background-color: $gray-theme;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: $header-font;
-  }
-
-  h1 {
-    font-size: calc(30px + 2vw);
-  }
-
-  h2 {
-    font-size: calc(25px + 1.6vw);
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  h3 {
-    font-size: calc(18px + 0.25vw);
-
-    &.subheading {
-      font-size: calc(18px + 0.75vw);
-    }
-  }
-
-  p, a {
-
-  }
-
-
-  h4 {
-    font-size: calc(18px + 0.5vw);
-  }
-
-  a, button {
-    text-decoration-color: $highlight-color;
-    text-decoration-skip-ink: auto;
-    cursor: pointer;
-  }
-
-  .paragraph, p {
-    font-family: $body-font;
-
-    a {
-      color: inherit;
-      font-size: inherit;
-      font-family: inherit;
-      font-weight: inherit;
-    }
   }
 
   .logo {
@@ -76,13 +77,14 @@ body .nl-page {
 
   .navbar {
     padding: 0.75rem 1rem;
-    background-color: $gray-100;
-    position: static;
+    background-color: $white;
+    position: fixed;
     top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 3;
   }
 
   .navbar-items {
@@ -91,7 +93,7 @@ body .nl-page {
 
       .navbar-item {
         margin-right: 24px;
-        font-size: 16px;
+        font-size: 1rem;
         border-bottom: 1px solid $black;
         text-decoration: none;
         color: $black;
@@ -103,7 +105,7 @@ body .nl-page {
           content: '';
           width: 0;
           height: 2px;
-          background-color: $white;
+          background-color: $gray-200;
           position: absolute;
           bottom: 0;
           left: 0;
@@ -127,6 +129,7 @@ body .nl-page {
     left: 0;
     align-items: center;
     padding: 24px;
+    z-index: 4;
 
     .menu-item {
       font-size: 16px;
@@ -156,10 +159,10 @@ body .nl-page {
 
   #landing {
     padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-bottom: 60px;
     background: linear-gradient(180deg, rgba(70, 178, 126, 0.50) 0%, rgba(0, 166, 206, 0.50) 100%);
     background-blend-mode: color;
-    height: calc(100vh - 85px); /*navbar height*/
+    height: calc(100vh - 52px); /*footer height*/
     position: relative;
 
     .landing-body {
@@ -174,13 +177,50 @@ body .nl-page {
     }
   }
 
+  .login-form {
+    font-size: 1.5rem;
+
+    input {
+      padding: 15px;
+      font-size: 1.25rem;
+      border: 1px solid $blue;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    input[type='text']:focus {
+      box-shadow: inset 0 1px 3px $gray-500;
+    }
+  }
+
+  #help-icon {
+    position: relative;
+    display: inline-flex;
+    transform: translateY(-15px);
+
+    &:hover {
+      &:after {
+        content: 'Your access code was sent to you by email. Contact us if you need us to resend it.';
+        display: block;
+        padding: 20px;
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        background: $gray-100;
+        font-size: 1rem;
+        width: 200px;
+        color: $black;
+        font-family: $body-font;
+      }
+    }
+  }
+
   #intro {
     p {
-      font-size: 1.2em;
+      font-size: 1em;
       margin-top: 0;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
 
       &:last-child {
         margin-bottom: 0;
@@ -189,8 +229,7 @@ body .nl-page {
 
     .intro-text {
       color: $white;
-      background-color: $gray-500;
-      padding: 50px;
+      padding: 3rem 5rem;
       margin-top: -100px;
     }
   }
@@ -300,36 +339,7 @@ body .nl-page {
   }
 
   #logistics {
-    overflow: hidden;
-
-    .white-extension {
-      position: relative;
-
-      &:after {
-        content: '';
-        height: 100%;
-        width: 150px;
-        background-color: $white;
-        left: -150px;
-        top: 0;
-        position: absolute;
-      }
-    }
-
-
-    .gray-extension {
-      position: relative;
-
-      &:after {
-        content: '';
-        height: 100%;
-        width: 150px;
-        background-color: $gray-400;
-        right: -150px;
-        top: 0;
-        position: absolute;
-      }
-    }
+    background: linear-gradient(90deg, $white 0%, $white 57%, $gray-400 57%, $gray-400 100%);
   }
 
   .gallery-item {

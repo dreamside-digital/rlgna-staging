@@ -3,11 +3,13 @@ import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import { Help } from '@material-ui/icons';
 import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
 
 import {
   updatePage,
   loadPageData,
+  validateAccessCode,
 } from "../redux/actions";
 
 import { uploadImage } from '../firebase/operations';
@@ -26,6 +28,9 @@ const mapDispatchToProps = dispatch => {
     onLoadPageData: data => {
       dispatch(loadPageData(data));
     },
+    validateAccessCode: (code) => {
+      dispatch(validateAccessCode(code));
+    },
   };
 };
 
@@ -33,6 +38,7 @@ const mapStateToProps = state => {
   return {
     pageData: state.page.data,
     isLoggedIn: state.adminTools.isLoggedIn,
+    accessGranted: state.adminTools.accessGranted,
   };
 };
 
@@ -40,6 +46,7 @@ class HomePage extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = { accessCode: '' }
     const initialPageData = {
       ...this.props.data.pages,
       content: JSON.parse(this.props.data.pages.content)
@@ -66,14 +73,55 @@ class HomePage extends React.Component {
     })
   }
 
+  onAccessCodeSubmit = e => {
+    e.preventDefault()
+    this.props.validateAccessCode(this.state.accessCode)
+    this.setState({ accessCode: '' })
+  }
+
   render() {
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
+    if (!this.props.accessGranted) {
+      return(
+        <Layout theme="gray" location={this.props.location}>
+          <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+            <section id="landing">
+              <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                <Grid container>
+                  <Grid item md={8}>
+                    <div className="mb-4">
+                      <div className="text-white text-bold font-size-h4 mb-4">
+                        <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
+                      </div>
+                    </div>
+                    <div className="">
+                      <h1 className="text-white"><EditableText content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
+                    </div>
+                  </Grid>
+                </Grid>
+                <Grid container justify="flex-end">
+                  <Grid item md={8}>
+                    <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex align-right justify-right">
+                      <div className="help-text text-white text-bold">
+                        <label htmlFor="access-code">Access code:<span id="help-icon" aria-label="Help text: Your access code was sent to you by email. Contact us if you need us to resend it."><Help /></span></label>
+                      </div>
+                      <input type="text" className="ml-2" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
+                      <input type="submit" value="Enter site" className="btn ml-2" />
+                    </form>
+                  </Grid>
+                </Grid>
+              </Container>
+            </section>
+          </EditableBackgroundImage>
+        </Layout>
+      )
+    }
 
     return (
       <Layout theme="gray" location={this.props.location}>
         <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
                 <Grid item md={8}>
                   <div className="landing-body">
@@ -89,17 +137,17 @@ class HomePage extends React.Component {
         </EditableBackgroundImage>
         <Section id="intro" className="position-relative">
           <Grid container className="title" justify="center">
-            <Grid item md={10}>
-              <div className="intro-text">
+            <Grid item xs={12} sm={10} md={9} lg={8}>
+              <div className="intro-text bg-gray font-size-h4">
                 <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
               </div>
             </Grid>
           </Grid>
         </Section>
         <Section id="program-elements">
-          <h1>
+          <h2>
             <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
-          </h1>
+          </h2>
             <div className="program-box mt-5">
               <Grid container className="position-relative">
                 <Grid item md={4} sm={12}>
@@ -120,12 +168,12 @@ class HomePage extends React.Component {
                   <p className="text-muted hide-on-large-only">
                     <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
                   </p>
-                  <h4 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-1"]} onSave={this.onSave("program-box-title-1")} />
-                  </h4>
-                  <h3>
-                    <EditableText content={content["program-box-date-1"]} onSave={this.onSave("program-box-date-1")} />
                   </h3>
+                  <div className="font-size-h6">
+                    <EditableText content={content["program-box-date-1"]} onSave={this.onSave("program-box-date-1")} />
+                  </div>
                 </Grid>
                 <Grid item md={8} sm={11} className={this.state.programElementsShow1 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-muted hide-on-med-and-down">
@@ -158,12 +206,12 @@ class HomePage extends React.Component {
                   <p className="text-blue hide-on-large-only">
                     <EditableText content={content["program-box-state-2"]} onSave={this.onSave("program-box-state-2")} />
                   </p>
-                  <h4 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-2"]} onSave={this.onSave("program-box-title-2")} />
-                  </h4>
-                  <h3>
-                    <EditableText content={content["program-box-date-2"]} onSave={this.onSave("program-box-date-2")} />
                   </h3>
+                  <div className="font-size-h6">
+                    <EditableText content={content["program-box-date-2"]} onSave={this.onSave("program-box-date-2")} />
+                  </div>
                 </Grid>
                 <Grid item md={8} sm={11} className={this.state.programElementsShow2 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-blue hide-on-med-and-down">
@@ -195,12 +243,12 @@ class HomePage extends React.Component {
                   <p className="text-blue hide-on-large-only">
                     <EditableText content={content["program-box-state-3"]} onSave={this.onSave("program-box-state-3")} />
                   </p>
-                  <h4 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-3"]} onSave={this.onSave("program-box-title-3")} />
-                  </h4>
-                  <h3>
-                    <EditableText content={content["program-box-date-3"]} onSave={this.onSave("program-box-date-3")} />
                   </h3>
+                  <div className="font-size-h6">
+                    <EditableText content={content["program-box-date-3"]} onSave={this.onSave("program-box-date-3")} />
+                  </div>
                 </Grid>
                 <Grid item md={8} sm={11} className={this.state.programElementsShow3 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-blue hide-on-med-and-down">
@@ -232,12 +280,12 @@ class HomePage extends React.Component {
                   <p className="text-blue hide-on-large-only">
                     <EditableText content={content["program-box-state-4"]} onSave={this.onSave("program-box-state-4")} />
                   </p>
-                  <h4 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-4"]} onSave={this.onSave("program-box-title-4")} />
-                  </h4>
-                  <h3>
-                    <EditableText content={content["program-box-date-4"]} onSave={this.onSave("program-box-date-4")} />
                   </h3>
+                  <div className="font-size-h6">
+                    <EditableText content={content["program-box-date-4"]} onSave={this.onSave("program-box-date-4")} />
+                  </div>
                 </Grid>
                 <Grid item md={8} sm={11} className={this.state.programElementsShow4 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-blue hide-on-med-and-down">
@@ -252,29 +300,33 @@ class HomePage extends React.Component {
         </Section>
 
         <Section id="logistics">
-          <Grid container>
-            <Grid item md={8} sm={12} className="bg-white p-10 white-extension">
-              <h2 className="text-bold">
-                <EditableText content={content["logistics-title"]} onSave={this.onSave("logistics-title")} />
-              </h2>
-              <p className="max-width-500">
-                <EditableText content={content["logistics-description"]} onSave={this.onSave("logistics-description")} />
-              </p>
-            </Grid>
+            <Grid container alignItems="stretch" spacing={4}>
+              <Grid item md={7}>
+                <div className="">
+                  <h2 className="text-bold">
+                    <EditableText content={content["logistics-title"]} onSave={this.onSave("logistics-title")} />
+                  </h2>
+                  <p>
+                    <EditableText content={content["logistics-description"]} onSave={this.onSave("logistics-description")} />
+                  </p>
+                </div>
+              </Grid>
 
-            <Grid item md={4} sm={12} className="bg-gray pl-20 p-10 text-white gray-extension">
-              <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
+              <Grid item md={5}>
+                <div className="bg-gray text-white width-100 height-100 display-flex align-center pl-6">
+                  <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
         </Section>
 
-        <Section id="open-space-week" className="text-white">
+        <Section id="open-space-week">
           <Grid container>
             <Grid item md={8}>
               <h2 className="text-bold">
                 <EditableText content={content["open-space-title"]} onSave={this.onSave("open-space-title")} />
               </h2>
-              <EditableParagraph content={content["open-space-description"]} onSave={this.onSave("open-space-description")} />
+              <EditableParagraph classes="font-size-h4" content={content["open-space-description"]} onSave={this.onSave("open-space-description")} />
               <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
             </Grid>
 
@@ -284,32 +336,27 @@ class HomePage extends React.Component {
           </Grid>
         </Section>
 
-        <Section id="holding-space-week" className="text-white">
+        <Section id="holding-space-week" className="bg-gradient text-white">
           <Grid container>
             <Grid item md={8}>
               <h2 className="text-bold">
                 <EditableText content={content["holding-space-title"]} onSave={this.onSave("holding-space-title")} />
               </h2>
-              <EditableParagraph content={content["holding-space-description"]} onSave={this.onSave("holding-space-description")} />
-              <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
-            </Grid>
-
-            <Grid item md={12}>
-              Calendar goes here
+              <EditableParagraph classes="font-size-h4" content={content["holding-space-description"]} onSave={this.onSave("holding-space-description")} />
             </Grid>
           </Grid>
         </Section>
 
-        <Section id="gallery" className="text-white">
+        <Section id="gallery">
           <Grid container>
             <Grid item md={8} className="mb-4">
               <h2 className="text-bold">
                 <EditableText content={content["gallery-title"]} onSave={this.onSave("gallery-title")} />
               </h2>
-              <EditableParagraph content={content["gallery-description"]} onSave={this.onSave("gallery-description")} />
+              <EditableParagraph classes="font-size-h4" content={content["gallery-description"]} onSave={this.onSave("gallery-description")} />
             </Grid>
 
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <Gallery content={content["gallery-collection"]} onSave={this.onSave("gallery-collection")} />
             </Grid>
           </Grid>
@@ -321,7 +368,7 @@ class HomePage extends React.Component {
               <h2 className="text-bold">
                 <EditableText content={content["social-title"]} onSave={this.onSave("social-title")} />
               </h2>
-              <EditableParagraph content={content["social-description"]} onSave={this.onSave("social-description")} />
+              <EditableParagraph classes="font-size-h4" content={content["social-description"]} onSave={this.onSave("social-description")} />
             </Grid>
 
             <Grid item md={12}>

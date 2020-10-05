@@ -163,10 +163,144 @@
     background-color: $white;
   }
   &-gradient {
-    background-color: linear-gradient(180deg, $green 0%, $blue 100%);
+    background: linear-gradient(160deg, $green 0%, $blue 100%);
   }
   &-black {
     background-color: $black;
+  }
+}
+
+.btn {
+  font-size: inherit;
+  padding: 1rem 2rem;
+  background: $primary-color;
+  border: 0;
+  border-radius: 0;
+  color: $white;
+  text-decoration: none;
+  outline: none;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+
+  &:focus {
+    background: transparent;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+  }
+
+  &-sm {
+    padding: 0.4rem 0.6rem;
+  }
+
+  &-blue {
+    background: $blue;
+    border: 1px solid $blue;
+    &:hover {
+      background: darken($blue, 10%);
+    }
+
+    &:focus {
+      background: transparent;
+    border: 1px solid $blue;
+    color: $blue;
+    }
+  }
+
+  &-green {
+    background: $green;
+    &:hover {
+      background: darken($green, 10%);
+    }
+    &:focus {
+      background: transparent;
+    border: 1px solid $green;
+    color: $green;
+    }
+  }
+
+  &-dark {
+    background: $dark-gray;
+    &:hover {
+      background: darken($dark-gray, 10%);
+    }
+    &:focus {
+      background: transparent;
+    border: 1px solid $dark-gray;
+    color: $dark-gray;
+    }
+  }
+
+  &-light {
+    background: $light-gray;
+    color: $black;
+    &:hover {
+      background: darken($light-gray, 10%);
+    }
+    &:focus {
+      background: transparent;
+    border: 1px solid $light-gray;
+    color: $light-gray;
+    }
+  }
+  &-gray {
+    background: $gray-theme;
+    &:hover {
+      background: $gray-300;
+    }
+    &:focus {
+      background: transparent;
+      border: 1px solid $gray-theme;
+      color: $gray-theme;
+    }
+  }
+  &-white {
+    background: $white;
+    color: $black;
+    &:hover {
+      background: $gray-100;
+    }
+    &:focus {
+      background: transparent;
+      border: 1px solid $white;
+      color: $white;
+    }
+  }
+  &-gradient {
+    background: linear-gradient(180deg, $green 0%, $blue 100%);
+    &:hover {
+      background: linear-gradient(100deg, $green 0%, $blue 100%);
+    }
+    &:focus {
+      background: transparent;
+      border: 1px solid $blue;
+      color: $blue;
+    }
+  }
+  &-black {
+    background: $black;
+    &:hover {
+      background: $gray-400;
+    }
+    &:focus {
+      background: transparent;
+      border: 1px solid $black;
+      color: $black;
+    }
+  }
+  &-transparent {
+    background: transparent;
+    color: inherit;
+    &:hover {
+      background: $gray-100;
+    }
+    &:focus {
+      background: transparent;
+      border: 1px solid $blue;
+      color: $blue;
+    }
   }
 }
 
@@ -193,7 +327,7 @@
     color: $dark-gray;
   }
   &-bold {
-    font-weight: bold;
+    font-family: $header-font;
   }
   &-italic {
     font-style: italic;
@@ -211,7 +345,10 @@
     font-size: 1.2em;
   }
   &-small {
-    font-size: 0.8em;
+    font-size: $font-size-sm;
+  }
+  &-xs {
+    font-size: $font-size-xs;
   }
 }
 
@@ -274,4 +411,25 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.font-size {
+  &-h1 {
+    font-size: $font-size-h1;
+  }
+  &-h2 {
+    font-size: $font-size-h2;
+  }
+  &-h3 {
+    font-size: $font-size-h3;
+  }
+  &-h4 {
+    font-size: $font-size-h4;
+  }
+  &-h5 {
+    font-size: $font-size-h5;
+  }
+  &-h6 {
+    font-size: $font-size-h6;
+  }
 }

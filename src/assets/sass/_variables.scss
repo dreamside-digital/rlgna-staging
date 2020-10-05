@@ -8,10 +8,10 @@
 
 @font-face {
   font-family: 'BMW Bold';
-  src: url('../fonts/bmwtypewebli_all.eot'); /* IE9 Compat Modes */
-  src: url('../fonts/bmwtypewebli_all.woff') format('woff'), /* Pretty Modern Browsers */
-       url('../fonts/bmwtypewebli_all.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('../fonts/bmwtypewebli_all.svg#bmw') format('svg'); /* Legacy iOS */
+  src: url('../fonts/bmwtypewebbo_all.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/bmwtypewebbo_all.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/bmwtypewebbo_all.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/bmwtypewebbo_all.svg#bmw') format('svg'); /* Legacy iOS */
 }
 
 /*------ All colours ------*/
@@ -43,7 +43,7 @@ $black: #000000;
 $primary-color: $blue;
 $secondary-color: $green;
 $tertiary-color: $dark-gray;
-$highlight-color: linear-gradient(180deg, $green 0%, $blue 100%);
+$highlight-color: linear-gradient(100deg, $green 0%, $blue 100%);
 $background-color: $medium-gray;
 
 
@@ -54,8 +54,14 @@ $header-font: 'BMW Bold', 'Helvetica', 'Arial', sans-serif;
 $title-font: 'BMW Bold', 'Helvetica', 'Arial', sans-serif;
 $font-size-base: 16px;
 
-$font-size-h1: '4rem';
-$font-size-h2: '3.2rem';
+$font-size-h1: calc(3rem + 1.1vw);
+$font-size-h2: calc(2.2rem + 1vw);
+$font-size-h3: calc(1.25rem + 0.5vw);
+$font-size-h4: calc(1.125rem + 0.25vw);
+$font-size-h5: 1.125rem;
+$font-size-h6: 1.125rem;
+$font-size-sm: 1rem;
+$font-size-xs: 0.9rem;
 
 
 /*------ Spacing ------*/

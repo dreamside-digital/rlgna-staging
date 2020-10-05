@@ -34,6 +34,10 @@ export const editorTheme = {
   actions: {
     ...theme.actions,
     backgroundColor: "#C34580",
+  },
+  button: {
+    ...theme.button,
+    padding: '2px'
   }
 };
 
