@@ -8,6 +8,7 @@ import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-
 import {
   updatePage,
   loadPageData,
+  validateAccessCode,
 } from "../redux/actions";
 
 import { uploadImage } from '../firebase/operations';
@@ -25,6 +26,9 @@ const mapDispatchToProps = dispatch => {
     onLoadPageData: data => {
       dispatch(loadPageData(data));
     },
+    validateAccessCode: (code) => {
+      dispatch(validateAccessCode(code));
+    },
   };
 };
 
@@ -32,6 +36,7 @@ const mapStateToProps = state => {
   return {
     pageData: state.page.data,
     isLoggedIn: state.adminTools.isLoggedIn,
+    accessGranted: state.adminTools.accessGranted,
   };
 };
 
@@ -39,6 +44,7 @@ class HomePage extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = { accessCode: '' }
     const initialPageData = {
       ...this.props.data.pages,
       content: JSON.parse(this.props.data.pages.content)
@@ -51,8 +57,49 @@ class HomePage extends React.Component {
     this.props.onUpdatePageData("home", id, content);
   };
 
+  onAccessCodeSubmit = e => {
+    e.preventDefault()
+    this.props.validateAccessCode(this.state.accessCode)
+    this.setState({ accessCode: '' })
+  }
+
   render() {
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
+    if (!this.props.accessGranted) {
+      return(
+        <Layout theme="gray" location={this.props.location}>
+          <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+            <section id="landing">
+              <Container maxWidth="lg">
+                <Grid container>
+                  <Grid item md={8}>
+                    <div className="mb-4">
+                      <h3 className="text-white text-bold">
+                        <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
+                      </h3>
+                    </div>
+                    <div className="">
+                      <h1 className="text-white"><EditableText content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
+                    </div>
+                  </Grid>
+                </Grid>
+                <Grid container justify="flex-end">
+                  <Grid item md={8}>
+                    <form onSubmit={this.onAccessCodeSubmit}>
+                      <div clasName="help-text">
+                        <label htmlFor="access-code">Access code</label>
+                      </div>
+                      <input type="text" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
+                      <input type="submit" />
+                    </form>
+                  </Grid>
+                </Grid>
+              </Container>
+            </section>
+          </EditableBackgroundImage>
+        </Layout>
+      )
+    }
 
     return (
       <Layout theme="gray" location={this.props.location}>
