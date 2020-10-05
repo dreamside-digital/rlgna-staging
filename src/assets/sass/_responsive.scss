@@ -1,9 +1,21 @@
 /* RESPONSIVE FOR TABLETS */
 
+@media (min-width: 992px) {
+  .navbar-item:not(.menu-item) {
+    display: block !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .menu-item {
+    display: block !important;
+  }
+}
+
 @media (max-width: 992px) {
   body .nl-page {
     h1 {
-      font-size: calc(22px + 1.5vw);
+      font-size: calc(22px + 2.5vw);
     }
 
     h2 {
@@ -73,6 +85,13 @@
 
       .title {
         text-align: center;
+      }
+    }
+
+    #intro {
+      .intro-text {
+        padding: 35px;
+        margin-top: 0;
       }
     }
 

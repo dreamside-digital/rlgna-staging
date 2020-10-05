@@ -16,6 +16,7 @@ import { uploadImage } from '../firebase/operations';
 import Layout from "../layouts/default.js";
 import Section from "../components/common/Section"
 import Gallery from "../components/common/Gallery"
+import Calendar from "../components/common/Calendar"
 
 
 const mapDispatchToProps = dispatch => {
@@ -108,13 +109,11 @@ class HomePage extends React.Component {
             <Container maxWidth="lg">
               <Grid container>
                 <Grid item md={8}>
-                  <div className="mb-4">
-                    <h3 className="text-white text-bold">
+                  <div className="landing-body">
+                    <h3 className="text-white">
                       <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
                     </h3>
-                  </div>
-                  <div className="">
-                    <h1 className="text-white"><EditableText content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
+                    <h1 className="text-white mt-0"><EditableParagraph content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
                   </div>
                 </Grid>
               </Grid>
@@ -124,27 +123,20 @@ class HomePage extends React.Component {
         <Section id="intro" className="position-relative">
           <Grid container className="title" justify="center">
             <Grid item md={10}>
-              <div className="bg-dark p-10 text-white mt--20">
+              <div className="intro-text">
                 <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
               </div>
             </Grid>
           </Grid>
         </Section>
         <Section id="program-elements">
-            <Grid container className="position-relative">
-              <Grid item md={8}>
-                <h2 className="max-width-200 text-white">
-                  <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
-                </h2>
-              </Grid>
-              <Grid item md={4} className="display-flex">
-                <div className="black-underline" />
-              </Grid>
-            </Grid>
-            <div className="program-box mt-15">
+          <h1>
+            <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
+          </h1>
+            <div className="program-box mt-5">
               <Grid container className="position-relative">
                 <Grid item md={4}>
-                  <h4 className="text-bold max-width-200">
+                  <h4 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-1"]} onSave={this.onSave("program-box-title-1")} />
                   </h4>
                   <h3>
@@ -152,17 +144,18 @@ class HomePage extends React.Component {
                   </h3>
                 </Grid>
                 <Grid item md={8}>
-                  <p className="text-dark">
+                  <p className="text-muted">
                     <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
                   </p>
                   <EditableParagraph content={content["program-box-desc-1"]} onSave={this.onSave("program-box-desc-1")} />
                 </Grid>
               </Grid>
+              <a href="#" className="zoom-link">Zoom Link</a>
             </div>
             <div className="program-box">
               <Grid container className="position-relative">
                 <Grid item md={4}>
-                  <h4 className="text-bold max-width-200">
+                  <h4 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-2"]} onSave={this.onSave("program-box-title-2")} />
                   </h4>
                   <h3>
@@ -180,7 +173,7 @@ class HomePage extends React.Component {
             <div className="program-box">
               <Grid container className="position-relative">
                 <Grid item md={4}>
-                  <h4 className="text-bold max-width-200">
+                  <h4 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-3"]} onSave={this.onSave("program-box-title-3")} />
                   </h4>
                   <h3>
@@ -198,7 +191,7 @@ class HomePage extends React.Component {
             <div className="program-box">
               <Grid container className="position-relative">
                 <Grid item md={4}>
-                  <h4 className="text-bold max-width-200">
+                  <h4 className="text-bold mt-2 mb-0">
                     <EditableText content={content["program-box-title-4"]} onSave={this.onSave("program-box-title-4")} />
                   </h4>
                   <h3>
@@ -239,11 +232,11 @@ class HomePage extends React.Component {
                 <EditableText content={content["open-space-title"]} onSave={this.onSave("open-space-title")} />
               </h2>
               <EditableParagraph content={content["open-space-description"]} onSave={this.onSave("open-space-description")} />
-              <p className="text-small">timezone info</p>
+              <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
             </Grid>
 
             <Grid item md={12}>
-              Calendar goes here
+              <Calendar content={content["open-space-events"]} onSave={this.onSave("open-space-events")} />
             </Grid>
           </Grid>
         </Section>
@@ -255,7 +248,7 @@ class HomePage extends React.Component {
                 <EditableText content={content["holding-space-title"]} onSave={this.onSave("holding-space-title")} />
               </h2>
               <EditableParagraph content={content["holding-space-description"]} onSave={this.onSave("holding-space-description")} />
-              <p className="text-small">timezone info</p>
+              <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
             </Grid>
 
             <Grid item md={12}>

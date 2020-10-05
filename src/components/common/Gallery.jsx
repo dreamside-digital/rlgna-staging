@@ -51,8 +51,6 @@ class Gallery extends React.Component {
 
   render() {
     let itemsKeys = Object.keys(this.props.content).reverse().slice(0, this.state.itemsToShow)
-    console.log('this.state.itemsToShow', this.state.itemsToShow)
-    console.log("itemsKeys", itemsKeys)
 
     return (
       <div className={`collection mt-6 ${this.props.classes}`}>
