@@ -409,6 +409,10 @@
   text-decoration: none !important;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .font-size {
   &-h1 {
     font-size: $font-size-h1;

@@ -55,6 +55,41 @@
       padding-bottom: 37px; /*footer height*/
     }
 
+    #program-elements {
+
+      .program-box {
+        padding: 24px 24px 100px;
+
+        &.is-large:after {
+          background-color: transparent !important;
+        }
+
+        .line {
+          left: auto;
+          right: 0;
+        }
+
+        .mid-dot {
+          left: auto;
+          right: -30px;
+
+          &.is-large {
+            left: auto;
+            height: 100px;
+            width: 100px;
+            border-radius: 50px;
+            top: calc(50% - 50px);
+            right: -50px;
+          }
+        }
+
+        .zoom-link {
+          width: 100%;
+          right: 0 !important;
+        }
+      }
+    }
+
     section, section.highlight {
       padding-top: 1rem;
       padding-bottom: 1rem;
@@ -115,4 +150,62 @@
       display: block;
     }
   }
+}
+
+.hide-on-small-only, .hide-on-small-and-down {
+  @media #{$small-and-down} {
+    display: none !important;
+  }
+}
+
+.hide-on-med-and-down {
+  @media #{$medium-and-down} {
+    display: none !important;
+  }
+}
+
+.hide-on-med-and-up {
+  @media #{$medium-and-up} {
+    display: none !important;
+  }
+}
+
+.hide-on-med-only {
+  @media only screen and (min-width: $small-screen) and (max-width: $medium-screen) {
+    display: none !important;
+  }
+}
+
+.hide-on-large-only {
+  @media #{$large-and-up} {
+    display: none !important;
+  }
+}
+
+.show-on-medium {
+  @media only screen and (min-width: $small-screen) and (max-width: $medium-screen) {
+    display: block !important;
+  }
+}
+
+.show-on-small {
+  @media #{$small-and-down} {
+    display: block !important;
+  }
+}
+
+.show-on-medium-and-up {
+  @media #{$medium-and-up} {
+    display: block !important;
+  }
+}
+
+.show-on-medium-and-down {
+  @media #{$medium-and-down} {
+    display: block !important;
+  }
+}
+
+.hide {
+  display: none !important;
 }

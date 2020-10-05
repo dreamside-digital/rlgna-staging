@@ -18,7 +18,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $header-font;
-  font-weight: normal;
+  font-weight: 300;
 }
 
 h1 {
@@ -84,7 +84,7 @@ body .nl-page {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1;
+    z-index: 3;
   }
 
   .navbar-items {
@@ -95,14 +95,25 @@ body .nl-page {
         margin-right: 24px;
         font-size: 1rem;
         border-bottom: 1px solid $black;
-        padding-bottom: 0;
-        transition: 100ms;
         text-decoration: none;
         color: $black;
         display: none;
+        position: relative;
+        padding-bottom: 3px;
 
-        &:hover {
-          padding-bottom: 5px;
+        &:after {
+          content: '';
+          width: 0;
+          height: 2px;
+          background-color: $gray-200;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: 300ms;
+        }
+
+        &:hover:after {
+          width: 100%;
         }
       }
   }
@@ -118,6 +129,7 @@ body .nl-page {
     left: 0;
     align-items: center;
     padding: 24px;
+    z-index: 4;
 
     .menu-item {
       font-size: 16px;
@@ -161,6 +173,7 @@ body .nl-page {
     h1 {
       margin: 0;
       line-height: 1.2;
+      color: $white;
     }
   }
 
@@ -206,6 +219,7 @@ body .nl-page {
 
   #intro {
     p {
+      font-size: 1em;
       margin-top: 0;
 
       &:last-child {
@@ -221,6 +235,9 @@ body .nl-page {
   }
 
   #program-elements {
+    overflow: hidden;
+    position: relative;
+
     h1 {
       margin: 0;
     }
@@ -242,9 +259,19 @@ body .nl-page {
 
     .program-box {
       background-color: white;
-      padding: 48px 64px 125px;
+      padding: 48px 128px 125px;
       margin-bottom: 24px;
       position: relative;
+
+      &.is-large:after {
+        content: '';
+        height: 100%;
+        width: 150px;
+        background-color: $white;
+        left: -150px;
+        top: 0;
+        position: absolute;
+      }
 
       h4 {
         font-size: calc(24px + 0.5vw);
@@ -254,23 +281,65 @@ body .nl-page {
         font-weight: 300;
       }
 
+      .line {
+        height: 300%;
+        width: 2px;
+        background-color: $blue;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        z-index: 1;
+      }
+
+      .mid-dot {
+        background: linear-gradient(to right, $blue, $green);
+        position: absolute;
+        height: 60px;
+        width: 60px;
+        border-radius: 30px;
+        top: calc(50% - 30px);
+        left: -30px;
+        z-index: 2;
+
+        &.is-large {
+          height: 150px;
+          width: 150px;
+          border-radius: 75px;
+          top: calc(50% - 75px);
+          left: -75px;
+        }
+
+        &.is-past {
+          background: $gray-400;
+        }
+      }
+
       .zoom-link {
         position: absolute;
         bottom: 0;
         right: 0;
         padding: 24px;
-        background-color: $gray-400;
+        background-color: $primary-color;
         color: $white;
         text-align: center;
         min-width: 300px;
         text-decoration: none;
         font-weight: 700;
+
+        &.is-large {
+          right: -150px;
+          min-width: 450px;
+        }
+
+        &.is-past {
+          background-color: $gray-400;
+        }
       }
     }
   }
 
   #logistics {
-    background: linear-gradient(90deg, $white 0%, $white 57%, $gray-600 57%, $gray-600 100%);
+    background: linear-gradient(90deg, $white 0%, $white 57%, $gray-400 57%, $gray-400 100%);
   }
 
   .gallery-item {
