@@ -29,7 +29,7 @@ const GalleryItemEditor = ({ content, onContentChange, classes }) => {
   }
 
   return(
-    <Card className={`gallery-item mb-4 ${classes}`} variant="outlined" square={true}>
+    <Card className={`gallery-item mb-4 ${classes}`} variant="outlined" square={true} raised={false} elevation={0}>
       <CardContent className="card-body">
         <div className="image">
           <ImageUploadEditor
@@ -117,7 +117,7 @@ const GalleryItem = props => {
       content={content}
       {...props}
     >
-      <Card className={`gallery-item mb-4 display-block ${props.classes}`} square={true} component="a" target="_blank" rel="noopener noreferrer" href={content["gallery-item-link"] ? content["gallery-item-link"]["link"] : "#"} onClick={handleClick}>
+      <Card className={`gallery-item mb-4 display-block ${props.classes}`} square={true} raised={false} elevation={0} component="a" target="_blank" rel="noopener noreferrer" href={content["gallery-item-link"] ? content["gallery-item-link"]["link"] : "#"} onClick={handleClick}>
         <div className="position-relative img-container">
           {
             Boolean(content["gallery-item-image"]) ?

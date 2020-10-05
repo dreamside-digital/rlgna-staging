@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import { Help } from '@material-ui/icons';
 import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
 
@@ -313,14 +314,26 @@ class HomePage extends React.Component {
                   </p>
                 </div>
               </Grid>
-
-              <Grid item md={5} style={{ background: '#3a3838'}}>
-                <div className="bg-dark text-white width-100 height-100 display-flex align-center link-area">
-                  <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
-                </div>
-              </Grid>
+              <Hidden smDown>
+                <Grid item md={5}>
+                  <div className="text-white width-100 height-100 display-flex align-center link-area">
+                    <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
+                  </div>
+                </Grid>
+              </Hidden>
             </Grid>
         </Section>
+          <Hidden mdUp>
+            <Section id="logistics-links" className="bg-dark">
+              <Grid container>
+                <Grid item xs={12}>
+                  <div className="bg-dark text-white width-100 height-100 display-flex align-center link-area">
+                    <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
+                  </div>
+                </Grid>
+              </Grid>
+            </Section>
+          </Hidden>
 
         <Section id="open-space-week">
           <Grid container>
@@ -358,7 +371,7 @@ class HomePage extends React.Component {
               <EditableParagraph classes="font-size-h4" content={content["gallery-description"]} onSave={this.onSave("gallery-description")} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
               <Gallery content={content["gallery-collection"]} onSave={this.onSave("gallery-collection")} />
             </Grid>
           </Grid>
@@ -385,12 +398,12 @@ class HomePage extends React.Component {
           <div className="mt-10 mb-5">Twitter Live Feed</div>
           <Grid container>
             <Grid item md={6}>
-              <div className="twitter-live-feed">
+              <div className="twitter-live-feed mb-4">
                 <EditableParagraph content={content["social-live-feed-1"]} onSave={this.onSave("social-live-feed-1")} />
               </div>
             </Grid>
             <Grid item md={6}>
-              <div className="twitter-live-feed">
+              <div className="twitter-live-feed mb-4">
                 <EditableParagraph content={content["social-live-feed-2"]} onSave={this.onSave("social-live-feed-2")} />
               </div>
             </Grid>
