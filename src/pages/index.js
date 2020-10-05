@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import { Help } from '@material-ui/icons';
 import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
 
 import {
@@ -71,7 +72,7 @@ class HomePage extends React.Component {
         <Layout theme="gray" location={this.props.location}>
           <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
             <section id="landing">
-              <Container maxWidth="lg">
+              <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                 <Grid container>
                   <Grid item md={8}>
                     <div className="mb-4">
@@ -86,12 +87,12 @@ class HomePage extends React.Component {
                 </Grid>
                 <Grid container justify="flex-end">
                   <Grid item md={8}>
-                    <form onSubmit={this.onAccessCodeSubmit}>
-                      <div clasName="help-text">
-                        <label htmlFor="access-code">Access code</label>
+                    <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex align-right justify-right">
+                      <div className="help-text text-white text-bold">
+                        <label htmlFor="access-code">Access code:<span id="help-icon" aria-label="Help text: Your access code was sent to you by email. Contact us if you need us to resend it."><Help /></span></label>
                       </div>
-                      <input type="text" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
-                      <input type="submit" />
+                      <input type="text" className="ml-2" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
+                      <input type="submit" value="Enter site" className="ml-2" />
                     </form>
                   </Grid>
                 </Grid>
@@ -106,15 +107,13 @@ class HomePage extends React.Component {
       <Layout theme="gray" location={this.props.location}>
         <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
                 <Grid item md={8}>
-                  <div className="landing-body">
-                    <h3 className="text-white">
-                      <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
-                    </h3>
-                    <h1 className="text-white mt-0"><EditableParagraph content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
-                  </div>
+                  <h3 className="text-white">
+                    <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
+                  </h3>
+                  <h1 className="text-white mt-0 pb-6"><EditableParagraph content={content["landing-title"]} onSave={this.onSave("landing-title")} /></h1>
                 </Grid>
               </Grid>
             </Container>
@@ -123,7 +122,7 @@ class HomePage extends React.Component {
         <Section id="intro" className="position-relative">
           <Grid container className="title" justify="center">
             <Grid item md={10}>
-              <div className="intro-text">
+              <div className="intro-text bg-dark">
                 <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
               </div>
             </Grid>
@@ -225,7 +224,7 @@ class HomePage extends React.Component {
           </Grid>
         </Section>
 
-        <Section id="open-space-week" className="text-white">
+        <Section id="open-space-week">
           <Grid container>
             <Grid item md={8}>
               <h2 className="text-bold">
@@ -241,7 +240,7 @@ class HomePage extends React.Component {
           </Grid>
         </Section>
 
-        <Section id="holding-space-week" className="text-white">
+        <Section id="holding-space-week">
           <Grid container>
             <Grid item md={8}>
               <h2 className="text-bold">
@@ -257,7 +256,7 @@ class HomePage extends React.Component {
           </Grid>
         </Section>
 
-        <Section id="gallery" className="text-white">
+        <Section id="gallery">
           <Grid container>
             <Grid item md={8} className="mb-4">
               <h2 className="text-bold">
