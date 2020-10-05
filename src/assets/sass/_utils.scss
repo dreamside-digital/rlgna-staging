@@ -413,6 +413,11 @@
   cursor: pointer;
 }
 
+.margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .font-size {
   &-h1 {
     font-size: $font-size-h1;
