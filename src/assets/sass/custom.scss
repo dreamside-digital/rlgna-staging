@@ -18,7 +18,7 @@ body .nl-page {
   }
 
   &.theme-gray {
-    background-color: $medium-gray;
+    background-color: $gray-theme;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -76,8 +76,8 @@ body .nl-page {
   }
 
   .navbar {
-    padding: 1rem;
-    background-color: $white;
+    padding: 0.75rem 1rem;
+    background-color: $gray-100;
     position: static;
     top: 0;
     width: 100%;
@@ -85,6 +85,54 @@ body .nl-page {
     justify-content: space-between;
     align-items: center;
   }
+
+  .navbar-items {
+    display: flex;
+    align-items: center;
+
+      .navbar-item {
+        margin-right: 24px;
+        font-size: 16px;
+        border-bottom: 1px solid $black;
+        padding-bottom: 0;
+        transition: 100ms;
+        text-decoration: none;
+        color: $black;
+        display: none;
+
+        &:hover {
+          padding-bottom: 5px;
+        }
+      }
+  }
+
+  .menu {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: $gray-100;
+    flex-direction: column;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    padding: 24px;
+
+    .menu-item {
+      font-size: 16px;
+      border-bottom: 1px solid $black;
+      padding-bottom: 0;
+      transition: 100ms;
+      text-decoration: none;
+      color: $black;
+      margin-bottom: 24px;
+    }
+
+    &.is-active {
+      display: flex;
+    }
+  }
+
 
   main {
     height: 100%;
@@ -104,19 +152,43 @@ body .nl-page {
     height: calc(100vh - 85px); /*navbar height*/
     position: relative;
 
-    .title {
+    .landing-body {
       position: absolute;
       bottom: 20%;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.2;
     }
   }
 
   #intro {
     p {
       font-size: 1.5em;
+      margin-top: 0;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .intro-text {
+      color: $white;
+      background-color: $gray-500;
+      padding: 50px;
+      margin-top: -100px;
     }
   }
 
   #program-elements {
+    h1 {
+      margin: 0;
+    }
+
     h2 {
       margin-bottom: 0;
     }
@@ -134,8 +206,9 @@ body .nl-page {
 
     .program-box {
       background-color: white;
-      padding: 48px 64px;
+      padding: 48px 64px 125px;
       margin-bottom: 24px;
+      position: relative;
 
       h4 {
         font-size: calc(24px + 0.5vw);
@@ -143,6 +216,19 @@ body .nl-page {
 
       h3 {
         font-weight: 300;
+      }
+
+      .zoom-link {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 24px;
+        background-color: $gray-400;
+        color: $white;
+        text-align: center;
+        min-width: 300px;
+        text-decoration: none;
+        font-weight: 700;
       }
     }
   }
@@ -212,23 +298,23 @@ body .nl-page {
   }
 
   .lightbox-container .overlay {
-      transition: all 0.3s ease-in;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      color: rgb(255, 255, 255);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: 700;
-      font-size: 20px;
-      cursor: pointer;
+    transition: all 0.3s ease-in;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
   }
 
   .lightbox-container .overlay:hover, .lightbox-container .overlay:focus {
-      opacity: 1;
+    opacity: 1;
   }
 
   &.admin-page {
@@ -246,7 +332,6 @@ body .nl-page {
 
   }
 }
-
 
 
 @import "responsive";
