@@ -14,6 +14,32 @@ export function userLoggedOut() {
   return { type: "USER_LOGGED_OUT" };
 }
 
+export function validateAccessCode(code) {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+
+    db.ref(`access_code`)
+      .once('value')
+      .then(snap => {
+        const correctCode = snap.val()
+
+        if (code === correctCode) {
+          dispatch(grantAccess());
+          dispatch(showNotification(`You're in! Enjoy the event.`));
+        } else {
+          dispatch(showNotification('That is not the correct access code. Please try again.'));
+        }
+      })
+      .catch(error => {
+        console.log("Error getting access code", error)
+      })
+  };
+}
+
+export function grantAccess() {
+  return { type: 'GRANT_ACCESS' }
+}
+
 // NOTIFICATIONS ------------------------
 
 export function showNotification(message, color="success") {

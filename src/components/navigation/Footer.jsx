@@ -8,10 +8,10 @@ const Footer = () => (
     <Container>
       <Grid container justify="space-between">
         <Grid item>
-          <p><a href="/">Privacy Policy</a></p>
+          <p className="m-0"><a href="https://bmw-foundation.org/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a></p>
         </Grid>
         <Grid item>
-          <p>For further questions, please <a href="/">contact our team</a>.</p>
+          <p className="m-0">For further questions, please <a href="mailto:example@bmw-foundation.org">contact our team</a>.</p>
         </Grid>
       </Grid>
     </Container>

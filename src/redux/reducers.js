@@ -14,6 +14,8 @@ export const adminTools = (state={}, action) => {
       return { ...state, isEditingPage: !state.isEditingPage }
     case 'TOGGLE_NEW_PAGE_MODAL':
       return { ...state, showNewPageModal: !state.showNewPageModal, options: action.options }
+    case 'GRANT_ACCESS':
+      return { ...state, accessGranted: true }
     default:
       return state
   }
