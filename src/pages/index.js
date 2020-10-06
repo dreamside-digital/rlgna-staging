@@ -86,7 +86,7 @@ class HomePage extends React.Component {
     if (!this.props.accessGranted) {
       return(
         <Layout theme="gray" location={this.props.location}>
-          <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+          <EditableBackgroundImage classes="animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
             <section id="landing">
               <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                 <Grid container>
@@ -121,7 +121,7 @@ class HomePage extends React.Component {
 
     return (
       <Layout theme="gray" location={this.props.location}>
-        <EditableBackgroundImage classes="animate__animated animate__fadeIn animate__delay-1s" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+        <EditableBackgroundImage classes="animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
