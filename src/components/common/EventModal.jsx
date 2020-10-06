@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button"
-import { DateTime } from "luxon";
 import slugify from 'slugify';
-
-
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -17,8 +14,20 @@ import {
 
 import TimezoneSelect from './TimezoneSelect'
 
+const emptyEvent = {
+  title: '',
+  host: '',
+  description: '',
+  rsvpUrl: '',
+  eventUrl: '',
+  date: null,
+  start: null,
+  end: null,
+  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+}
 
-const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
+
+const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) => {
   const [newEvent, updateEvent] = useState(event);
 
   const handleChange = key => event => {
@@ -37,7 +46,7 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
 
   const handleSaveEvent = () => {
     console.log(newEvent)
-    const date = newEvent.date.setZone(newEvent.timezone)
+    const date = newEvent.date.setZone(newEvent.timezone, { keepLocalTime: true })
     const start = date.set({ hour: newEvent.start.hour, minute: newEvent.start.minute })
     const end = date.set({ hour: newEvent.end.hour, minute: newEvent.end.minute })
 
@@ -55,9 +64,11 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
     const key = `${slugify(newEvent.host)}-${date}-${start}`
     const saveFunction = onSaveItem(key)
     saveFunction(data)
+    closeModal()
+    updateEvent(emptyEvent)
   }
 
-  const { title, host, description, date, start, end, timezone, rsvpUrl, eventUrl } = newEvent;
+  const { title, host, description, date, start, end, timezone, rsvpUrl, eventUrl, id } = newEvent;
 
   return (
     <Dialog open={showModal} onClose={closeModal} aria-labelledby="form-dialog-title" scroll="body">
@@ -165,7 +176,13 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel} color="primary">
+        {
+          id &&
+          <Button onClick={onDeleteItem(event.id)} color="primary">
+            Delete
+          </Button>
+        }
+        <Button onClick={closeModal} color="secondary">
           Cancel
         </Button>
         <Button onClick={handleSaveEvent} color="primary">
@@ -178,17 +195,7 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal }) => {
 
 EventModal.defaultProps = {
   onSaveItem: () => console.log("uh oh you're missing onSaveItem"),
-  event: {
-    title: '',
-    host: '',
-    description: '',
-    rsvpUrl: '',
-    eventUrl: '',
-    date: null,
-    start: null,
-    end: null,
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  },
+  event: emptyEvent,
   showModal: false
 }
 

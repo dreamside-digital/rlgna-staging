@@ -53,7 +53,7 @@ class Gallery extends React.Component {
     let itemsKeys = Object.keys(this.props.content).reverse().slice(0, this.state.itemsToShow)
 
     return (
-      <div className={`collection mt-6 ${this.props.classes}`}>
+      <div className={`collection width-100 mt-6 ${this.props.classes}`}>
         {
           this.props.isEditingPage &&
           <div className="row mb-4">
@@ -80,7 +80,7 @@ class Gallery extends React.Component {
           this.state.itemsToShow < this.state.totalItems &&
           <Grid container justify="center" className="mt-6">
             <Grid item>
-              <Button onClick={() => this.setState({ itemsToShow: this.state.itemsToShow + ITEM_NUMBER })}>Load more</Button>
+              <button className="btn" onClick={() => this.setState({ itemsToShow: this.state.itemsToShow + ITEM_NUMBER })}>Load more</button>
             </Grid>
           </Grid>
         }

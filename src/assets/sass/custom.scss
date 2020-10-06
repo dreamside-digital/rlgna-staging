@@ -49,6 +49,40 @@ a, button {
   cursor: pointer;
 }
 
+.pretty-link {
+  border: none;
+  border-bottom: 1px solid $black;
+  border-color: inherit;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  padding-bottom: 3px;
+  background: transparent;
+  padding-right: 0;
+  padding-left: 0;
+  outline: none;
+
+  &:after {
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: $gray-200;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: 300ms;
+  }
+
+  &:hover:after {
+    width: 100%;
+  }
+
+  &:focus:after {
+    width: 100%;
+    background-color: $primary-color;
+  }
+}
+
 .paragraph, p {
   font-family: $body-font;
 
@@ -115,12 +149,17 @@ body .nl-page {
         &:hover:after {
           width: 100%;
         }
+
+        &:focus:after {
+          width: 100%;
+          background-color: $primary-color;
+        }
       }
   }
 
   .menu {
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     background-color: $gray-100;
     flex-direction: column;
     display: none;
@@ -128,8 +167,9 @@ body .nl-page {
     top: 0;
     left: 0;
     align-items: center;
-    padding: 24px;
-    z-index: 4;
+    padding: 100px;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
 
     .menu-item {
       font-size: 16px;
@@ -286,7 +326,7 @@ body .nl-page {
         width: 2px;
         background-color: $blue;
         position: absolute;
-        left: 0;
+        left: -2px;
         top: 50%;
         z-index: 1;
       }
@@ -298,7 +338,7 @@ body .nl-page {
         width: 60px;
         border-radius: 30px;
         top: calc(50% - 30px);
-        left: -30px;
+        left: -31px;
         z-index: 2;
 
         &.is-large {
@@ -314,13 +354,10 @@ body .nl-page {
         }
       }
 
-      .zoom-link {
+      .program-link {
         position: absolute;
         bottom: 0;
         right: 0;
-        padding: 24px;
-        background-color: $primary-color;
-        color: $white;
         text-align: center;
         min-width: 300px;
         text-decoration: none;
@@ -329,10 +366,6 @@ body .nl-page {
         &.is-large {
           right: -150px;
           min-width: 450px;
-        }
-
-        &.is-past {
-          background-color: $gray-400;
         }
       }
     }
@@ -360,6 +393,8 @@ body .nl-page {
       background: $gray-200;
       color: $gray-500;
       margin: 2px;
+      width: 100%;
+      cursor: pointer;
 
       &:first-of-type {
         margin-left: 0;

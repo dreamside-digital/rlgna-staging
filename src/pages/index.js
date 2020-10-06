@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import { Help } from '@material-ui/icons';
-import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
+import { EditableText, EditableParagraph, EditableBackgroundImage, EditableLink } from "react-easy-editables";
 
 import {
   updatePage,
@@ -82,6 +82,7 @@ class HomePage extends React.Component {
 
   render() {
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
+
     if (!this.props.accessGranted) {
       return(
         <Layout theme="gray" location={this.props.location}>
@@ -120,7 +121,7 @@ class HomePage extends React.Component {
 
     return (
       <Layout theme="gray" location={this.props.location}>
-        <EditableBackgroundImage content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+        <EditableBackgroundImage classes="animate__animated animate__fadeIn animate__delay-1s" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
@@ -138,22 +139,35 @@ class HomePage extends React.Component {
             </Container>
           </section>
         </EditableBackgroundImage>
-        <Section id="intro" className="position-relative">
-          <Grid container className="title" justify="center">
-            <Grid item xs={12} sm={10} md={9} lg={8}>
-              <div className="intro-text bg-dark font-size-h4">
-                <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
-              </div>
+        <Hidden mdUp>
+          <Section id="intro" className={`position-relative bg-dark`}>
+            <Grid container className="title" justify="center">
+              <Grid item xs={12} sm={10} md={9} lg={8} data-aos="fade-up" >
+                <div className="intro-text bg-dark font-size-h4">
+                  <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-        </Section>
+          </Section>
+        </Hidden>
+        <Hidden smDown>
+          <Section id="intro" className={`position-relative bg-light`}>
+            <Grid container className="title" justify="center">
+              <Grid item xs={12} sm={10} md={9} lg={8} data-aos="fade-up" >
+                <div className="intro-text bg-dark font-size-h4">
+                  <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
+                </div>
+              </Grid>
+            </Grid>
+          </Section>
+        </Hidden>
         <Section id="program-elements">
           <h2>
             <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
           </h2>
-            <div className="program-box mt-5">
+            <div className="program-box mt-5" data-aos="fade-right">
               <Grid container className="position-relative">
-                <Grid item md={4} sm={12}>
+                <Grid item md={4} xs={12}>
                   <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow1: !this.state.programElementsShow1 })}>
                     {
                       !this.state.programElementsShow1 &&
@@ -171,27 +185,30 @@ class HomePage extends React.Component {
                   <p className="text-muted hide-on-large-only">
                     <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
                   </p>
-                  <h3 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-6">
                     <EditableText content={content["program-box-title-1"]} onSave={this.onSave("program-box-title-1")} />
                   </h3>
                   <div className="font-size-h6">
                     <EditableText content={content["program-box-date-1"]} onSave={this.onSave("program-box-date-1")} />
                   </div>
                 </Grid>
-                <Grid item md={8} sm={11} className={this.state.programElementsShow1 ? '' : 'hide-on-med-and-down'}>
+                <Grid item md={8} xs={11} className={this.state.programElementsShow1 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-muted hide-on-med-and-down">
                     <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
                   </p>
                   <EditableParagraph content={content["program-box-desc-1"]} onSave={this.onSave("program-box-desc-1")} />
                 </Grid>
               </Grid>
-              <a href="#" className="zoom-link is-past">Zoom Link</a>
+              <div className="program-link">
+                <EditableLink classes="btn btn-lg btn-gray" content={content["program-box-link-1"]} onSave={this.onSave("program-box-link-1")} />
+              </div>
               <div className='mid-dot is-past' />
               <div className='line' />
             </div>
-            <div className="program-box is-large">
+
+            <div className="program-box is-large" data-aos="fade-right">
               <Grid container className="position-relative">
-                <Grid item md={4} sm={12}>
+                <Grid item md={4} xs={12}>
                   <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow2: !this.state.programElementsShow2 })}>
                     {
                       !this.state.programElementsShow2 &&
@@ -209,26 +226,29 @@ class HomePage extends React.Component {
                   <p className="text-blue hide-on-large-only">
                     <EditableText content={content["program-box-state-2"]} onSave={this.onSave("program-box-state-2")} />
                   </p>
-                  <h3 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-6">
                     <EditableText content={content["program-box-title-2"]} onSave={this.onSave("program-box-title-2")} />
                   </h3>
                   <div className="font-size-h6">
                     <EditableText content={content["program-box-date-2"]} onSave={this.onSave("program-box-date-2")} />
                   </div>
                 </Grid>
-                <Grid item md={8} sm={11} className={this.state.programElementsShow2 ? '' : 'hide-on-med-and-down'}>
+                <Grid item md={8} xs={11} className={this.state.programElementsShow2 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-blue hide-on-med-and-down">
                     <EditableText content={content["program-box-state-2"]} onSave={this.onSave("program-box-state-2")} />
                   </p>
                   <EditableParagraph content={content["program-box-desc-2"]} onSave={this.onSave("program-box-desc-2")} />
                 </Grid>
               </Grid>
-              <a href="#open-space-week" className="zoom-link is-large" onClick={this.handleClick}>Full Schedule</a>
+              <div className="program-link is-large">
+                <EditableLink classes="btn btn-lg" content={content["program-box-link-2"]} onSave={this.onSave("program-box-link-2")} />
+              </div>
               <div className='mid-dot is-large' />
             </div>
-            <div className="program-box">
+
+            <div className="program-box" data-aos="fade-right">
               <Grid container className="position-relative">
-                <Grid item md={4}  sm={12}>
+                <Grid item md={4}  xs={12}>
                   <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow3: !this.state.programElementsShow3 })}>
                     {
                       !this.state.programElementsShow3 &&
@@ -246,26 +266,29 @@ class HomePage extends React.Component {
                   <p className="text-blue hide-on-large-only">
                     <EditableText content={content["program-box-state-3"]} onSave={this.onSave("program-box-state-3")} />
                   </p>
-                  <h3 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-6">
                     <EditableText content={content["program-box-title-3"]} onSave={this.onSave("program-box-title-3")} />
                   </h3>
                   <div className="font-size-h6">
                     <EditableText content={content["program-box-date-3"]} onSave={this.onSave("program-box-date-3")} />
                   </div>
                 </Grid>
-                <Grid item md={8} sm={11} className={this.state.programElementsShow3 ? '' : 'hide-on-med-and-down'}>
+                <Grid item md={8} xs={11} className={this.state.programElementsShow3 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-blue hide-on-med-and-down">
                     <EditableText content={content["program-box-state-3"]} onSave={this.onSave("program-box-state-3")} />
                   </p>
                   <EditableParagraph content={content["program-box-desc-3"]} onSave={this.onSave("program-box-desc-3")} />
                 </Grid>
               </Grid>
-              <a href="#" className="zoom-link">Reach Out To Us Here</a>
+              <div className="program-link">
+                <EditableLink classes="btn btn-lg" content={content["program-box-link-3"]} onSave={this.onSave("program-box-link-3")} />
+              </div>
               <div className='mid-dot' />
             </div>
-            <div className="program-box">
+
+            <div className="program-box" data-aos="fade-right">
               <Grid container className="position-relative">
-                <Grid item md={4}  sm={12}>
+                <Grid item md={4}  xs={12}>
                   <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow4: !this.state.programElementsShow4 })}>
                     {
                       !this.state.programElementsShow4 &&
@@ -283,21 +306,23 @@ class HomePage extends React.Component {
                   <p className="text-blue hide-on-large-only">
                     <EditableText content={content["program-box-state-4"]} onSave={this.onSave("program-box-state-4")} />
                   </p>
-                  <h3 className="text-bold mt-2 mb-0">
+                  <h3 className="text-bold mt-2 mb-6">
                     <EditableText content={content["program-box-title-4"]} onSave={this.onSave("program-box-title-4")} />
                   </h3>
                   <div className="font-size-h6">
                     <EditableText content={content["program-box-date-4"]} onSave={this.onSave("program-box-date-4")} />
                   </div>
                 </Grid>
-                <Grid item md={8} sm={11} className={this.state.programElementsShow4 ? '' : 'hide-on-med-and-down'}>
+                <Grid item md={8} xs={11} className={this.state.programElementsShow4 ? '' : 'hide-on-med-and-down'}>
                   <p className="text-blue hide-on-med-and-down">
                     <EditableText content={content["program-box-state-4"]} onSave={this.onSave("program-box-state-4")} />
                   </p>
                   <EditableParagraph content={content["program-box-desc-4"]} onSave={this.onSave("program-box-desc-4")} />
                 </Grid>
               </Grid>
-              <a href="#" className="zoom-link">Zoom Link</a>
+              <div className="program-link">
+                <EditableLink classes="btn btn-lg" content={content["program-box-link-4"]} onSave={this.onSave("program-box-link-4")} />
+              </div>
               <div className='mid-dot' />
             </div>
         </Section>
@@ -371,9 +396,9 @@ class HomePage extends React.Component {
               <EditableParagraph classes="font-size-h4" content={content["gallery-description"]} onSave={this.onSave("gallery-description")} />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Gallery content={content["gallery-collection"]} onSave={this.onSave("gallery-collection")} />
-            </Grid>
+
+            <Gallery content={content["gallery-collection"]} onSave={this.onSave("gallery-collection")} />
+
           </Grid>
         </Section>
 
@@ -390,7 +415,7 @@ class HomePage extends React.Component {
 
             <Grid item md={12}>
               <div className="mt-10 mb-5">Featured Tweet</div>
-              <div className="margin-center max-width-600">
+              <div className="margin-center max-width-600" data-aos="fade-up">
                 <EditableParagraph classes="font-size-h4" content={content["social-featured-tweet"]} onSave={this.onSave("social-featured-tweet")} />
               </div>
             </Grid>
@@ -398,12 +423,12 @@ class HomePage extends React.Component {
           <div className="mt-10 mb-5">Twitter Live Feed</div>
           <Grid container>
             <Grid item md={6}>
-              <div className="twitter-live-feed mb-4">
+              <div className="twitter-live-feed mb-4" data-aos="fade-up">
                 <EditableParagraph content={content["social-live-feed-1"]} onSave={this.onSave("social-live-feed-1")} />
               </div>
             </Grid>
             <Grid item md={6}>
-              <div className="twitter-live-feed mb-4">
+              <div className="twitter-live-feed mb-4" data-aos="fade-up" data-aos-delay={200}>
                 <EditableParagraph content={content["social-live-feed-2"]} onSave={this.onSave("social-live-feed-2")} />
               </div>
             </Grid>

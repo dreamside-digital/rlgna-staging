@@ -7,11 +7,26 @@ import LuxonUtils from '@date-io/luxon';
 import { DateTime } from "luxon";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { EditorWrapper,EditablesContext, theme } from 'react-easy-editables'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import Event from "./Event"
 import EventModal from './EventModal'
 
 const luxon = new LuxonUtils()
+
+const muiTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: theme.primaryColor,
+    }
+  },
+  typography: {
+    fontFamily: theme.fontFamily,
+    fontSize: theme.fontSize
+  }
+})
+
 
 const EVENT_DAYS = [
   { date: DateTime.local(2020,10,26), events: [] },
@@ -78,19 +93,16 @@ class Calendar extends React.Component {
     const eventArray = eventKeys.map(key => ({...this.props.content[key], id: key, startDate: DateTime.fromISO(this.props.content[key]['startDate'])}))
     const schedule = EVENT_DAYS.map(day => {
       const events = eventArray.filter(event => luxon.isSameDay(event.startDate, day.date))
-      console.log(events)
       events.sort((a, b) => a.startDate - b.startDate)
       return { ...day, events: events }
     })
-
-    console.log("schedule", schedule)
 
     this.setState({ schedule: schedule })
   }
 
   render() {
-    const itemsKeys = Object.keys(this.props.content).reverse()
-    const { showModal } = this.state;
+    const { showModal, editingEvent } = this.state;
+    console.log("this.state", this.state)
 
     return (
       <MuiPickersUtilsProvider utils={LuxonUtils}>
@@ -106,22 +118,34 @@ class Calendar extends React.Component {
           <Hidden smDown>
             <Grid container justify="space-between">
               {
-                this.state.schedule.map(day => {
+                this.state.schedule.map((day, index) => {
                   const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
                   const weekday = day.date.toLocaleString({ weekday: 'long' })
 
                   return (
                     <Grid item xs={2}>
-                      <div className="events-column">
+                      <div className="events-column" data-aos="fade-up" data-aos-delay={100*index}>
                         <div className="date-label bg-blue text-white text-center p-4">
                           <div className="text-bold">{dateString}</div>
                           <div className="text-uppercase">{weekday}</div>
                         </div>
                         {
                           day.events.map(event => {
-                            return(
-                              <Event content={event} key={event.id} />
-                            )
+                            if (this.props.isEditingPage) {
+                              return(
+                                <ThemeProvider theme={muiTheme} key={event.id}>
+                                  <EditorWrapper
+                                    theme={this.context.theme}
+                                    startEditing={() => this.setState({ showModal: true, editingEvent: event })}
+                                    isContentClickTarget={false}
+                                  >
+                                    <Event content={event} />
+                                  </EditorWrapper>
+                                </ThemeProvider>
+                              )
+                            } else {
+                              return <Event content={event} key={event.id} />
+                            }
                           })
                         }
                       </div>
@@ -139,10 +163,8 @@ class Calendar extends React.Component {
                     {
                       this.state.schedule.map(day => {
                         const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
-                        const weekday = day.date.toLocaleString({ weekday: 'long' })
-
                         return (
-                          <Tab className='tabs-item text-bold p-3 text-xs text-center'>{dateString}</Tab>
+                          <Tab key={day.date} className='tabs-item text-bold p-3 text-xs text-center'>{dateString}</Tab>
                         )
                       })
                     }
@@ -153,11 +175,15 @@ class Calendar extends React.Component {
                       return (
                         <TabPanel className='tab-content'>
                           {
-                            day.events.map(event => {
+                            (day.events.length === 0) ?
+                            <div>
+                              <p className="text-center">No events scheduled today</p>
+                            </div> :
+                            (day.events.map(event => {
                               return(
                                 <Event content={event} key={event.id} />
                               )
-                            })
+                            }))
                           }
                         </TabPanel>
                       )
@@ -169,15 +195,19 @@ class Calendar extends React.Component {
 
           </Hidden>
           <EventModal
+            event={editingEvent}
             onSaveItem={this.onSaveItem}
             showModal={showModal}
-            closeModal={() => this.setState({ showModal: false })}
+            closeModal={() => this.setState({ showModal: false, event: null })}
+            onDeleteItem={this.onDeleteItem}
           />
         </div>
       </MuiPickersUtilsProvider>
     );
   }
 }
+
+Calendar.contextType = EditablesContext;
 
 Calendar.defaultProps = {
   content: {},

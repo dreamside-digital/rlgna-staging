@@ -7,11 +7,11 @@ const Footer = () => (
   <footer>
     <Container>
       <Grid container justify="space-between">
-        <Grid item>
-          <p className="m-0"><a href="https://bmw-foundation.org/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a></p>
+        <Grid item xs={6}>
+          <p className="m-0"><a href="https://bmw-foundation.org/privacy-policy/" target="_blank" rel="noopener noreferrer" className="pretty-link">Privacy Policy</a></p>
         </Grid>
-        <Grid item>
-          <p className="m-0">For further questions, please <a href="mailto:example@bmw-foundation.org">contact our team</a>.</p>
+        <Grid item xs={6}>
+          <p className="m-0 text-right">For further questions, please <a href="mailto:example@bmw-foundation.org" className="pretty-link">contact our team</a>.</p>
         </Grid>
       </Grid>
     </Container>

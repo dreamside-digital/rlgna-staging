@@ -3,6 +3,7 @@ import { StaticQuery, graphql } from "gatsby"
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
 import withRoot from '../utils/withRoot';
+import AOS from 'aos';
 
 import Notification from "../components/notifications/Notification";
 import AccountButton from "../components/navigation/AccountButton"
@@ -21,6 +22,8 @@ import {
 
 import "../assets/sass/less-cms/base.scss";
 import "../assets/sass/custom.scss";
+import "aos/dist/aos.css"
+import "animate.css/animate.css"
 
 import favicon from '../assets/images/icon.png'
 
@@ -72,6 +75,7 @@ const mapDispatchToProps = dispatch => {
 class DefaultLayout extends React.Component {
   componentDidMount() {
     this.props.setPages(this.props.allPages)
+    AOS.init()
   }
 
   render() {

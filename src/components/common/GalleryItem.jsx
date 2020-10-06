@@ -117,8 +117,18 @@ const GalleryItem = props => {
       content={content}
       {...props}
     >
-      <Card className={`gallery-item mb-4 display-block ${props.classes}`} square={true} raised={false} elevation={0} component="a" target="_blank" rel="noopener noreferrer" href={content["gallery-item-link"] ? content["gallery-item-link"]["link"] : "#"} onClick={handleClick}>
-        <div className="position-relative img-container">
+      <Card
+        className={`gallery-item mb-4 display-block ${props.classes}`}
+        square={true}
+        raised={false}
+        elevation={0}
+        component="a"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={content["gallery-item-link"] ? content["gallery-item-link"]["link"] : "#"}
+        onClick={handleClick}
+      >
+        <div className="position-relative img-container bg-gradient">
           {
             Boolean(content["gallery-item-image"]) ?
             <CardMedia

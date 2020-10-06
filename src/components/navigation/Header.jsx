@@ -41,7 +41,7 @@ class Header extends React.Component {
 
   menu = () => {
     return (
-      <div className={`menu ${this.state.menuIsOpen ? 'is-active' : ''}`}>
+      <div className={`menu animate__animated animate__slideInDown ${this.state.menuIsOpen ? 'is-active' : ''}`}>
         <a className='menu-item' href="#intro" onClick={this.handleClick}>Introduction</a>
         <a className='menu-item' href="#program-elements" onClick={this.handleClick}>Program Elements</a>
         <a className='menu-item' href="#logistics" onClick={this.handleClick}>Virtual Logistics</a>
@@ -62,7 +62,7 @@ class Header extends React.Component {
           this.props.accessGranted &&
           <React.Fragment>
           <div className='navbar-items'>
-            <a className='navbar-item menu-item' href="#menu" onClick={this.toggleMenu}>Menu</a>
+            <a className='navbar-item menu-item' href="#menu" onClick={this.toggleMenu}>{this.state.menuIsOpen ? 'Close' : 'Menu'}</a>
             <a className='navbar-item' href="#intro" onClick={this.handleClick}>Introduction</a>
             <a className='navbar-item' href="#program-elements" onClick={this.handleClick}>Program Elements</a>
             <a className='navbar-item' href="#logistics" onClick={this.handleClick}>Virtual Logistics</a>

@@ -179,20 +179,23 @@
   color: $white;
   text-decoration: none;
   outline: none;
-  transition: all 0.5s ease-in-out;
+  display: block;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
     background: darken($primary-color, 10%);
   }
 
   &:focus {
-    background: transparent;
-    border: 1px solid $primary-color;
-    color: $primary-color;
+    background: $gray-600;
   }
 
   &-sm {
     padding: 0.4rem 0.6rem;
+  }
+
+  &-lg {
+    padding: 1.5rem 3rem;
   }
 
   &-blue {
@@ -203,9 +206,7 @@
     }
 
     &:focus {
-      background: transparent;
-    border: 1px solid $blue;
-    color: $blue;
+      background: $gray-600;
     }
   }
 
@@ -213,11 +214,6 @@
     background: $green;
     &:hover {
       background: darken($green, 10%);
-    }
-    &:focus {
-      background: transparent;
-    border: 1px solid $green;
-    color: $green;
     }
   }
 
@@ -227,9 +223,7 @@
       background: darken($dark-gray, 10%);
     }
     &:focus {
-      background: transparent;
-    border: 1px solid $dark-gray;
-    color: $dark-gray;
+      background: $black;
     }
   }
 
@@ -240,20 +234,16 @@
       background: darken($light-gray, 10%);
     }
     &:focus {
-      background: transparent;
-    border: 1px solid $light-gray;
-    color: $light-gray;
+      background: $gray-theme;
     }
   }
   &-gray {
-    background: $gray-theme;
+    background: $gray-300;
     &:hover {
-      background: $gray-300;
+      background: $gray-400;
     }
     &:focus {
-      background: transparent;
-      border: 1px solid $gray-theme;
-      color: $gray-theme;
+      background: $gray-600;
     }
   }
   &-white {
@@ -263,9 +253,7 @@
       background: $gray-100;
     }
     &:focus {
-      background: transparent;
-      border: 1px solid $white;
-      color: $white;
+      background: $gray-200;
     }
   }
   &-gradient {
@@ -274,20 +262,13 @@
       background: linear-gradient(100deg, $green 0%, $blue 100%);
     }
     &:focus {
-      background: transparent;
-      border: 1px solid $blue;
-      color: $blue;
+      background: linear-gradient(100deg, $blue 0%, $green 100%);
     }
   }
   &-black {
     background: $black;
     &:hover {
       background: $gray-400;
-    }
-    &:focus {
-      background: transparent;
-      border: 1px solid $black;
-      color: $black;
     }
   }
   &-transparent {
