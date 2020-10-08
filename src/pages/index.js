@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import { EditableText, EditableParagraph, EditableBackgroundImage, EditableLink } from "react-easy-editables";
+import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
 
 import {
   updatePage,
@@ -86,7 +86,12 @@ class HomePage extends React.Component {
     if (!this.props.accessGranted) {
       return(
         <Layout theme="gray" location={this.props.location}>
-          <EditableBackgroundImage classes="animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+          <EditableBackgroundImage
+            classes="header-bg-image animate__animated animate__fadeIn"
+            content={content["landing-bg-image"]}
+            onSave={this.onSave("landing-bg-image")}
+            uploadImage={uploadImage}
+          >
             <section id="landing">
               <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                 <Grid container>
@@ -121,7 +126,7 @@ class HomePage extends React.Component {
 
     return (
       <Layout theme="gray" location={this.props.location}>
-        <EditableBackgroundImage classes="animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+        <EditableBackgroundImage classes="header-bg-image animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
@@ -215,7 +220,10 @@ class HomePage extends React.Component {
             </Grid>
 
             <Grid item xs={12}>
-              <Calendar content={content["open-space-events"]} onSave={this.onSave("open-space-events")} />
+              <Calendar
+                content={content["open-space-events"]}
+                onSave={this.onSave("open-space-events")}
+              />
             </Grid>
           </Grid>
         </Section>

@@ -5,7 +5,9 @@ import timezones from '../../utils/timezone-names.js';
 
 export default class TimeZoneSelect extends Component {
   componentDidMount() {
-    this.detectTimeZone()
+    if (!this.props.value) {
+      this.detectTimeZone()
+    }
   }
 
   onChange = (selected) => {

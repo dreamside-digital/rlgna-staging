@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button"
 import slugify from 'slugify';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -29,6 +30,18 @@ const emptyEvent = {
 
 const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) => {
   const [newEvent, updateEvent] = useState(event);
+
+  useEffect(() => {
+    if (Boolean(event.id)) {
+      const eventCopy = {
+        ...event,
+        date: event.startDate.setZone(event.timezone),
+        start: event.startDate.setZone(event.timezone),
+        end: event.endDate.setZone(event.timezone),
+      }
+      updateEvent(eventCopy)
+    }
+  }, event)
 
   const handleChange = key => event => {
     const value = event.currentTarget.value
@@ -59,14 +72,21 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
       startDate: start.toISO(),
       endDate: end.toISO(),
     }
-    const key = `${slugify(newEvent.host)}-${date}-${start}`
-    const saveFunction = onSaveItem(key)
+    const id = newEvent.id ? newEvent.id : `${slugify(newEvent.host)}-${date}-${start}`
+    const saveFunction = onSaveItem(id)
     saveFunction(data)
     closeModal()
     updateEvent(emptyEvent)
   }
 
+  const handleDeleteEvent = () => {
+    onDeleteItem(newEvent.id)()
+    closeModal()
+    updateEvent(emptyEvent)
+  }
+
   const { title, host, description, date, start, end, timezone, rsvpUrl, eventUrl, id } = newEvent;
+
 
   return (
     <Dialog open={showModal} onClose={closeModal} aria-labelledby="form-dialog-title" scroll="body">
@@ -174,18 +194,26 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
         </div>
       </DialogContent>
       <DialogActions>
-        {
-          id &&
-          <Button onClick={onDeleteItem(event.id)} color="primary">
-            Delete
-          </Button>
-        }
-        <Button onClick={closeModal} color="secondary">
-          Cancel
-        </Button>
-        <Button onClick={handleSaveEvent} color="primary">
-          Save
-        </Button>
+        <div className="pr-3 pl-3 pb-2 width-100">
+          <Grid container justify="space-between">
+            <Grid item>
+            {
+              id &&
+              <Button onClick={handleDeleteEvent} color="secondary">
+                Delete
+              </Button>
+            }
+            </Grid>
+            <Grid item>
+              <Button onClick={closeModal} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={handleSaveEvent} color="primary">
+                Save
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
       </DialogActions>
     </Dialog>
   );

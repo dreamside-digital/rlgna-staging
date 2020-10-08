@@ -1,18 +1,12 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import { connect } from "react-redux";
 import { filter, find } from 'lodash'
 import Container from "@material-ui/core/Container"
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowUp from '@material-ui/icons/KeyboardArrowUp';
-import ArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import DeleteForever from '@material-ui/icons/DeleteForever';
 
 import Layout from '../layouts/default';
 import ProtectedPage from "../layouts/protected-page"
 
-import { PERMANENT_PAGES, LANGUAGE_OPTIONS } from "../utils/constants"
+import { LANGUAGE_OPTIONS } from "../utils/constants"
 
 import {
   fetchPages,
@@ -43,6 +37,8 @@ const mapStateToProps = state => {
 };
 
 class AdminPage extends React.Component {
+  state = { accessCode: ''}
+
   componentDidMount() {
     this.props.fetchPages()
   }
@@ -149,8 +145,6 @@ class AdminPage extends React.Component {
       Object.keys(page.translations).forEach(lang => {
         if (page.translations[lang]) {
           const translatedPageId = page.translations[lang].id
-          console.log("translatedPageId", translatedPageId)
-          console.log("page.lang", page.lang)
           dataToUpdate[`pages/${translatedPageId}/translations/${page.lang}`] = null
         }
       })
@@ -161,6 +155,13 @@ class AdminPage extends React.Component {
   onSaveTranslationChanges = (translation, translationId, lang) => newContent => {
     const newTranslation = { ...translation, [lang]: newContent.text, id: translationId }
     this.props.updateTranslation(newTranslation)
+  }
+
+  updateAccessCode = (e) => {
+    e.preventDefault()
+    const { accessCode } = this.state;
+    this.props.updateFirebaseData({ access_code: accessCode })
+    this.setState({ accessCode: '' })
   }
 
   render() {
@@ -186,6 +187,16 @@ class AdminPage extends React.Component {
           </Container>
 
           <Container>
+            <h2>Access Code</h2>
+            <div className="my-40">
+              <form onSubmit={this.updateAccessCode} autoComplete="off" className="login-form mt-10 mb-6 display-flex">
+                <input type="text" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} value={this.state.accessCode} />
+                <input type="submit" value="Update access code" className="btn ml-2" />
+              </form>
+            </div>
+          </Container>
+
+          {/*<Container>
             <h2>Page Order</h2>
             <div className="my-40">
               {
@@ -211,26 +222,27 @@ class AdminPage extends React.Component {
               }
             </div>
           </Container>
+          */}
+
+          {/*<Container>
+              <h2>Uncategorized Pages</h2>
+              <div className="my-40">
+                {
+                  unorderedPages.map(page => {
+                    return(
+                      <div className="ranked-item" key={page.id}>
+                        <IconButton size="small" color="primary" onClick={this.deletePage(page)} disabled={PERMANENT_PAGES.includes(page.id)}><DeleteForever /></IconButton>
+                        <span className="ml-3"><Link to={page.slug}>{page.title}</Link></span>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </Container>*/}
 
           <Container>
-            <h2>Uncategorized Pages</h2>
-            <div className="my-40">
-              {
-                unorderedPages.map(page => {
-                  return(
-                    <div className="ranked-item" key={page.id}>
-                      <IconButton size="small" color="primary" onClick={this.deletePage(page)} disabled={PERMANENT_PAGES.includes(page.id)}><DeleteForever /></IconButton>
-                      <span className="ml-3"><Link to={page.slug}>{page.title}</Link></span>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </Container>
-
-          <Container>
-            <div className="my-40">
-              <Button onClick={this.props.deploy} variant="contained" color="primary">Publish changes</Button>
+            <div className="mt-10 mb-10">
+              <button onClick={this.props.deploy} className="btn">Publish changes</button>
             </div>
           </Container>
         </ProtectedPage>
