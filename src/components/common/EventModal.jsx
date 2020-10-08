@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button"
 import slugify from 'slugify';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { DateTime } from "luxon";
 import {
   KeyboardTimePicker,
   KeyboardDatePicker,
@@ -29,6 +31,19 @@ const emptyEvent = {
 
 const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) => {
   const [newEvent, updateEvent] = useState(event);
+  const [editing, setEditing] = useState(false)
+
+  useEffect(() => {
+    if (Boolean(event.id)) {
+      const eventCopy = {
+        ...event,
+        date: event.startDate.setZone(event.timezone),
+        start: event.startDate.setZone(event.timezone),
+        end: event.endDate.setZone(event.timezone),
+      }
+      updateEvent(eventCopy)
+    }
+  }, event)
 
   const handleChange = key => event => {
     const value = event.currentTarget.value
@@ -45,7 +60,6 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
   }
 
   const handleSaveEvent = () => {
-    console.log(newEvent)
     const date = newEvent.date.setZone(newEvent.timezone, { keepLocalTime: true })
     const start = date.set({ hour: newEvent.start.hour, minute: newEvent.start.minute })
     const end = date.set({ hour: newEvent.end.hour, minute: newEvent.end.minute })
@@ -60,15 +74,22 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
       startDate: start.toISO(),
       endDate: end.toISO(),
     }
-    console.log(data)
-    const key = `${slugify(newEvent.host)}-${date}-${start}`
-    const saveFunction = onSaveItem(key)
+
+    const id = newEvent.id ? newEvent.id : `${slugify(newEvent.host)}-${date}-${start}`
+    const saveFunction = onSaveItem(id)
     saveFunction(data)
     closeModal()
     updateEvent(emptyEvent)
   }
 
+  const handleDeleteEvent = () => {
+    onDeleteItem(newEvent.id)()
+    closeModal()
+    updateEvent(emptyEvent)
+  }
+
   const { title, host, description, date, start, end, timezone, rsvpUrl, eventUrl, id } = newEvent;
+
 
   return (
     <Dialog open={showModal} onClose={closeModal} aria-labelledby="form-dialog-title" scroll="body">
@@ -176,18 +197,26 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
         </div>
       </DialogContent>
       <DialogActions>
-        {
-          id &&
-          <Button onClick={onDeleteItem(event.id)} color="primary">
-            Delete
-          </Button>
-        }
-        <Button onClick={closeModal} color="secondary">
-          Cancel
-        </Button>
-        <Button onClick={handleSaveEvent} color="primary">
-          Save
-        </Button>
+        <div className="pr-3 pl-3 pb-2 width-100">
+          <Grid container justify="space-between">
+            <Grid item>
+            {
+              id &&
+              <Button onClick={handleDeleteEvent} color="secondary">
+                Delete
+              </Button>
+            }
+            </Grid>
+            <Grid item>
+              <Button onClick={closeModal} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={handleSaveEvent} color="primary">
+                Save
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
       </DialogActions>
     </Dialog>
   );

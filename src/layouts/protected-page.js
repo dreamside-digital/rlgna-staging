@@ -57,7 +57,7 @@ class ProtectedPage extends React.Component {
   state = { firebaseAuth: null }
 
   componentDidMount() {
-    this.setState({ firebaseAuth: firebase.auth() }, () => {
+    this.setState({ loading: true, firebaseAuth: firebase.auth() }, () => {
       this.state.firebaseAuth.onAuthStateChanged(user => {
         if (user) {
           const ref = firebase
@@ -68,6 +68,7 @@ class ProtectedPage extends React.Component {
             const userData = snapshot.val();
             if (userData) {
               this.props.userLoggedIn(userData);
+              this.setState({ loading: false })
             } else {
               const newUser = {
                 uid: user.uid,
@@ -77,16 +78,22 @@ class ProtectedPage extends React.Component {
               };
               ref.set(newUser);
               this.props.userLoggedIn(newUser);
+              this.setState({ loading: false })
             }
           });
         } else {
           this.props.userLoggedOut();
+          this.setState({ loading: false })
         }
       });
     })
   }
 
   render () {
+    if (this.state.loading) {
+      return <div className="width-100 height-100 display-flex justify-center align-center"><div className="loader">loading...</div></div>
+    }
+
     if (this.props.editor && this.props.allowEditing) {
       return <div>{this.props.children}</div>
     }

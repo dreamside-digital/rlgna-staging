@@ -86,7 +86,12 @@ class HomePage extends React.Component {
     if (!this.props.accessGranted) {
       return(
         <Layout theme="gray" location={this.props.location}>
-          <EditableBackgroundImage classes="animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+          <EditableBackgroundImage
+            classes="header-bg-image animate__animated animate__fadeIn"
+            content={content["landing-bg-image"]}
+            onSave={this.onSave("landing-bg-image")}
+            uploadImage={uploadImage}
+          >
             <section id="landing">
               <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                 <Grid container>
@@ -105,7 +110,7 @@ class HomePage extends React.Component {
                   <Grid item md={8}>
                     <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex align-right justify-right">
                       <div className="help-text text-white text-bold">
-                        <label htmlFor="access-code">Access code:<span id="help-icon" aria-label="Help text: Your access code was sent to you by email. Contact us if you need us to resend it."><Help /></span></label>
+                        <label htmlFor="access-code">Access code:</label>
                       </div>
                       <input type="text" className="ml-2" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
                       <input type="submit" value="Enter site" className="btn ml-2" />
@@ -121,7 +126,7 @@ class HomePage extends React.Component {
 
     return (
       <Layout theme="gray" location={this.props.location}>
-        <EditableBackgroundImage classes="animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+        <EditableBackgroundImage classes="header-bg-image animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
           <section id="landing">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
@@ -371,7 +376,10 @@ class HomePage extends React.Component {
             </Grid>
 
             <Grid item xs={12}>
-              <Calendar content={content["open-space-events"]} onSave={this.onSave("open-space-events")} />
+              <Calendar
+                content={content["open-space-events"]}
+                onSave={this.onSave("open-space-events")}
+              />
             </Grid>
           </Grid>
         </Section>

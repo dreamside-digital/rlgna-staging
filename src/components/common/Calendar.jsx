@@ -90,7 +90,12 @@ class Calendar extends React.Component {
 
   prepareSchedule = () => {
     const eventKeys = Object.keys(this.props.content)
-    const eventArray = eventKeys.map(key => ({...this.props.content[key], id: key, startDate: DateTime.fromISO(this.props.content[key]['startDate'])}))
+    const eventArray = eventKeys.filter(k => this.props.content[k]).map(key => ({
+      ...this.props.content[key],
+      id: key,
+      startDate: DateTime.fromISO(this.props.content[key]['startDate']),
+      endDate: DateTime.fromISO(this.props.content[key]['endDate']),
+    }))
     const schedule = EVENT_DAYS.map(day => {
       const events = eventArray.filter(event => luxon.isSameDay(event.startDate, day.date))
       events.sort((a, b) => a.startDate - b.startDate)
@@ -102,7 +107,6 @@ class Calendar extends React.Component {
 
   render() {
     const { showModal, editingEvent } = this.state;
-    console.log("this.state", this.state)
 
     return (
       <MuiPickersUtilsProvider utils={LuxonUtils}>
@@ -123,7 +127,7 @@ class Calendar extends React.Component {
                   const weekday = day.date.toLocaleString({ weekday: 'long' })
 
                   return (
-                    <Grid item xs={2}>
+                    <Grid item xs={2} key={`${dateString}-${index}`}>
                       <div className="events-column" data-aos="fade-up" data-aos-delay={100*index}>
                         <div className="date-label bg-blue text-white text-center p-4">
                           <div className="text-bold">{dateString}</div>
@@ -137,7 +141,6 @@ class Calendar extends React.Component {
                                   <EditorWrapper
                                     theme={this.context.theme}
                                     startEditing={() => this.setState({ showModal: true, editingEvent: event })}
-                                    isContentClickTarget={false}
                                   >
                                     <Event content={event} />
                                   </EditorWrapper>
@@ -173,7 +176,7 @@ class Calendar extends React.Component {
                   {
                     this.state.schedule.map(day => {
                       return (
-                        <TabPanel className='tab-content'>
+                        <TabPanel className='tab-content' key={day.date.toString()}>
                           {
                             (day.events.length === 0) ?
                             <div>
@@ -198,7 +201,7 @@ class Calendar extends React.Component {
             event={editingEvent}
             onSaveItem={this.onSaveItem}
             showModal={showModal}
-            closeModal={() => this.setState({ showModal: false, event: null })}
+            closeModal={() => this.setState({ showModal: false })}
             onDeleteItem={this.onDeleteItem}
           />
         </div>
