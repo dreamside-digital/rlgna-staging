@@ -314,7 +314,7 @@ body .nl-page {
       margin-bottom: 24px;
       position: relative;
 
-      &.is-large:after {
+/*      &.is-large:after {
         content: '';
         height: 100%;
         width: 150px;
@@ -322,7 +322,7 @@ body .nl-page {
         left: -150px;
         top: 0;
         position: absolute;
-      }
+      }*/
 
       h4 {
         font-size: calc(24px + 0.5vw);
@@ -388,10 +388,6 @@ body .nl-page {
         text-decoration: none;
         font-weight: 700;
 
-        &.is-large {
-          right: -150px;
-          min-width: 450px;
-        }
       }
     }
   }
