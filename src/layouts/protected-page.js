@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { navigate } from 'gatsby';
+import { navigate, Link } from 'gatsby';
 import { FirebaseAuth } from 'react-firebaseui';
 
 import firebase from "../firebase/init";
@@ -91,15 +91,15 @@ class ProtectedPage extends React.Component {
 
   render () {
     if (this.state.loading) {
-      return <div className="width-100 height-100 display-flex justify-center align-center"><div className="loader">loading...</div></div>
+      return <div className="width-100 height-100 display-flex justify-center align-center mt-10 mb-10"><div className="loader">loading...</div></div>
     }
 
-    if (this.props.editor && this.props.allowEditing) {
+    if (this.props.isLoggedIn && this.props.allowEditing) {
       return <div>{this.props.children}</div>
     }
 
-    if (!this.props.editor && this.props.isLoggedIn) {
-      return <div>{this.props.children}</div>
+    if (this.props.isLoggedIn && !this.props.allowEditing) {
+      return <div className="width-100 height-100 display-flex justify-center align-center mt-10 mb-10"><p>You are not authorized to see this page.</p><Link to={'/'} className="ml-2">Go to the home page.</Link></div>
     }
 
     return (

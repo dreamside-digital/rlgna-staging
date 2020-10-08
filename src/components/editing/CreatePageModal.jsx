@@ -56,7 +56,6 @@ const mapDispatchToProps = dispatch => {
 const emptyPage = {
     title: "",
     description: "",
-    category: CATEGORY_OPTIONS[0].value,
     lang: LANGUAGE_OPTIONS[0].value,
     type: PAGE_TYPES[0].value,
     content: defaultContentJSON,
@@ -144,11 +143,11 @@ class CreatePageModal extends React.Component {
 
     this.props.savePage(pageData, pageId);
 
-    if (this.state.page.category !== CATEGORY_OPTIONS[1].value && prevPage) { // don't add next page for uncategorized pages
-      this.props.updateFirebaseData({
-        [`pages/${prevPage.id}/next`]: pageId,
-      })
-    }
+    // if (this.state.page.category !== CATEGORY_OPTIONS[1].value && prevPage) { // don't add next page for uncategorized pages
+    //   this.props.updateFirebaseData({
+    //     [`pages/${prevPage.id}/next`]: pageId,
+    //   })
+    // }
   }
 
   editPage = () => {
@@ -225,7 +224,7 @@ class CreatePageModal extends React.Component {
     return (
       <Dialog open={open} aria-labelledby="create-page-dialogue">
         <DialogTitle id="create-page-dialogue">
-          {"Module configuration"}
+          {"Page configuration"}
         </DialogTitle>
 
 

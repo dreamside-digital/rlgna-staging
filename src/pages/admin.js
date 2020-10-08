@@ -178,7 +178,7 @@ class AdminPage extends React.Component {
     })
 
     return(
-      <Layout theme="light" className="admin-page">
+      <Layout theme="gray" className="admin-page">
         <ProtectedPage>
           <Container>
             <h1 className="text-center">

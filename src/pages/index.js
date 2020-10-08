@@ -91,6 +91,7 @@ class HomePage extends React.Component {
             content={content["landing-bg-image"]}
             onSave={this.onSave("landing-bg-image")}
             uploadImage={uploadImage}
+            styles={{ backgroundPosition: 'bottom' }}
           >
             <section id="landing">
               <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -110,9 +111,9 @@ class HomePage extends React.Component {
                   <Grid item md={8}>
                     <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex align-center justify-right">
                       <div className="help-text text-white text-bold">
-                        <label htmlFor="access-code"><EditableText content={content["access-code"]} onSave={this.onSave("access-code")} /></label>
+                        <label id="access-code-label"><EditableText id="access-code" content={content["access-code"]} onSave={this.onSave("access-code")} /></label>
                       </div>
-                      <input type="text" className="ml-2" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
+                      <input aria-labelledby="access-code-label" type="text" className="ml-2" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
                       <input type="submit" value="Enter site" className="btn ml-2" />
                     </form>
                   </Grid>
@@ -126,7 +127,13 @@ class HomePage extends React.Component {
 
     return (
       <Layout theme="gray" location={this.props.location}>
-        <EditableBackgroundImage classes="header-bg-image animate__animated animate__fadeIn" content={content["landing-bg-image"]} onSave={this.onSave("landing-bg-image")} uploadImage={uploadImage}>
+        <EditableBackgroundImage
+          classes="header-bg-image animate__animated animate__fadeIn"
+          content={content["landing-bg-image"]}
+          onSave={this.onSave("landing-bg-image")}
+          uploadImage={uploadImage}
+          styles={{ backgroundPosition: 'bottom' }}
+        >
           <section id="landing">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>

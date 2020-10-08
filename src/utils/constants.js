@@ -6,11 +6,9 @@ export const NOTIFICATION_MESSAGES = {
 
 export const LANGUAGE_OPTIONS = [
   { label: "English", value: "en" },
-  { label: "Français", value: "fr" },
 ];
 
 export const CATEGORY_OPTIONS = [
-  { label: "Course module", value: "modules" },
   { label: "Uncategorized", value: "uncategorized" },
 ];
 
