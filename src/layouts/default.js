@@ -58,7 +58,7 @@ const styles = {
 const mapStateToProps = state => {
   return {
     isEditingPage: state.adminTools.isEditingPage,
-    pageData: state.page.data,
+    pageData: state.pages.data,
     pages: state.pages.pages,
   };
 };

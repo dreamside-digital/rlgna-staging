@@ -1,18 +1,12 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import { connect } from "react-redux";
 import { filter, find } from 'lodash'
 import Container from "@material-ui/core/Container"
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowUp from '@material-ui/icons/KeyboardArrowUp';
-import ArrowDown from '@material-ui/icons/KeyboardArrowDown';
-import DeleteForever from '@material-ui/icons/DeleteForever';
 
 import Layout from '../layouts/default';
 import ProtectedPage from "../layouts/protected-page"
 
-import { PERMANENT_PAGES, LANGUAGE_OPTIONS } from "../utils/constants"
+import { LANGUAGE_OPTIONS } from "../utils/constants"
 
 import {
   fetchPages,

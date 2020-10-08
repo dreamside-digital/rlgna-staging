@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import { Help } from '@material-ui/icons';
-import { EditableText, EditableParagraph, EditableBackgroundImage, EditableLink } from "react-easy-editables";
+import { EditableText, EditableParagraph, EditableBackgroundImage } from "react-easy-editables";
 
 import {
   updatePage,
@@ -19,6 +18,7 @@ import Layout from "../layouts/default.js";
 import Section from "../components/common/Section"
 import Gallery from "../components/common/Gallery"
 import Calendar from "../components/common/Calendar"
+import ProgramElements from "../components/common/ProgramElements"
 
 
 const mapDispatchToProps = dispatch => {
@@ -97,7 +97,7 @@ class HomePage extends React.Component {
                 <Grid container>
                   <Grid item md={8}>
                     <div className="mb-4">
-                      <div className="text-white text-bold font-size-h4 mb-4">
+                      <div className="text-white font-size-h4 mb-4">
                         <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
                       </div>
                     </div>
@@ -108,9 +108,9 @@ class HomePage extends React.Component {
                 </Grid>
                 <Grid container justify="flex-end">
                   <Grid item md={8}>
-                    <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex align-right justify-right">
+                    <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex align-center justify-right">
                       <div className="help-text text-white text-bold">
-                        <label htmlFor="access-code">Access code:</label>
+                        <label htmlFor="access-code"><EditableText content={content["access-code"]} onSave={this.onSave("access-code")} /></label>
                       </div>
                       <input type="text" className="ml-2" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
                       <input type="submit" value="Enter site" className="btn ml-2" />
@@ -132,7 +132,7 @@ class HomePage extends React.Component {
               <Grid container>
                 <Grid item md={8}>
                   <div className="mb-4">
-                      <div className="text-white text-bold font-size-h4 mb-4">
+                      <div className="text-white font-size-h4 mb-4">
                         <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
                       </div>
                     </div>
@@ -148,7 +148,7 @@ class HomePage extends React.Component {
           <Section id="intro" className={`position-relative bg-dark`}>
             <Grid container className="title" justify="center">
               <Grid item xs={12} sm={10} md={9} lg={8} data-aos="fade-up" >
-                <div className="intro-text bg-dark font-size-h4">
+                <div className="intro-text bg-blue">
                   <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
                 </div>
               </Grid>
@@ -159,7 +159,7 @@ class HomePage extends React.Component {
           <Section id="intro" className={`position-relative bg-light`}>
             <Grid container className="title" justify="center">
               <Grid item xs={12} sm={10} md={9} lg={8} data-aos="fade-up" >
-                <div className="intro-text bg-dark font-size-h4">
+                <div className="intro-text bg-blue">
                   <EditableParagraph content={content["intro-text"]} onSave={this.onSave("intro-text")} />
                 </div>
               </Grid>
@@ -170,166 +170,10 @@ class HomePage extends React.Component {
           <h2>
             <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
           </h2>
-            <div className="program-box mt-5" data-aos="fade-right">
-              <Grid container className="position-relative">
-                <Grid item md={4} xs={12}>
-                  <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow1: !this.state.programElementsShow1 })}>
-                    {
-                      !this.state.programElementsShow1 &&
-                        <div className="display-flex align-center justify-right">
-                          Read More <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z"/></svg>
-                        </div>
-                    }
-                    {
-                      this.state.programElementsShow1 &&
-                      <div className="display-flex align-center justify-right">
-                        Show less <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M0 12v1h23v-1h-23z"/></svg>
-                      </div>
-                    }
-                  </div>
-                  <p className="text-muted hide-on-large-only">
-                    <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
-                  </p>
-                  <h3 className="text-bold mt-2 mb-6">
-                    <EditableText content={content["program-box-title-1"]} onSave={this.onSave("program-box-title-1")} />
-                  </h3>
-                  <div className="font-size-h6">
-                    <EditableText content={content["program-box-date-1"]} onSave={this.onSave("program-box-date-1")} />
-                  </div>
-                </Grid>
-                <Grid item md={8} xs={11} className={this.state.programElementsShow1 ? '' : 'hide-on-med-and-down'}>
-                  <p className="text-muted hide-on-med-and-down">
-                    <EditableText content={content["program-box-state-1"]} onSave={this.onSave("program-box-state-1")} />
-                  </p>
-                  <EditableParagraph content={content["program-box-desc-1"]} onSave={this.onSave("program-box-desc-1")} />
-                </Grid>
-              </Grid>
-              <div className="program-link">
-                <EditableLink classes="btn btn-lg btn-gray" content={content["program-box-link-1"]} onSave={this.onSave("program-box-link-1")} />
-              </div>
-              <div className='mid-dot is-past' />
-              <div className='line' />
-            </div>
-
-            <div className="program-box is-large" data-aos="fade-right">
-              <Grid container className="position-relative">
-                <Grid item md={4} xs={12}>
-                  <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow2: !this.state.programElementsShow2 })}>
-                    {
-                      !this.state.programElementsShow2 &&
-                      <div className="display-flex align-center justify-right">
-                        Read More <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z"/></svg>
-                      </div>
-                    }
-                    {
-                      this.state.programElementsShow2 &&
-                      <div className="display-flex align-center justify-right">
-                        Show less <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M0 12v1h23v-1h-23z"/></svg>
-                      </div>
-                    }
-                  </div>
-                  <p className="text-blue hide-on-large-only">
-                    <EditableText content={content["program-box-state-2"]} onSave={this.onSave("program-box-state-2")} />
-                  </p>
-                  <h3 className="text-bold mt-2 mb-6">
-                    <EditableText content={content["program-box-title-2"]} onSave={this.onSave("program-box-title-2")} />
-                  </h3>
-                  <div className="font-size-h6">
-                    <EditableText content={content["program-box-date-2"]} onSave={this.onSave("program-box-date-2")} />
-                  </div>
-                </Grid>
-                <Grid item md={8} xs={11} className={this.state.programElementsShow2 ? '' : 'hide-on-med-and-down'}>
-                  <p className="text-blue hide-on-med-and-down">
-                    <EditableText content={content["program-box-state-2"]} onSave={this.onSave("program-box-state-2")} />
-                  </p>
-                  <EditableParagraph content={content["program-box-desc-2"]} onSave={this.onSave("program-box-desc-2")} />
-                </Grid>
-              </Grid>
-              <div className="program-link is-large">
-                <EditableLink classes="btn btn-lg" content={content["program-box-link-2"]} onSave={this.onSave("program-box-link-2")} />
-              </div>
-              <div className='mid-dot is-large' />
-            </div>
-
-            <div className="program-box" data-aos="fade-right">
-              <Grid container className="position-relative">
-                <Grid item md={4}  xs={12}>
-                  <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow3: !this.state.programElementsShow3 })}>
-                    {
-                      !this.state.programElementsShow3 &&
-                      <div className="display-flex align-center justify-right">
-                        Read More <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z"/></svg>
-                      </div>
-                    }
-                    {
-                      this.state.programElementsShow3 &&
-                      <div className="display-flex align-center justify-right">
-                        Show less <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M0 12v1h23v-1h-23z"/></svg>
-                      </div>
-                    }
-                  </div>
-                  <p className="text-blue hide-on-large-only">
-                    <EditableText content={content["program-box-state-3"]} onSave={this.onSave("program-box-state-3")} />
-                  </p>
-                  <h3 className="text-bold mt-2 mb-6">
-                    <EditableText content={content["program-box-title-3"]} onSave={this.onSave("program-box-title-3")} />
-                  </h3>
-                  <div className="font-size-h6">
-                    <EditableText content={content["program-box-date-3"]} onSave={this.onSave("program-box-date-3")} />
-                  </div>
-                </Grid>
-                <Grid item md={8} xs={11} className={this.state.programElementsShow3 ? '' : 'hide-on-med-and-down'}>
-                  <p className="text-blue hide-on-med-and-down">
-                    <EditableText content={content["program-box-state-3"]} onSave={this.onSave("program-box-state-3")} />
-                  </p>
-                  <EditableParagraph content={content["program-box-desc-3"]} onSave={this.onSave("program-box-desc-3")} />
-                </Grid>
-              </Grid>
-              <div className="program-link">
-                <EditableLink classes="btn btn-lg" content={content["program-box-link-3"]} onSave={this.onSave("program-box-link-3")} />
-              </div>
-              <div className='mid-dot' />
-            </div>
-
-            <div className="program-box" data-aos="fade-right">
-              <Grid container className="position-relative">
-                <Grid item md={4}  xs={12}>
-                  <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => this.setState({ programElementsShow4: !this.state.programElementsShow4 })}>
-                    {
-                      !this.state.programElementsShow4 &&
-                      <div className="display-flex align-center justify-right">
-                        Read More <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z"/></svg>
-                      </div>
-                    }
-                    {
-                      this.state.programElementsShow4 &&
-                      <div className="display-flex align-center justify-right">
-                        Show less <svg className="ml-2" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M0 12v1h23v-1h-23z"/></svg>
-                      </div>
-                    }
-                  </div>
-                  <p className="text-blue hide-on-large-only">
-                    <EditableText content={content["program-box-state-4"]} onSave={this.onSave("program-box-state-4")} />
-                  </p>
-                  <h3 className="text-bold mt-2 mb-6">
-                    <EditableText content={content["program-box-title-4"]} onSave={this.onSave("program-box-title-4")} />
-                  </h3>
-                  <div className="font-size-h6">
-                    <EditableText content={content["program-box-date-4"]} onSave={this.onSave("program-box-date-4")} />
-                  </div>
-                </Grid>
-                <Grid item md={8} xs={11} className={this.state.programElementsShow4 ? '' : 'hide-on-med-and-down'}>
-                  <p className="text-blue hide-on-med-and-down">
-                    <EditableText content={content["program-box-state-4"]} onSave={this.onSave("program-box-state-4")} />
-                  </p>
-                  <EditableParagraph content={content["program-box-desc-4"]} onSave={this.onSave("program-box-desc-4")} />
-                </Grid>
-              </Grid>
-              <div className="program-link">
-                <EditableLink classes="btn btn-lg" content={content["program-box-link-4"]} onSave={this.onSave("program-box-link-4")} />
-              </div>
-              <div className='mid-dot' />
-            </div>
+          <ProgramElements
+            content={content["program-elements-collection"]}
+            onSave={this.onSave("program-elements-collection")}
+          />
         </Section>
 
         <Section id="logistics">
@@ -339,9 +183,9 @@ class HomePage extends React.Component {
                   <h2 className="text-bold">
                     <EditableText content={content["logistics-title"]} onSave={this.onSave("logistics-title")} />
                   </h2>
-                  <p>
+                  <div className="font-size-h4">
                     <EditableText content={content["logistics-description"]} onSave={this.onSave("logistics-description")} />
-                  </p>
+                  </div>
                 </div>
               </Grid>
               <Hidden smDown>
@@ -372,7 +216,7 @@ class HomePage extends React.Component {
                 <EditableText content={content["open-space-title"]} onSave={this.onSave("open-space-title")} />
               </h2>
               <EditableParagraph classes="font-size-h4" content={content["open-space-description"]} onSave={this.onSave("open-space-description")} />
-              <p className="text-small">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
+              <p className="text-small text-bold">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
             </Grid>
 
             <Grid item xs={12}>
@@ -403,10 +247,7 @@ class HomePage extends React.Component {
               </h2>
               <EditableParagraph classes="font-size-h4" content={content["gallery-description"]} onSave={this.onSave("gallery-description")} />
             </Grid>
-
-
             <Gallery content={content["gallery-collection"]} onSave={this.onSave("gallery-collection")} />
-
           </Grid>
         </Section>
 

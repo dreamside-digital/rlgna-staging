@@ -8,7 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { DateTime } from "luxon";
 import {
   KeyboardTimePicker,
   KeyboardDatePicker,
@@ -31,7 +30,6 @@ const emptyEvent = {
 
 const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) => {
   const [newEvent, updateEvent] = useState(event);
-  const [editing, setEditing] = useState(false)
 
   useEffect(() => {
     if (Boolean(event.id)) {
@@ -74,7 +72,6 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
       startDate: start.toISO(),
       endDate: end.toISO(),
     }
-
     const id = newEvent.id ? newEvent.id : `${slugify(newEvent.host)}-${date}-${start}`
     const saveFunction = onSaveItem(id)
     saveFunction(data)

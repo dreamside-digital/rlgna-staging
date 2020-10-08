@@ -111,7 +111,7 @@ body .nl-page {
 
   .navbar {
     padding: 0.75rem 1rem;
-    background-color: $white;
+    background-color: $gray-300;
     position: fixed;
     top: 0;
     width: 100%;
@@ -128,9 +128,9 @@ body .nl-page {
       .navbar-item {
         margin-right: 24px;
         font-size: 1rem;
-        border-bottom: 1px solid $black;
+        border-bottom: 1px solid $white;
         text-decoration: none;
-        color: $black;
+        color: $white;
         display: none;
         position: relative;
         padding-bottom: 3px;
@@ -139,7 +139,7 @@ body .nl-page {
           content: '';
           width: 0;
           height: 2px;
-          background-color: $gray-200;
+          background-color: $white;
           position: absolute;
           bottom: 0;
           left: 0;
@@ -173,11 +173,11 @@ body .nl-page {
 
     .menu-item {
       font-size: 16px;
-      border-bottom: 1px solid $black;
+      border-bottom: 1px solid $white;
       padding-bottom: 0;
       transition: 100ms;
       text-decoration: none;
-      color: $black;
+      color: $white;
       margin-bottom: 24px;
     }
 
@@ -189,7 +189,7 @@ body .nl-page {
 
   main {
     height: 100%;
-    padding-top: 72px;
+    padding-top: 67px;
   }
 
   footer {
@@ -210,7 +210,7 @@ body .nl-page {
     background: linear-gradient(180deg, rgba(70, 178, 126, 0.50) 0%, rgba(0, 166, 206, 0.50) 100%);
     background-blend-mode: color;
     position: relative;
-    height: calc(100vh - 52px - 72px); /*footer height and header height*/
+    height: calc(100vh - 52px - 67px); /*footer height and header height*/
 
     .landing-body {
       position: absolute;
@@ -230,7 +230,7 @@ body .nl-page {
     input {
       padding: 15px;
       font-size: 1.25rem;
-      border: 1px solid $blue;
+      border: none;
 
       &:focus {
         outline: none;
@@ -285,6 +285,10 @@ body .nl-page {
     overflow: hidden;
     position: relative;
 
+    .edit-container {
+      z-index: 1200 !important;
+    }
+
     h1 {
       margin: 0;
     }
@@ -328,13 +332,27 @@ body .nl-page {
         font-weight: 300;
       }
 
+      &:first-child {
+        .line {
+          top: 50%;
+          height: calc(50% + 24px);
+        }
+      }
+
+      &:last-child {
+        .line {
+          top: 0;
+          height: 50%;
+        }
+      }
+
       .line {
-        height: 300%;
+        height: calc(100% + 24px);
         width: 2px;
         background-color: $blue;
         position: absolute;
         left: -2px;
-        top: 50%;
+        top: 0;
         z-index: 1;
       }
 
@@ -349,11 +367,11 @@ body .nl-page {
         z-index: 2;
 
         &.is-large {
-          height: 150px;
-          width: 150px;
-          border-radius: 75px;
-          top: calc(50% - 75px);
-          left: -75px;
+          height: 200px;
+          width: 200px;
+          border-radius: 100px;
+          top: calc(50% - 100px);
+          left: -100px;
         }
 
         &.is-past {

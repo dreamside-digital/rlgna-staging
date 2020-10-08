@@ -174,7 +174,7 @@ class Calendar extends React.Component {
                   </TabList>
 
                   {
-                    this.state.schedule.map(day => {
+                    this.state.schedule.map((day) => {
                       return (
                         <TabPanel className='tab-content' key={day.date.toString()}>
                           {

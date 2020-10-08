@@ -25,7 +25,7 @@ export function validateAccessCode(code) {
 
         if (code === correctCode) {
           dispatch(grantAccess());
-          dispatch(showNotification(`You're in! Enjoy the event.`));
+          dispatch(showNotification(`Welcome!`));
         } else {
           dispatch(showNotification('That is not the correct access code. Please try again.'));
         }
