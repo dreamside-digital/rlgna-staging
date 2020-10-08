@@ -64,12 +64,12 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
               id="date"
               label="End date"
               format="MM/dd/yyyy"
-              value={content["program-elements-end-date"] ? content["program-elements-end-date"]["date"] : undefined}
+              value={content["program-elements-end-date"] ? content["program-elements-end-date"]["date"] : null}
               KeyboardButtonProps={{
                 'aria-label': 'select date',
               }}
               onChange={date => {
-                handleEditorChange('program-elements-end-date')(date ? {"date": date.toISO() } : undefined)
+                handleEditorChange('program-elements-end-date')(date ? {"date": date.toISO() } : null)
               }}
               inputVariant="outlined"
             />
