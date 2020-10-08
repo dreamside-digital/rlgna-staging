@@ -102,7 +102,6 @@ class Calendar extends React.Component {
 
   render() {
     const { showModal, editingEvent } = this.state;
-    console.log("this.state", this.state)
 
     return (
       <MuiPickersUtilsProvider utils={LuxonUtils}>
@@ -123,7 +122,7 @@ class Calendar extends React.Component {
                   const weekday = day.date.toLocaleString({ weekday: 'long' })
 
                   return (
-                    <Grid item xs={2}>
+                    <Grid item xs={2} key={index}>
                       <div className="events-column" data-aos="fade-up" data-aos-delay={100*index}>
                         <div className="date-label bg-blue text-white text-center p-4">
                           <div className="text-bold">{dateString}</div>
@@ -171,9 +170,9 @@ class Calendar extends React.Component {
                   </TabList>
 
                   {
-                    this.state.schedule.map(day => {
+                    this.state.schedule.map((day, index) => {
                       return (
-                        <TabPanel className='tab-content'>
+                        <TabPanel key={index} className='tab-content'>
                           {
                             (day.events.length === 0) ?
                             <div>

@@ -2,10 +2,27 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import { Link } from 'gatsby'
 import { connect } from "react-redux";
-import logo from "../../assets/images/logo.svg"
+import logo from "../../assets/images/logo_bmwf.svg"
+import {EditableText} from "react-easy-editables";
+import {loadPageData, updatePage, validateAccessCode} from "../../redux/actions";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdatePageData: (page, id, data) => {
+      dispatch(updatePage(page, id, data));
+    },
+    onLoadPageData: data => {
+      dispatch(loadPageData(data));
+    },
+    validateAccessCode: (code) => {
+      dispatch(validateAccessCode(code));
+    },
+  };
+};
 
 const mapStateToProps = state => {
   return {
+    pageData: state.page.data,
     accessGranted: state.adminTools.accessGranted,
   };
 };
@@ -39,20 +56,28 @@ class Header extends React.Component {
     this.setState({ menuIsOpen: !this.state.menuIsOpen })
   }
 
+  onSave = id => content => {
+    this.props.onUpdatePageData("home", id, content);
+  };
+
   menu = () => {
+    const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.allPages.home.content);
+
     return (
       <div className={`menu animate__animated animate__slideInDown ${this.state.menuIsOpen ? 'is-active' : ''}`}>
-        <a className='menu-item' href="#intro" onClick={this.handleClick}>Introduction</a>
-        <a className='menu-item' href="#program-elements" onClick={this.handleClick}>Program Elements</a>
-        <a className='menu-item' href="#logistics" onClick={this.handleClick}>Virtual Logistics</a>
-        <a className='menu-item' href="#open-space-week" onClick={this.handleClick}>Schedule</a>
-        <a className='menu-item' href="#gallery" onClick={this.handleClick}>ICYMI</a>
-        <a className='menu-item' href="#social" onClick={this.handleClick}>Social media</a>
+        <a className='menu-item' href="#intro" onClick={this.handleClick}><EditableText content={content["nav-link-text-1"]} onSave={this.onSave("nav-link-text-1")} /></a>
+        <a className='menu-item' href="#program-elements" onClick={this.handleClick}><EditableText content={content["nav-link-text-2"]} onSave={this.onSave("nav-link-text-2")} /></a>
+        <a className='menu-item' href="#logistics" onClick={this.handleClick}><EditableText content={content["nav-link-text-3"]} onSave={this.onSave("nav-link-text-3")} /></a>
+        <a className='menu-item' href="#open-space-week" onClick={this.handleClick}><EditableText content={content["nav-link-text-4"]} onSave={this.onSave("nav-link-text-4")} /></a>
+        <a className='menu-item' href="#gallery" onClick={this.handleClick}><EditableText content={content["nav-link-text-5"]} onSave={this.onSave("nav-link-text-5")} /></a>
+        <a className='menu-item' href="#social" onClick={this.handleClick}><EditableText content={content["nav-link-text-6"]} onSave={this.onSave("nav-link-text-6")} /></a>
       </div>
     )
   }
 
   render() {
+    const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.allPages.home.content);
+
     return (
       <nav className={`navbar`}>
         <div className="logo">
@@ -63,12 +88,12 @@ class Header extends React.Component {
           <React.Fragment>
           <div className='navbar-items'>
             <a className='navbar-item menu-item' href="#menu" onClick={this.toggleMenu}>{this.state.menuIsOpen ? 'Close' : 'Menu'}</a>
-            <a className='navbar-item' href="#intro" onClick={this.handleClick}>Introduction</a>
-            <a className='navbar-item' href="#program-elements" onClick={this.handleClick}>Program Elements</a>
-            <a className='navbar-item' href="#logistics" onClick={this.handleClick}>Virtual Logistics</a>
-            <a className='navbar-item' href="#open-space-week" onClick={this.handleClick}>Schedule</a>
-            <a className='navbar-item' href="#gallery" onClick={this.handleClick}>ICYMI</a>
-            <a className='navbar-item' href="#social" onClick={this.handleClick}>Social media</a>
+            <a className='navbar-item' href="#intro" onClick={this.handleClick}><EditableText content={content["nav-link-text-1"]} onSave={this.onSave("nav-link-text-1")} /></a>
+            <a className='navbar-item' href="#program-elements" onClick={this.handleClick}><EditableText content={content["nav-link-text-2"]} onSave={this.onSave("nav-link-text-2")} /></a>
+            <a className='navbar-item' href="#logistics" onClick={this.handleClick}><EditableText content={content["nav-link-text-3"]} onSave={this.onSave("nav-link-text-3")} /></a>
+            <a className='navbar-item' href="#open-space-week" onClick={this.handleClick}><EditableText content={content["nav-link-text-4"]} onSave={this.onSave("nav-link-text-4")} /></a>
+            <a className='navbar-item' href="#gallery" onClick={this.handleClick}><EditableText content={content["nav-link-text-5"]} onSave={this.onSave("nav-link-text-5")} /></a>
+            <a className='navbar-item' href="#social" onClick={this.handleClick}><EditableText content={content["nav-link-text-6"]} onSave={this.onSave("nav-link-text-6")} /></a>
           </div>
           {
             this.container && ReactDOM.createPortal(this.menu(), this.container)
@@ -80,4 +105,4 @@ class Header extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

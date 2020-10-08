@@ -45,7 +45,6 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
   }
 
   const handleSaveEvent = () => {
-    console.log(newEvent)
     const date = newEvent.date.setZone(newEvent.timezone, { keepLocalTime: true })
     const start = date.set({ hour: newEvent.start.hour, minute: newEvent.start.minute })
     const end = date.set({ hour: newEvent.end.hour, minute: newEvent.end.minute })
@@ -60,7 +59,6 @@ const EventModal = ({ event, onSaveItem, showModal, closeModal, onDeleteItem }) 
       startDate: start.toISO(),
       endDate: end.toISO(),
     }
-    console.log(data)
     const key = `${slugify(newEvent.host)}-${date}-${start}`
     const saveFunction = onSaveItem(key)
     saveFunction(data)
