@@ -2,10 +2,8 @@
   "sections": [
     {
       "content": [
-        {
-          "type": "paragraph",
-          "content": { "text": "Paragraph placeholder" }
-        }
+        { "type": "header", "content": { "text": "Header text" }},
+        { "type": "paragraph", "content": { "text": "<p>Section text</p>" }}
       ]
     }
   ]

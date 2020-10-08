@@ -179,7 +179,7 @@
   color: $white;
   text-decoration: none;
   outline: none;
-  display: block;
+  display: inline-block;
   transition: all 0.3s ease-in-out;
 
   &:hover {

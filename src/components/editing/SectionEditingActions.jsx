@@ -151,13 +151,6 @@ class SectionEditingActions extends React.Component {
               </MenuItem>
 
               <MenuItem onClick={() => {
-                this.props.onAddContentItem("quote")
-                this.closeMenu()
-              }}>
-                Quote
-              </MenuItem>
-
-              <MenuItem onClick={() => {
                 this.props.onAddContentItem("button")
                 this.closeMenu()
               }}>
@@ -200,41 +193,6 @@ class SectionEditingActions extends React.Component {
                 this.closeMenu()
               }}>
                 Highlight Section
-              </MenuItem>
-
-              <MenuItem onClick={() => {
-                this.props.onAddSection("watch")
-                this.closeMenu()
-              }}>
-                Watch Section
-              </MenuItem>
-
-              <MenuItem onClick={() => {
-                this.props.onAddSection("read")
-                this.closeMenu()
-              }}>
-                Read Section
-              </MenuItem>
-
-              <MenuItem onClick={() => {
-                this.props.onAddSection("engage")
-                this.closeMenu()
-              }}>
-                Engage Section
-              </MenuItem>
-
-              <MenuItem onClick={() => {
-                this.props.onAddSection("listen")
-                this.closeMenu()
-              }}>
-                Listen Section
-              </MenuItem>
-
-              <MenuItem onClick={() => {
-                this.props.onAddSection("resources")
-                this.closeMenu()
-              }}>
-                Additional Resources Section
               </MenuItem>
             </Menu>
           </div>

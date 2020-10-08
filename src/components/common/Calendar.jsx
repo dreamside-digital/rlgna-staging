@@ -29,11 +29,13 @@ const muiTheme = createMuiTheme({
 
 
 const EVENT_DAYS = [
+  { date: DateTime.local(2020,10,25), events: [] },
   { date: DateTime.local(2020,10,26), events: [] },
   { date: DateTime.local(2020,10,27), events: [] },
   { date: DateTime.local(2020,10,28), events: [] },
   { date: DateTime.local(2020,10,29), events: [] },
   { date: DateTime.local(2020,10,30), events: [] },
+  { date: DateTime.local(2020,10,31), events: [] },
 ]
 
 
@@ -48,6 +50,7 @@ class Calendar extends React.Component {
     showModal: false,
     selectedDate: null,
     schedule: EVENT_DAYS,
+    editingEvent: null,
   }
 
   componentDidMount() {
@@ -120,15 +123,17 @@ class Calendar extends React.Component {
             </div>
           }
           <Hidden smDown>
-            <Grid container justify="space-between">
+            <div className='display-flex'>
               {
                 this.state.schedule.map((day, index) => {
                   const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
                   const weekday = day.date.toLocaleString({ weekday: 'long' })
+                  if (day.events.length < 1 && (index === 0 || index === this.state.schedule.length - 1)) {
+                    return null
+                  }
 
                   return (
-                    <Grid item xs={2} key={`${dateString}-${index}`}>
-                      <div className="events-column" data-aos="fade-up" data-aos-delay={100*index}>
+                      <div className="events-column" data-aos="fade-up" data-aos-delay={100*index} key={`${dateString}-${index}`}>
                         <div className="date-label bg-blue text-white text-center p-4">
                           <div className="text-bold">{dateString}</div>
                           <div className="text-uppercase">{weekday}</div>
@@ -152,11 +157,10 @@ class Calendar extends React.Component {
                           })
                         }
                       </div>
-                    </Grid>
                   )
                 })
               }
-            </Grid>
+            </div>
           </Hidden>
           <Hidden mdUp>
             <Grid container>
@@ -201,7 +205,7 @@ class Calendar extends React.Component {
             event={editingEvent}
             onSaveItem={this.onSaveItem}
             showModal={showModal}
-            closeModal={() => this.setState({ showModal: false })}
+            closeModal={() => this.setState({ showModal: false, editingEvent: null })}
             onDeleteItem={this.onDeleteItem}
           />
         </div>

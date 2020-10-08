@@ -49,6 +49,7 @@ a, button {
   cursor: pointer;
 }
 
+
 .pretty-link {
   border: none;
   border-bottom: 1px solid $black;
@@ -399,6 +400,9 @@ body .nl-page {
         text-decoration: none;
         font-weight: 700;
 
+        .btn {
+          min-width: 300px;
+        }
       }
     }
   }
@@ -413,6 +417,19 @@ body .nl-page {
 
   .collection {
     margin-top: 30px;
+  }
+
+  .events-column {
+    flex: 1 1 0px;
+    margin: 10px;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 
   .tabs-list {
@@ -564,6 +581,15 @@ body .nl-page {
       margin-right: 24px;
     }
   }
+}
+
+.MuiSnackbarContent-message {
+  width: 100%;
+  text-align: center;
+}
+
+section.highlight {
+  background-color: $gray-theme;
 }
 
 @import "responsive";

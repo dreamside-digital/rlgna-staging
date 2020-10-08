@@ -15,12 +15,11 @@ export const CATEGORY_OPTIONS = [
 export const DEFAULT_LANGUAGE = "en"
 
 export const PAGE_TYPES = [
-  { label: "Course Module", value: { type: "course_module", template: "course-module.js" } },
+  { label: "Basic page", value: { type: "basic_page", template: "default-template.js" } },
 ];
 
 export const PERMANENT_PAGES = [
-  "nawl",
-  "anfd"
+  "home",
 ]
 
 export const CONTENT_MAP = {
@@ -48,7 +47,13 @@ export const CONTENT_MAP = {
 }
 
 export const SECTION_MAP = {
-  default: { content: [] },
+  default: {
+    type: "default",
+    content: [
+      { type: "header", content: { text: "Header text" }},
+      { type: "paragraph", content: { text: "<p>Section text</p>" }},
+    ]
+  },
   highlight: {
     type: "highlight",
     content: [

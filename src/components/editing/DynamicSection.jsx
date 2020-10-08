@@ -90,7 +90,7 @@ const mapStateToProps = state => {
 };
 
 
-const DynamicSection = ({ content, type, sectionIndex, pageData, isEditingPage, onUpdatePageData, savePageContent, addSection, deleteSection, duplicateSection, addContentItem, updateContentItem, deleteContentItem, sectionTag, selectedTag, editSectionTag }) => {
+const DynamicSection = ({ content, type="default", sectionIndex, pageData, isEditingPage, onUpdatePageData, savePageContent, addSection, deleteSection, duplicateSection, addContentItem, updateContentItem, deleteContentItem, sectionTag, selectedTag, editSectionTag }) => {
 
   const onAddSection = (sectionType) => {
     savePageContent(() => addSection(sectionIndex, sectionType))
@@ -127,7 +127,7 @@ const DynamicSection = ({ content, type, sectionIndex, pageData, isEditingPage, 
   }
 
   return(
-    <section className={`dynamic-section pos-relative ${type}`}>
+    <section className={`dynamic-section position-relative pt-10 pb-10 ${type}`}>
       <Container maxWidth="md">
       {
         content.map((component, index ) => {

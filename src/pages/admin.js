@@ -2,11 +2,14 @@ import React from 'react'
 import { connect } from "react-redux";
 import { filter, find } from 'lodash'
 import Container from "@material-ui/core/Container"
+import IconButton from "@material-ui/core/IconButton"
+import DeleteForever from "@material-ui/icons/DeleteForever"
+import { Link } from 'gatsby'
 
 import Layout from '../layouts/default';
 import ProtectedPage from "../layouts/protected-page"
 
-import { LANGUAGE_OPTIONS } from "../utils/constants"
+import { PERMANENT_PAGES } from "../utils/constants"
 
 import {
   fetchPages,
@@ -166,16 +169,6 @@ class AdminPage extends React.Component {
 
   render() {
     const unorderedPages = filter(this.props.pages, page => !page.category || page.category === "uncategorized")
-    const pagesByLanguage = [];
-
-    LANGUAGE_OPTIONS.forEach(lang => {
-      const langPages = this.filterPagesByLanguage(this.props.pages, lang)
-      const pages = this.orderedPages(langPages.find(page => page.head))
-
-      if (pages.length > 0) {
-        pagesByLanguage.push({ ...lang, pages })
-      }
-    })
 
     return(
       <Layout theme="gray" className="admin-page">
@@ -196,49 +189,21 @@ class AdminPage extends React.Component {
             </div>
           </Container>
 
-          {/*<Container>
-            <h2>Page Order</h2>
+          <Container>
+            <h2>Pages</h2>
             <div className="my-40">
               {
-                pagesByLanguage.map(lang => {
+                unorderedPages.map(page => {
                   return(
-                    <div key={lang.value}>
-                      <h3 className="mt-3">{lang.label}</h3>
-                      {
-                        lang.pages.map(page => {
-                          return(
-                            <div className="ranked-item" key={page.id}>
-                              <IconButton size="small" color="primary" onClick={this.movePageBack(page)} disabled={page.head}><ArrowUp /></IconButton>
-                              <IconButton size="small" color="primary" onClick={this.movePageForward(page)} disabled={!page.next}><ArrowDown /></IconButton>
-                              <IconButton size="small" color="primary" onClick={this.deletePage(page)} disabled={PERMANENT_PAGES.includes(page.id)}><DeleteForever /></IconButton>
-                              <span className="ml-3"><Link to={page.slug}>{page.title}</Link></span>
-                            </div>
-                          )
-                        })
-                      }
+                    <div className="ranked-item" key={page.id}>
+                      <IconButton size="small" color="primary" onClick={this.deletePage(page)} disabled={PERMANENT_PAGES.includes(page.id)}><DeleteForever /></IconButton>
+                      <span className="ml-3"><Link to={page.slug} className="pretty-link">{page.title}</Link></span>
                     </div>
                   )
                 })
               }
             </div>
           </Container>
-          */}
-
-          {/*<Container>
-              <h2>Uncategorized Pages</h2>
-              <div className="my-40">
-                {
-                  unorderedPages.map(page => {
-                    return(
-                      <div className="ranked-item" key={page.id}>
-                        <IconButton size="small" color="primary" onClick={this.deletePage(page)} disabled={PERMANENT_PAGES.includes(page.id)}><DeleteForever /></IconButton>
-                        <span className="ml-3"><Link to={page.slug}>{page.title}</Link></span>
-                      </div>
-                    )
-                  })
-                }
-              </div>
-            </Container>*/}
 
           <Container>
             <div className="mt-10 mb-10">

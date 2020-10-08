@@ -39,12 +39,12 @@ const Notification = props => {
   return (
     <div className="notification-container" style={styles.container}>
       <Snackbar
-        autoHideDuration={5000}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={showNotification}
         onClose={props.closeNotification}
         ContentProps={{
           'aria-describedby': 'notification-id',
+          style: { width: '100%', textAlign: 'center' }
         }}
         message={<span id="notification-id">{props.notificationMessage}</span>}
       />

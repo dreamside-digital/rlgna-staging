@@ -30,8 +30,6 @@ const mapStateToProps = state => {
     showNewPageModal: state.adminTools.showNewPageModal,
     options: state.adminTools.options || {},
     page: state.page.data,
-    categories: state.categories.categories,
-    topics: state.topics.topics,
     pages: state.pages.pages,
   };
 };
@@ -56,7 +54,6 @@ const mapDispatchToProps = dispatch => {
 const emptyPage = {
     title: "",
     description: "",
-    lang: LANGUAGE_OPTIONS[0].value,
     type: PAGE_TYPES[0].value,
     content: defaultContentJSON,
     template: PAGE_TYPES[0].value.template,
@@ -86,15 +83,6 @@ class CreatePageModal extends React.Component {
 
     if (!prevProps.showNewPageModal && this.props.showNewPageModal) {
       this.props.fetchPages()
-      if (this.props.options.duplicate || this.props.options.translation) {
-        const newPage = {
-          ...this.props.page,
-          title: `${this.props.page.title} (copy)`,
-          translations: null,
-          next: null,
-        }
-        this.setState({ page: newPage, errors: {} })
-      }
     }
   }
 
@@ -130,89 +118,23 @@ class CreatePageModal extends React.Component {
       })
     }
 
-    const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
-
-    console.log("PREV PAGE for duplication or new page", prevPage)
-
     let pageData = {
       ...this.state.page,
       id: pageId,
-      slug: `/${this.state.page.lang}/${pageId}`,
-      next: null,
+      slug: `/${pageId}`,
     };
 
     this.props.savePage(pageData, pageId);
-
-    // if (this.state.page.category !== CATEGORY_OPTIONS[1].value && prevPage) { // don't add next page for uncategorized pages
-    //   this.props.updateFirebaseData({
-    //     [`pages/${prevPage.id}/next`]: pageId,
-    //   })
-    // }
   }
 
   editPage = () => {
     this.props.savePage(this.state.page, this.props.page.id);
   }
 
-  translatePage = () => {
-    const pageId = slugify(this.state.page.title, {
-      lower: true,
-      remove: /[$*_+~.,()'"!\-:@%^&?=]/g
-    })
-
-    if (!this.isUniqueSlug(pageId)) {
-      return this.setState({
-        errors: {
-          ...this.state.errors,
-          title: "The page title must be unique."
-        }
-      })
-    }
-
-    const prevPage = find(this.props.pages, (page => page.category === this.state.page.category && page.lang === this.state.page.lang && !page.next));
-
-    console.log("PREV PAGE for translation", prevPage)
-
-    let pageData = {
-      ...this.state.page,
-      id: pageId,
-      slug: `/${this.state.page.lang}/${pageId}`,
-      next: null,
-      translations: {
-        ...this.props.page.translations,
-        [this.props.page.lang]: {
-          id: this.props.page.id,
-          slug: this.props.page.slug
-        }
-      }
-    };
-
-    this.props.savePage(pageData, pageId);
-
-    if (this.state.page.category !== CATEGORY_OPTIONS[1].value && prevPage) { // don't add next page for uncategorized pages
-      this.props.updateFirebaseData({
-        [`pages/${prevPage.id}/next`]: pageId,
-      })
-    }
-
-    this.props.updateFirebaseData({
-      [`pages/${this.props.page.id}/translations`]: {
-        ...this.props.page.translations,
-        [this.state.page.lang]: {
-          id: pageId,
-          slug: pageData.slug,
-        }
-      },
-    })
-  }
 
   _onSubmit() {
     if (this.props.options.edit) {
       return this.editPage()
-    }
-
-    if (this.props.options.translation) {
-      return this.translatePage()
     }
 
     return this.newPage()
@@ -250,53 +172,6 @@ class CreatePageModal extends React.Component {
               onChange={e => this.updatePage("description", e.currentTarget.value)}
             />
           </FormControl>
-
-          {
-            !this.props.options.edit &&
-            <FormControl fullWidth margin="normal">
-              <InputLabel htmlFor="menu-group">Language</InputLabel>
-              <Select
-                value={this.state.page.lang}
-                onChange={selected =>
-                  this.updatePage("lang", selected.target.value)
-                }
-                inputProps={{
-                  name: "menu-group",
-                  id: "menu-group"
-                }}
-              >
-                {LANGUAGE_OPTIONS.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          }
-
-          {
-            this.props.options.new &&
-            <FormControl fullWidth margin="normal">
-              <InputLabel htmlFor="menu-group">Category</InputLabel>
-              <Select
-                value={this.state.page.category}
-                onChange={selected =>
-                  this.updatePage("category", selected.target.value)
-                }
-                inputProps={{
-                  name: "menu-group",
-                  id: "menu-group"
-                }}
-              >
-                {CATEGORY_OPTIONS.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          }
-
         </DialogContent>
 
         <DialogActions>
@@ -304,7 +179,7 @@ class CreatePageModal extends React.Component {
             Close
           </Button>
           <Button color="default" onClick={this.onSubmit}>
-            { (this.props.options.new || this.props.options.duplicate) ? "Create page" : "Save" }
+            { (this.props.options.new) ? "Create page" : "Save" }
           </Button>
         </DialogActions>
       </Dialog>

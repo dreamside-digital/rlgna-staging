@@ -118,7 +118,7 @@ const ProgramElementItem = props => {
       content={content}
       {...props}
     >
-      <div className={`program-box mt-5 ${isCurrent ? 'is-large' : ''}`}>
+      <div className={`program-box mt-5 ${isCurrent ? 'is-large' : ''}`} data-aos="fade-right">
         <Grid container className="position-relative">
           <Grid item md={5} xs={12}>
             <div className="hide-on-large-only text-bold text-right cursor-pointer" onClick={() => setIsOpen(!isOpen)}>

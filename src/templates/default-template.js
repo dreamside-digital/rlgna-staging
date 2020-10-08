@@ -18,8 +18,6 @@ import {
 
 import Layout from "../layouts/default.js";
 import DynamicSection from "../components/editing/DynamicSection";
-import CourseModule from "../components/common/CourseModule";
-import T from "../components/common/Translation"
 
 
 const mapDispatchToProps = dispatch => {
@@ -83,7 +81,7 @@ class DefaultTemplate extends React.Component {
     const nextPage = this.props.pages[pageData.next];
 
     return (
-      <Layout location={this.props.location}>
+      <Layout>
         <Helmet>
           <title>{pageData.title}</title>
           <meta description={pageData.description} />
@@ -137,7 +135,6 @@ export const query = graphql`
       description
       slug
       template
-      next
     }
   }
 `;
