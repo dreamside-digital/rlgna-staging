@@ -168,12 +168,14 @@
     .module-header {
       margin-top: 2rem;
     }
-  }
 
-  footer {
-    p {
-      font-size: $font-size-sm;
-      margin-bottom: 5px !important;
+    #footer {
+      padding: 0.75rem 1rem;
+      p {
+        font-size: $font-size-xs;
+        margin-bottom: 5px !important;
+        text-align: left !important;
+      }
     }
   }
 }

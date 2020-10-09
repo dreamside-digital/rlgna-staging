@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 
 const Footer = () => (
-  <footer className="bg-gray">
+  <footer className="bg-gray" id="footer">
     <Container>
       <Grid container justify="space-between">
         <Grid item md={6}>
