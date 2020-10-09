@@ -45,14 +45,6 @@ module.exports = {
 
               return node
             },
-          },
-          {
-            type: "Translations",
-            path: "translations",
-          },
-          {
-            type: "Tags",
-            path: "tags",
           }
         ]
       }
