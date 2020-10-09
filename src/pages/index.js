@@ -47,32 +47,31 @@ class HomePage extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { accessCode: '' }
     const initialPageData = {
       ...this.props.data.pages,
       content: JSON.parse(this.props.data.pages.content)
     };
     this.state = {
-      programElementsShow1: false,
-      programElementsShow2: false,
-      programElementsShow3: false,
-      programElementsShow4: false,
+      tweets: [],
+      tweetCount: 2
     }
 
     this.props.onLoadPageData(initialPageData);
   }
 
+  componentDidMount() {
+    fetch('https://us-central1-rlgna-staging.cloudfunctions.net/tweets', {
+      headers: {
+        'Accept': 'application/json',
+      }
+    }).then(response => response.json())
+      .then(data => this.setState({ tweets: data.statuses }))
+      .catch(e => console.error(e));
+  }
+
   onSave = id => content => {
     this.props.onUpdatePageData("home", id, content);
   };
-
-  handleClick = (e) => {
-    e.preventDefault();
-    document.querySelector(e.target.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
-  }
 
   onAccessCodeSubmit = e => {
     e.preventDefault()
@@ -279,16 +278,21 @@ class HomePage extends React.Component {
 
         <Section id="social" className="bg-blue text-white">
           <Grid container>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <h2 className="text-bold">
                 <EditableText content={content["social-title"]} onSave={this.onSave("social-title")} />
               </h2>
-              <div className="hashtags">
-                <EditableParagraph classes="font-size-h4" content={content["social-description"]} onSave={this.onSave("social-description")} />
+              <div className="hashtags font-size-h4">
+                <p>
+                  <EditableText content={content["hashtag-1"]} onSave={this.onSave("hashtag-1")} />
+                </p>
+                <p>
+                  <EditableText content={content["hashtag-2"]} onSave={this.onSave("hashtag-2")} />
+                </p>
               </div>
             </Grid>
 
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <div className="mt-10 mb-5">Featured Tweet</div>
               <div className="margin-center max-width-600" data-aos="fade-up">
                 <EditableParagraph classes="font-size-h4" content={content["social-featured-tweet"]} onSave={this.onSave("social-featured-tweet")} />
@@ -297,16 +301,24 @@ class HomePage extends React.Component {
           </Grid>
           <div className="mt-10 mb-5">Twitter Live Feed</div>
           <Grid container>
-            <Grid item md={6}>
-              <div className="twitter-live-feed mb-4" data-aos="fade-up">
-                <EditableParagraph content={content["social-live-feed-1"]} onSave={this.onSave("social-live-feed-1")} />
-              </div>
-            </Grid>
-            <Grid item md={6}>
-              <div className="twitter-live-feed mb-4" data-aos="fade-up" data-aos-delay={200}>
-                <EditableParagraph content={content["social-live-feed-2"]} onSave={this.onSave("social-live-feed-2")} />
-              </div>
-            </Grid>
+            {
+              this.state.tweets.slice(0, this.state.tweetCount).map(tweet => (
+                <Grid item md={6} key={tweet.created_at}>
+                  <div className="twitter-live-feed mb-4" data-aos="fade-up">
+                    {tweet.text}
+                  </div>
+                </Grid>
+              ))
+            }
+            {
+              this.state.tweetCount < this.state.tweets.length &&
+              <Grid container justify="center" className="mt-6">
+                <Grid item>
+                  <button className="btn" onClick={() => this.setState({tweetCount: this.state.tweetCount + 2})}>Load more
+                  </button>
+                </Grid>
+              </Grid>
+            }
           </Grid>
         </Section>
       </Layout>
