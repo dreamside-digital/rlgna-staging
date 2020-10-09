@@ -202,38 +202,29 @@ class HomePage extends React.Component {
           />
         </Section>
 
-        <Section id="logistics">
-            <Grid container alignItems="stretch" spacing={4}>
-              <Grid item md={7}>
-                <div className="">
-                  <h2 className="text-bold">
-                    <EditableText content={content["logistics-title"]} onSave={this.onSave("logistics-title")} />
-                  </h2>
-                  <div className="font-size-h4">
-                    <EditableText content={content["logistics-description"]} onSave={this.onSave("logistics-description")} />
-                  </div>
+        <Section id="logistics" className="bg-white pb-20">
+          <Grid container>
+            <Grid item xs={12} md={7}>
+              <div className="">
+                <h2 className="text-bold">
+                  <EditableText content={content["logistics-title"]} onSave={this.onSave("logistics-title")} />
+                </h2>
+                <div className="font-size-h4">
+                  <EditableText content={content["logistics-description"]} onSave={this.onSave("logistics-description")} />
                 </div>
-              </Grid>
-              <Hidden smDown>
-                <Grid item md={5}>
-                  <div className="text-white width-100 height-100 display-flex align-center link-area">
-                    <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
-                  </div>
-                </Grid>
-              </Hidden>
+              </div>
             </Grid>
+          </Grid>
         </Section>
-          <Hidden mdUp>
-            <Section id="logistics-links" className="bg-dark">
-              <Grid container>
-                <Grid item xs={12}>
-                  <div className="bg-dark text-white width-100 height-100 display-flex align-center link-area">
-                    <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
-                  </div>
-                </Grid>
-              </Grid>
-            </Section>
-          </Hidden>
+        <Section id="logistics-links" className={`position-relative bg-light`}>
+          <Grid container className="title" justify="center">
+            <Grid item xs={12} sm={10} md={9} lg={8} data-aos="fade-up" >
+              <div className="intro-text bg-dark">
+                <EditableParagraph content={content["logistics-details"]} onSave={this.onSave("logistics-details")} />
+              </div>
+            </Grid>
+          </Grid>
+        </Section>
 
         <Section id="open-space-week">
           <Grid container>
