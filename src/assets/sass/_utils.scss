@@ -189,6 +189,11 @@
   outline: none;
   display: inline-block;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 
   &:hover {
     background: darken($primary-color, 10%);

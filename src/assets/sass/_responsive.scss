@@ -71,6 +71,14 @@
       height: calc(60vh - 67px)
     }
 
+    #intro {
+      .intro-text {
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 20px;
+      }
+    }
+
     #logistics {
       background: $white;
 
@@ -184,13 +192,6 @@
 
       .title {
         text-align: center;
-      }
-    }
-
-    #intro {
-      .intro-text {
-        padding: 35px;
-        margin-top: 0;
       }
     }
 

@@ -40,6 +40,7 @@ const Notification = props => {
     <div className="notification-container" style={styles.container}>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        autoHideDuration={5000}
         open={showNotification}
         onClose={props.closeNotification}
         ContentProps={{

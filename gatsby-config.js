@@ -23,7 +23,7 @@ module.exports = {
       options: {
         name: "Responsible Leaders Gathering North America",
         short_name: "Responsible Leaders Gathering North America",
-        start_url: "/",
+        start_url: "https://2020.gatheringnorthamerica.online",
         background_color: "#000",
         theme_color: "#00A6CE", // blue
         display: "minimal-ui",

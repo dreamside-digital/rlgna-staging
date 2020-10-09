@@ -36,6 +36,7 @@ const EVENT_DAYS = [
   { date: DateTime.local(2020,10,29), events: [] },
   { date: DateTime.local(2020,10,30), events: [] },
   { date: DateTime.local(2020,10,31), events: [] },
+  { date: DateTime.local(2020,11,1), events: [] },
 ]
 
 

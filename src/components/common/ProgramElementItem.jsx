@@ -169,7 +169,19 @@ const ProgramElementItem = props => {
           </Grid>
         </Grid>
         <div className={`program-link ${isCurrent ? 'is-large' : ''}`}>
-          <a className={`btn btn-lg ${isPast ? 'btn-gray' : ''}`} href={content["program-elements-link"]["link"]}>{content["program-elements-link"]["anchor"]}</a>
+          { isPast && (content["program-elements-link"]["link"].startsWith('http') || content["program-elements-link"]["link"] === '') ?
+            <div className="btn btn-lg btn-gray disabled">
+              {content["program-elements-link"]["anchor"]}
+            </div> :
+            <a
+              className={`btn btn-lg ${isPast ? 'btn-gray' : ''}`}
+              href={content["program-elements-link"]["link"]}
+              target={content["program-elements-link"]["link"].startsWith('http') ? "_blank" : "_self"}
+              rel="noopener noreferrer"
+            >
+              {content["program-elements-link"]["anchor"]}
+            </a>
+          }
         </div>
         <div className={`mid-dot ${isPast ? 'is-past' : ''} ${isCurrent ? 'is-large' : ''}`} />
         <div className='line' />
