@@ -26,10 +26,49 @@
 
 @media (max-width: 960px) {
   body .nl-page {
+
+    main {
+      display: flex;
+      flex-direction: column;
+
+      .header-bg-image {
+        flex: 1 1 auto;
+      }
+
+      #login-mobile {
+        flex: 0 0 auto;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        input {
+          padding: 10px;
+        }
+      }
+    }
+
+    .login-form {
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+
+      label {
+        color: $black;
+        margin-bottom: 10px;
+        font-size: $font-size-h4;
+      }
+
+      input, label {
+        margin-left: 0;
+        margin-bottom: 10px;
+      }
+    }
+
     #landing {
       .header-image {
         padding: 1rem;
       }
+
+      height: calc(60vh - 67px)
     }
 
     #logistics {
@@ -83,6 +122,10 @@
         .program-link {
           width: 100%;
           right: 0 !important;
+
+          .btn {
+            width: 100%;
+          }
         }
       }
     }

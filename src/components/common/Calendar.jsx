@@ -168,7 +168,10 @@ class Calendar extends React.Component {
                 <Tabs>
                   <TabList className='tabs-list'>
                     {
-                      this.state.schedule.map(day => {
+                      this.state.schedule.map((day, index) => {
+                        if (day.events.length < 1 && (index === 0 || index === this.state.schedule.length - 1)) {
+                          return null
+                        }
                         const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
                         return (
                           <Tab key={day.date} className='tabs-item text-bold p-3 text-xs text-center'>{dateString}</Tab>
@@ -178,7 +181,10 @@ class Calendar extends React.Component {
                   </TabList>
 
                   {
-                    this.state.schedule.map((day) => {
+                    this.state.schedule.map((day, index) => {
+                      if (day.events.length < 1 && (index === 0 || index === this.state.schedule.length - 1)) {
+                        return null
+                      }
                       return (
                         <TabPanel className='tab-content' key={day.date.toString()}>
                           {

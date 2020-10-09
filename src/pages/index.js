@@ -107,8 +107,9 @@ class HomePage extends React.Component {
                     </div>
                   </Grid>
                 </Grid>
+                <Hidden smDown>
                 <Grid container justify="flex-end">
-                  <Grid item md={8}>
+                  <Grid item xs={12} md={8}>
                     <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex align-center justify-right">
                       <div className="help-text text-white text-bold">
                         <label id="access-code-label"><EditableText id="access-code" content={content["access-code"]} onSave={this.onSave("access-code")} /></label>
@@ -118,9 +119,27 @@ class HomePage extends React.Component {
                     </form>
                   </Grid>
                 </Grid>
+                </Hidden>
               </Container>
             </section>
           </EditableBackgroundImage>
+          <Hidden mdUp>
+            <section id="login-mobile" className="bg-light">
+              <Container>
+                <Grid container justify="center">
+                  <Grid item xs={12}>
+                    <form onSubmit={this.onAccessCodeSubmit} autoComplete="off" className="login-form mt-10 mb-6 display-flex flex-column">
+                      <div className="help-text text-white text-bold mb-2">
+                        <label id="access-code-label"><EditableText id="access-code" content={content["access-code"]} onSave={this.onSave("access-code")} /></label>
+                      </div>
+                      <input aria-labelledby="access-code-label" type="text" className="ml-2" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} />
+                      <input type="submit" value="Enter site" className="btn ml-2" />
+                    </form>
+                  </Grid>
+                </Grid>
+              </Container>
+            </section>
+          </Hidden>
         </Layout>
       )
     }
@@ -152,7 +171,7 @@ class HomePage extends React.Component {
           </section>
         </EditableBackgroundImage>
         <Hidden mdUp>
-          <Section id="intro" className={`position-relative bg-dark`}>
+          <Section id="intro" className={`position-relative bg-blue`}>
             <Grid container className="title" justify="center">
               <Grid item xs={12} sm={10} md={9} lg={8} data-aos="fade-up" >
                 <div className="intro-text bg-blue">
