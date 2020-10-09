@@ -82,36 +82,6 @@ class SectionEditingActions extends React.Component {
           </IconButton>
         )}
 
-        {
-          this.props.onEditSectionTag && (
-          <div>
-            <IconButton
-              aria-owns={openTagEditor ? "menu-section-tags" : null}
-              aria-haspopup="true"
-              onClick={this.openTagEditor}
-              className={this.props.classes.button}
-            >
-              <LabelIcon className={this.props.classes.icon} />
-            </IconButton>
-            <Menu
-              id="menu-section-tags"
-              anchorEl={this.state.tagAnchor}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "left"
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left"
-              }}
-              open={openTagEditor}
-              onClose={this.closeTagEditor}
-            >
-              <SectionTagEditor onEditSectionTag={this.props.onEditSectionTag} closeTagEditor={this.closeTagEditor} />
-            </Menu>
-          </div>
-        )}
-
         {this.props.onAddContentItem && (
           <div>
             <IconButton
