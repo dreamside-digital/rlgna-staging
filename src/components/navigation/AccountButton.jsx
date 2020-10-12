@@ -31,12 +31,12 @@ const styles = {
   }
 };
 
-let envLabel = 'Development'
-if (process.env.GATSBY_ACTIVE_ENV === "staging") {
-  envLabel = 'Staging Site'
-} else if (process.env.GATSBY_ACTIVE_ENV === "production") {
-  envLabel = 'Public Site'
-}
+// let envLabel = 'Development'
+// if (process.env.GATSBY_ACTIVE_ENV === "staging") {
+//   envLabel = 'Staging Site'
+// } else if (process.env.GATSBY_ACTIVE_ENV === "production") {
+//   envLabel = 'Public Site'
+// }
 
 
 class AccountButton extends React.Component {
@@ -118,7 +118,6 @@ class AccountButton extends React.Component {
             open={Boolean(anchorEl)}
             onClose={closeMenu}
           >
-            <div tabIndex="-1" className="pr-3 pl-3 pt-2 pb-2 bg-dark text-white text-bold">{envLabel}</div>
             {props.allowEditing && (
               <MenuItem
                 onClick={() => {
