@@ -60,12 +60,18 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://us-central1-rlgna-staging.cloudfunctions.net/tweets', {
+    const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
+    const query = [content["hashtag-1"], content["hashtag-2"]]
+                    .filter(t => t.text)
+                    .map(t => `tweets[]=${encodeURIComponent(t.text)}`)
+                    .join('&')
+
+    fetch(`https://us-central1-rlgna-staging.cloudfunctions.net/tweets?${query}`, {
       headers: {
-        'Accept': 'application/json',
-      }
+        'Accept': 'application/json'
+      },
     }).then(response => response.json())
-      .then(data => this.setState({ tweets: data.statuses }))
+      .then(data => this.setState({ tweets: data.statuses.filter(t => !t.retweeted_status) }))
       .catch(e => console.error(e));
   }
 
@@ -304,8 +310,7 @@ class HomePage extends React.Component {
             {
               this.state.tweets.slice(0, this.state.tweetCount).map(tweet => (
                 <Grid item md={6} key={tweet.created_at}>
-                  <div className="twitter-live-feed mb-4" data-aos="fade-up">
-                    {tweet.text}
+                  <div className="twitter-live-feed mb-4" data-aos="fade-up" dangerouslySetInnerHTML={{__html: tweet.full_text}}>
                   </div>
                 </Grid>
               ))
