@@ -19,6 +19,7 @@ import Section from "../components/common/Section"
 import Gallery from "../components/common/Gallery"
 import Calendar from "../components/common/Calendar"
 import ProgramElements from "../components/common/ProgramElements"
+import Hashtags from "../components/common/Hashtags"
 
 
 const mapDispatchToProps = dispatch => {
@@ -60,12 +61,23 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
+    this.loadTwitterFeed()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.pageData?.content?.hashtags !== prevProps.pageData?.content?.hashtags) {
+      this.loadTwitterFeed()
+    }
+  }
+
+  loadTwitterFeed = () => {
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
-    const query = [content["hashtag-1"], content["hashtag-2"]]
-                    .filter(t => t.text)
+    const hashtags = Object.values(content["hashtags"]).filter(t => t?.text)
+    const query = hashtags
                     .map(t => `tweets[]=${encodeURIComponent(t.text)}`)
                     .join('&')
 
+    console.log(`Loading Twitter feed for query: ${query}`)
     fetch(`https://us-central1-rlgna-staging.cloudfunctions.net/tweets?${query}`, {
       headers: {
         'Accept': 'application/json'
@@ -263,14 +275,10 @@ class HomePage extends React.Component {
               <h2 className="text-bold">
                 <EditableText content={content["social-title"]} onSave={this.onSave("social-title")} />
               </h2>
-              <div className="hashtags font-size-h4">
-                <p>
-                  <EditableText content={content["hashtag-1"]} onSave={this.onSave("hashtag-1")} />
-                </p>
-                <p>
-                  <EditableText content={content["hashtag-2"]} onSave={this.onSave("hashtag-2")} />
-                </p>
-              </div>
+              <Hashtags
+                content={content["hashtags"]}
+                onSave={this.onSave("hashtags")}
+              />
             </Grid>
 
             <Grid item xs={12}>

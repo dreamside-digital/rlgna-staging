@@ -29,6 +29,8 @@ const muiTheme = createMuiTheme({
 
 
 const EVENT_DAYS = [
+  { date: DateTime.local(2020,10,23), events: [] },
+  { date: DateTime.local(2020,10,24), events: [] },
   { date: DateTime.local(2020,10,25), events: [] },
   { date: DateTime.local(2020,10,26), events: [] },
   { date: DateTime.local(2020,10,27), events: [] },
@@ -129,7 +131,8 @@ class Calendar extends React.Component {
                 this.state.schedule.map((day, index) => {
                   const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
                   const weekday = day.date.toLocaleString({ weekday: 'long' })
-                  if (day.events.length < 1 && (index === 0 || index === this.state.schedule.length - 1)) {
+                  // if (day.events.length < 1 && (index === 0 || index === this.state.schedule.length - 1)) {
+                  if (day.events.length === 0) {
                     return null
                   }
 

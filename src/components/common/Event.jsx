@@ -29,7 +29,7 @@ const Event = props => {
         <h5 className="mt-3 mb-3">{content['title']}</h5>
         <div className="text-xs">{content['host']}</div>
         <div className="display-flex justify-right mt-4">
-          <button className="text-xs text-blue pretty-link" onClick={setIsOpen}>Read more</button>
+          <button className="text-xs text-blue pretty-link" onClick={() => setIsOpen(true)}>Read more</button>
         </div>
       </CardContent>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
