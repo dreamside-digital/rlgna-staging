@@ -130,9 +130,11 @@
         .program-link {
           width: 100%;
           right: 0 !important;
+          min-width: unset;
 
           .btn {
             width: 100%;
+            min-width: unset;
           }
         }
       }
@@ -197,20 +199,11 @@
       }
     }
 
-    .navbar {
-      &.module {
-        .site-title {
-          display: none;
-        }
+    .tabs-list {
+      .tabs-item {
+        padding: 10px 5px;
+        font-size: 14px;
       }
-    }
-
-    .title-main {
-      display: none;
-    }
-
-    .title-mobile {
-      display: block;
     }
   }
 }

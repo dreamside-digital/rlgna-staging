@@ -420,6 +420,8 @@ body .nl-page {
   .events-column {
     flex: 1 1 0px;
     margin: 10px;
+    min-width: 0;
+    hyphens: auto;
 
     &:first-of-type {
       margin-left: 0;
@@ -428,6 +430,10 @@ body .nl-page {
     &:last-of-type {
       margin-right: 0;
     }
+  }
+
+  .react-tabs {
+    overflow: auto;
   }
 
   .tabs-list {
@@ -442,6 +448,8 @@ body .nl-page {
       margin: 2px;
       width: 100%;
       cursor: pointer;
+      padding: 20px 10px;
+      font-size: $font-size-xs;
 
       &:first-of-type {
         margin-left: 0;

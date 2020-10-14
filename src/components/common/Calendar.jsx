@@ -178,7 +178,7 @@ class Calendar extends React.Component {
                         }
                         const dateString = day.date.toLocaleString({ month: 'short', day: 'numeric' })
                         return (
-                          <Tab key={day.date} className='tabs-item text-bold p-3 text-xs text-center'>{dateString}</Tab>
+                          <Tab key={day.date} className='tabs-item text-bold text-xs text-center'>{dateString}</Tab>
                         )
                       })
                     }
