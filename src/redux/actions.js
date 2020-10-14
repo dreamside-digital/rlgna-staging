@@ -14,6 +14,38 @@ export function userLoggedOut() {
   return { type: "USER_LOGGED_OUT" };
 }
 
+export function deleteAccount(user) {
+  return (dispatch, getState) => {
+    if (typeof window !== 'undefined')  {
+      if (!window.confirm("Are you sure you want to permanently delete your account?")) {
+        return false
+      }
+
+      const db = firebase.database();
+      const user = firebase.auth().currentUser;
+      console.log("user", user)
+
+      db.ref(`users/${user.uid}`).set(null, error => {
+        if (error) {
+          console.log('FIREBASE ERROR', error)
+          return dispatch(
+            showNotification(
+              `There was an error deleting your account. Please contact the website administrator.`,
+              "error"
+            )
+          );
+        }
+
+        user.delete().then(() => {
+          dispatch(showNotification('Your account has been deleted.'))
+        }).catch(function(error) {
+          dispatch(showNotification('There was an error deleting your account. Please contact the website administrator.'))
+        });
+      });
+    }
+  }
+}
+
 export function validateAccessCode(code) {
   return (dispatch, getState) => {
     const db = firebase.database();
@@ -357,7 +389,7 @@ export function updateHeaderImage(content) {
   };
 }
 
-export function updateFirebaseData(updates, callback=null) {
+export function updateFirebaseData(updates, callback=null, notification="Your changes have been saved. Publish your changes to make them public.") {
   return (dispatch, getState) => {
     const db = firebase.database();
     console.log(updates)
@@ -375,11 +407,13 @@ export function updateFirebaseData(updates, callback=null) {
 
       if (callback) {
         callback()
+      } else {
+
       }
 
       dispatch(
         showNotification(
-          "Your changes have been saved. Publish your changes to make them public.",
+          notification,
           "success"
         )
       );
@@ -827,3 +861,25 @@ export function closeTagSelectorModal() {
 }
 
 
+// ADMIN -----------------------------------
+
+export function fetchUsers() {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+
+    db.ref(`users`)
+      .once('value')
+      .then(snap => {
+        const users = Object.values(snap.val())
+        console.log("Fetched users", users)
+        dispatch(setUsers(users));
+      })
+      .catch(error => {
+        console.log("Error fetching users", error)
+      })
+  };
+}
+
+export function setUsers(users) {
+  return { type: "SET_USERS", users }
+}

@@ -2,7 +2,7 @@ import { CONTENT_MAP, SECTION_MAP } from "../utils/constants.js"
 import { cloneDeep } from 'lodash'
 
 
-export const adminTools = (state={}, action) => {
+export const adminTools = (state={users: []}, action) => {
   switch (action.type) {
     case 'USER_LOGGED_IN':
       return { ...state, isLoggedIn: true, user: action.user }
@@ -16,6 +16,8 @@ export const adminTools = (state={}, action) => {
       return { ...state, showNewPageModal: !state.showNewPageModal, options: action.options }
     case 'GRANT_ACCESS':
       return { ...state, accessGranted: true }
+    case 'SET_USERS':
+      return { ...state, users: action.users }
     default:
       return state
   }

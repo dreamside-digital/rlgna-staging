@@ -138,6 +138,10 @@
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 
 .position {
   &-relative {
@@ -231,12 +235,12 @@
   }
 
   &-dark {
-    background: $dark-gray;
+    background: $gray-600;
     &:hover {
-      background: darken($dark-gray, 10%);
+      background: $black;
     }
     &:focus {
-      background: $black;
+      background: $gray-500;
     }
   }
 

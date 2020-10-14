@@ -8,6 +8,7 @@ import firebase from "../firebase/init";
 import {
   userLoggedIn,
   userLoggedOut,
+  deleteAccount,
 } from "../redux/actions";
 
 
@@ -28,6 +29,9 @@ const mapDispatchToProps = dispatch => {
     },
     userLoggedOut: () => {
       dispatch(userLoggedOut());
+    },
+    deleteAccount: () => {
+      dispatch(deleteAccount());
     },
   };
 };
@@ -99,12 +103,21 @@ class ProtectedPage extends React.Component {
     }
 
     if (this.props.isLoggedIn && !this.props.allowEditing) {
-      return <div className="width-100 height-100 display-flex justify-center align-center mt-10 mb-10"><p>You are not authorized to see this page.</p><Link to={'/'} className="ml-2">Go to the home page.</Link></div>
+      return (
+        <div className="width-100 height-100 display-flex flex-column justify-center align-center mt-10 mb-10">
+          <p>You are not authorized to see this page.</p>
+          <Link to={'/'} className="ml-2">Go to the home page.</Link>
+          <div className="mt-10 mb-10">
+            <button onClick={this.props.deleteAccount} className="btn btn-dark">Delete my account</button>
+          </div>
+        </div>
+      )
     }
 
     return (
       <div style={styles.container}>
           <h1>Sign up / Sign in</h1>
+          <p>By creating an account you agree to our <a href="https://bmw-foundation.org/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
           {this.state.firebaseAuth && <FirebaseAuth uiConfig={uiConfig} firebaseAuth={this.state.firebaseAuth} />}
       </div>
     )

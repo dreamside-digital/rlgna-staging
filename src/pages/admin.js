@@ -4,8 +4,13 @@ import { filter, find } from 'lodash'
 import Container from "@material-ui/core/Container"
 import IconButton from "@material-ui/core/IconButton"
 import DeleteForever from "@material-ui/icons/DeleteForever"
-import { Link } from 'gatsby'
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { push, Link } from 'gatsby'
 
+import firebase from "../firebase/init";
 import Layout from '../layouts/default';
 import ProtectedPage from "../layouts/protected-page"
 
@@ -13,21 +18,37 @@ import { PERMANENT_PAGES } from "../utils/constants"
 
 import {
   fetchPages,
+  fetchUsers,
   updateFirebaseData,
   deploy,
+  userLoggedOut,
+  showNotification,
+  deleteAccount,
 } from "../redux/actions";
 
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateFirebaseData: (data, callback) => {
-      dispatch(updateFirebaseData(data, callback))
+    updateFirebaseData: (data, callback, msg) => {
+      dispatch(updateFirebaseData(data, callback, msg))
     },
     fetchPages: () => {
       dispatch(fetchPages())
     },
+    fetchUsers: () => {
+      dispatch(fetchUsers())
+    },
     deploy: () => {
       dispatch(deploy())
+    },
+    userLoggedOut: () => {
+      dispatch(userLoggedOut());
+    },
+    showNotification: () => {
+      dispatch(showNotification());
+    },
+    deleteAccount: () => {
+      dispatch(deleteAccount());
     },
   };
 };
@@ -35,7 +56,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isEditingPage: state.adminTools.isEditingPage,
+    user: state.adminTools.user,
     pages: state.pages.pages,
+    users: state.adminTools.users,
   };
 };
 
@@ -44,6 +67,17 @@ class AdminPage extends React.Component {
 
   componentDidMount() {
     this.props.fetchPages()
+    if (this.props.user?.isAdmin) {
+      this.props.fetchUsers()
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.user !== this.props.user) {
+      if (this.props.user?.isAdmin) {
+        this.props.fetchUsers()
+      }
+    }
   }
 
   filterPagesByLanguage = (pages, lang) => {
@@ -127,32 +161,32 @@ class AdminPage extends React.Component {
       if (!window.confirm("Are you sure you want to delete this page?")) {
         return false
       }
-    }
 
-    const prevPage = this.prevPage(page)
-    const nextPage = this.nextPage(page)
+      const prevPage = this.prevPage(page)
+      const nextPage = this.nextPage(page)
 
-    let dataToUpdate = {
-      [`pages/${page.id}`]: null,
-    }
+      let dataToUpdate = {
+        [`pages/${page.id}`]: null,
+      }
 
-    if (prevPage) {
-      dataToUpdate[`pages/${prevPage.id}/next`] = page.next || null
-    }
+      if (prevPage) {
+        dataToUpdate[`pages/${prevPage.id}/next`] = page.next || null
+      }
 
-    if (page.head && nextPage) {
-      dataToUpdate[`pages/${nextPage.id}/head`] = true
-    }
+      if (page.head && nextPage) {
+        dataToUpdate[`pages/${nextPage.id}/head`] = true
+      }
 
-    if (page.translations) {
-      Object.keys(page.translations).forEach(lang => {
-        if (page.translations[lang]) {
-          const translatedPageId = page.translations[lang].id
-          dataToUpdate[`pages/${translatedPageId}/translations/${page.lang}`] = null
-        }
-      })
+      if (page.translations) {
+        Object.keys(page.translations).forEach(lang => {
+          if (page.translations[lang]) {
+            const translatedPageId = page.translations[lang].id
+            dataToUpdate[`pages/${translatedPageId}/translations/${page.lang}`] = null
+          }
+        })
+      }
+      this.props.updateFirebaseData(dataToUpdate, this.props.fetchPages)
     }
-    this.props.updateFirebaseData(dataToUpdate, this.props.fetchPages)
   }
 
   onSaveTranslationChanges = (translation, translationId, lang) => newContent => {
@@ -167,6 +201,19 @@ class AdminPage extends React.Component {
     this.setState({ accessCode: '' })
   }
 
+  logout = e => {
+    this.props.userLoggedOut();
+    push("/");
+  };
+
+  assignEditor = (user) => {
+    this.props.updateFirebaseData({ [`users/${user.uid}/isEditor`]: true }, this.props.fetchUsers, `${user.displayName} is now an Editor on this website.`)
+  }
+
+  removeEditor = (user) => {
+    this.props.updateFirebaseData({ [`users/${user.uid}/isEditor`]: false }, this.props.fetchUsers, `${user.displayName} is no longer an Editor on this website.`)
+  }
+
   render() {
     const unorderedPages = filter(this.props.pages, page => !page.category || page.category === "uncategorized")
 
@@ -174,7 +221,7 @@ class AdminPage extends React.Component {
       <Layout theme="gray" className="admin-page">
         <ProtectedPage>
           <Container>
-            <h1 className="text-center">
+            <h1 className="">
               Website Configuration
             </h1>
           </Container>
@@ -182,7 +229,7 @@ class AdminPage extends React.Component {
           <Container>
             <h2>Access Code</h2>
             <div className="my-40">
-              <form onSubmit={this.updateAccessCode} autoComplete="off" className="login-form mt-10 mb-6 display-flex">
+              <form onSubmit={this.updateAccessCode} autoComplete="off" className="login-form mt-10 mb-6 display-flex flex-wrap">
                 <input type="text" id="access-code" onChange={e => this.setState({ accessCode: e.currentTarget.value })} value={this.state.accessCode} />
                 <input type="submit" value="Update access code" className="btn ml-2" />
               </form>
@@ -209,6 +256,55 @@ class AdminPage extends React.Component {
             <div className="mt-10 mb-10">
               <button onClick={this.props.deploy} className="btn">Publish changes</button>
             </div>
+          </Container>
+
+          <Container>
+            <h1 className="">
+              Account Management
+            </h1>
+            <div className="mt-10 mb-10">
+              <button onClick={this.props.deleteAccount} className="btn btn-dark">Delete my account</button>
+            </div>
+            {
+              this.props.user?.isAdmin &&
+              <div className="mb-10">
+                <h2>User accounts</h2>
+                <div className="my-40">
+                  {
+                    this.props.users.filter(u => u.uid !== this.props.user?.uid).map(user => {
+                      return(
+                        <Accordion key={user.uid}>
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls={`${user.uid}-content`}
+                            id={`${user.uid}-header`}
+                          >
+                            <div className="text-bold">{user.displayName}</div>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            {
+                              user.isAdmin ?
+                              <div>
+                                <p className="mt-0">{`Email: ${user.email}`}</p>
+                                <p>This user is an Admin so you cannot edit their account. Contact your website administrator for assistance.</p>
+                              </div>:
+                              <div className="account-actions">
+                                <p className="mt-0">{`Email: ${user.email}`}</p>
+                                {
+                                  user.isEditor ?
+                                  <button className="btn btn-sm mr-1" onClick={() => this.removeEditor(user)}>Remove Editor</button> :
+                                  <button className="btn btn-sm mr-1" onClick={() => this.assignEditor(user)}>Assign Editor</button>
+                                }
+                              </div>
+                            }
+                          </AccordionDetails>
+                        </Accordion>
+                      )
+                    })
+                  }
+                </div>
+              </div>
+            }
           </Container>
         </ProtectedPage>
       </Layout>
