@@ -18,6 +18,8 @@ export const adminTools = (state={users: []}, action) => {
       return { ...state, accessGranted: true }
     case 'SET_USERS':
       return { ...state, users: action.users }
+    case 'SET_ACCESS_CODE':
+      return { ...state, accessCode: action.accessCode }
     default:
       return state
   }

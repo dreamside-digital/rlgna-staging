@@ -19,6 +19,7 @@ import { PERMANENT_PAGES } from "../utils/constants"
 import {
   fetchPages,
   fetchUsers,
+  fetchAccessCode,
   updateFirebaseData,
   deploy,
   userLoggedOut,
@@ -37,6 +38,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchUsers: () => {
       dispatch(fetchUsers())
+    },
+    fetchAccessCode: () => {
+      dispatch(fetchAccessCode())
     },
     deploy: () => {
       dispatch(deploy())
@@ -59,14 +63,16 @@ const mapStateToProps = state => {
     user: state.adminTools.user,
     pages: state.pages.pages,
     users: state.adminTools.users,
+    accessCode: state.adminTools.accessCode,
   };
 };
 
 class AdminPage extends React.Component {
-  state = { accessCode: ''}
+  state = { accessCode: '' }
 
   componentDidMount() {
     this.props.fetchPages()
+    this.props.fetchAccessCode()
     if (this.props.user?.isAdmin) {
       this.props.fetchUsers()
     }
@@ -77,6 +83,9 @@ class AdminPage extends React.Component {
       if (this.props.user?.isAdmin) {
         this.props.fetchUsers()
       }
+    }
+    if (prevProps.accessCode !== this.props.accessCode) {
+      this.setState({ accessCode: this.props.accessCode })
     }
   }
 
