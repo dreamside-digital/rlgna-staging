@@ -41,6 +41,7 @@ const mapStateToProps = state => {
     pageData: state.page.data,
     isLoggedIn: state.adminTools.isLoggedIn,
     accessGranted: state.adminTools.accessGranted,
+    isEditingPage: state.adminTools.isEditingPage,
   };
 };
 

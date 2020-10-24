@@ -140,10 +140,6 @@ export function deleteSidebarContent(sectionIndex) {
   return { type: "DELETE_SIDEBAR_CONTENT", sectionIndex };
 }
 
-export function toggleEditing() {
-  return { type: "TOGGLE_EDITING" };
-}
-
 export function toggleNewPageModal(options) {
   return { type: "TOGGLE_NEW_PAGE_MODAL", options };
 }
@@ -620,6 +616,30 @@ export function fetchPages() {
         console.log("Error fetching pages", error)
       })
   };
+}
+
+export function toggleEditing() {
+  return (dispatch, getState) => {
+    const db = firebase.database();
+    const pageId = getState().page.data.id;
+
+    db.ref(`pages/${pageId}`)
+      .once('value')
+      .then(snap => {
+        const page = { ...snap.val(), id: pageId }
+
+        console.log("Fetched page", page)
+        dispatch(loadPageData(page));
+        dispatch(toggleEditingState())
+      })
+      .catch(error => {
+        console.log("Error fetching pages", error)
+      })
+  };
+}
+
+export function toggleEditingState() {
+  return { type: "TOGGLE_EDITING" };
 }
 
 
